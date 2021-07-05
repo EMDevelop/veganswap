@@ -1,0 +1,396 @@
+  /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
+  /* Global */
+  /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
+  /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~  */
+  /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~  */
+  /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~  */
+  /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~  */
+  /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~  */
+  /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~  */
+  /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~  */
+  /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~  */
+  /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~  */
+  /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~  */
+  /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~  */
+html,
+body { 
+    /* --max-width: 1170px; */
+    --darkestGreen: #203624;
+    --darkGreen: #486858;
+    --midGreen: #294B3B;
+    --lightGreen: #648977;
+    --lightTaupe: #DBC8B9;
+    --lightestTaupe: #E6D9CF;
+    --text: #808080;
+    margin: 0;
+    /* overflow: hidden; */
+    background-repeat: repeat;
+    font-family: muli !important;
+    max-width: 100%;
+    overflow-x: hidden;
+  }
+
+  @font-face {
+    src: url(https://use.typekit.net/aav7lhy.css);
+    font-family: muli,sans-serif;
+    font-weight: 400;
+    font-style: normal;
+  } 
+  
+  @font-face {
+    src: url(https://use.typekit.net/aav7lhy.css);
+    font-family: muli,sans-serif;
+    font-weight: 700;
+    font-style: italic;
+  } 
+  
+  @font-face {
+    src: url(https://use.typekit.net/aav7lhy.css);
+    font-family: muli,sans-serif;
+    font-weight: 700;
+    font-style: bold;
+  } 
+  
+  /* Headings */
+  .mainPageHeader{
+    color: var(--darkGreen);
+    font-size: 2.5rem;
+    /* font-weight: bold; */
+  }
+
+  .subHeading{
+    /* color: var(--darkGreen); */
+    color: var(--darkGreen);
+    font-size: 1.5rem;
+    font-weight: bold;
+  }
+
+
+
+
+  /* Grid */
+
+  .gridLayout{
+    width: 100%;
+    margin: 0px;
+    height: 100%;
+    align-content: center;
+    align-items: alignItems;
+    /* background-color: red; */
+  }
+
+
+  .gridLayout1{
+    width: 100%;
+    margin: 0px;
+    height: 100%;
+    align-content: center;
+    align-items: alignItems;
+    background-color: red;
+  }
+
+
+  /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
+  /* Routes / Pages */
+  /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
+  /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~  */
+  /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~  */
+  /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~  */
+  /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~  */
+  /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~  */
+  /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~  */
+  /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~  */
+  /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~  */
+  /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~  */
+  /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~  */
+  /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~  */
+
+
+/*  */
+  /* /Swap */
+/*  */
+
+
+.swapPageGeneral{
+  /* background-color: red; */
+  width: 100%;
+  min-height: 90vh;
+  height: fit-content;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+/*  */
+  /* /Alternatives */
+/*  */
+
+.generalPage{
+  width: 100%;
+  min-height: 90vh;
+  height: fit-content;
+  display: flex;
+  flex-direction: column;
+  /* justify-content: center; */
+  align-items: center;
+  text-align: center;
+}
+
+
+
+
+  /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
+  /* Components */
+  /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
+  /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~  */
+  /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~  */
+  /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~  */
+  /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~  */
+  /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~  */
+  /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~  */
+  /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~  */
+  /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~  */
+  /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~  */
+  /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~  */
+  /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~  */
+  
+/*  */
+  /* /Navbar -----------------------------------------------------------------------------------*/
+/*  */
+
+
+/* BASIC NAVBAR STYLING  */
+.MainLogo{
+  height: 60px;
+  width: auto;
+  padding-left: 20px;
+}
+
+.Navbar{
+  background-color: white; 
+  box-shadow: 1px 1px 15px 8px #e4e3e394;
+}
+
+/* NAVLINKS STYLING */
+.NavLinks{
+  font-weight: bold !important;
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+}
+.NavLinks:hover{
+  color: var(--lightTaupe)  !important;
+}
+
+/* DROPDOWN STYLING */
+.DropdownNav:hover{
+  color: var(--lightTaupe)  !important;
+}
+
+.DropdownNav a:hover{
+  color: var(--lightTaupe)  !important;
+}
+
+.DropdownNav a:optional{
+  color: var(--lightTaupe)  !important;
+}
+
+.dropdown-menu{
+  background-color: white !important;
+  border-radius: 5% !important;
+  border: 2px solid white !important; 
+}
+
+.DropdownNav {
+  vertical-align: auto !important;
+  margin-top: auto;
+  margin-bottom: auto;
+  padding-top: 0px;
+  padding-bottom:0px;
+  font-weight: bold;
+}
+
+.dropdownItemsNavbar {
+  margin-top:3%;
+  margin-bottom: 3%;
+}
+
+/* Come back to this */
+.dropdown-item{
+  color:  var(--darkGreen);
+}
+
+.dropdown-item:active .dropdown-item:focus {
+  background-color: white !important;
+}
+
+.dropdownItemsNavbar:hover .dropdownItemsNavbar:active{
+  color: var(--lightTaupe)  !important;
+  background-color: transparent !important;
+}
+
+.dropdown-menu:active .DropdownNav a:active  .dropdown-menu:focus{
+  color: var(--lightTaupe)  !important;
+}
+
+
+/* DEVICE VIEWS STYLING */
+
+.navbar .navbar-collapse {
+  text-align: center;
+}
+
+@media screen and (min-width: 991px) {
+  .Navbar{
+    height: 10vh; 
+    }
+
+    .MainLogo{
+      height: 60px;
+      width: auto;
+      margin-right: 50px;
+    }
+
+}
+
+@media screen and (max-width: 990px) {
+  .dropdownItemsNavbar {
+    text-align: center !important;
+  }
+  .CTAButton{
+    margin: auto;
+    margin-top: 10%;
+    margin-bottom: 10%;
+    color: white !important;
+    background-color: var(--lightTaupe)  !important;
+  }
+  .NavLinks{
+    font-weight: bold !important;
+    margin-top: 5%;
+  }
+  .DropdownNav a{
+    margin-top: 5%;
+  }
+}
+
+/* Hover Underlines */
+
+.NavLinks {
+  float: left;
+  position: relative;
+  padding: 10px 20px;
+  overflow: hidden;
+}
+.NavLinks::after {
+  background-color: var(--lightTaupe);
+  content: "";
+  width: 0;
+  height: 3px;
+  left: 0;
+  bottom: 0;
+  transition: width 0.35s ease 0s;
+  position: absolute;
+}
+.NavLinks:hover::after {
+  width: 100%;
+}
+
+
+/*  */
+  /* /Body Components -----------------------------------------------------------------------------------*/
+/*  */
+
+
+/*  */
+  /* /SwapWindow */
+/*  */
+
+  .swapBox {
+    min-height: 40vh;
+    min-width: fit-content;
+    width: 40%;
+    border-radius: 20px;
+    padding-bottom: 100px;
+    padding-left: 20px;
+    padding-right: 10px;
+    padding-top: 20px;
+    box-shadow: 1px 1px 15px 8px #e4e3e394;
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+/*  */
+  /* /SearchDropDown */
+/*  */
+
+.searchDropDown{
+  width: 50%
+}
+
+
+/*  */
+  /* /Cards */
+/*  */
+.previewCard {
+  background-color: rgba(255, 255, 255, 0.25);
+  backdrop-filter: blur(1.5px);
+  min-height: 250px;
+  width: 300px;
+  border-radius: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-left: 20px;
+  margin-right: 20px;
+  margin-top: 20px;
+  margin-bottom:30px;
+  outline: none;
+  box-shadow: 1px 1px 15px 8px #e4e3e394;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+
+.profileCard {
+  background-color: var(--lightestTaupe);
+  backdrop-filter: blur(1.5px);
+  width: 90%;
+  margin-left: 5%;
+  margin-right: 5%;
+  height: 30vh;
+  box-shadow: 1px 1px 15px 8px #e4e3e394;
+  border-radius: 5px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.brandProfileCard{
+  background-color: var(--lightGreen);
+  backdrop-filter: blur(1.5px);
+  width: 90%;
+  margin-left: 5%;
+  margin-right: 5%;
+  height: 30vh;
+  box-shadow: 1px 1px 15px 8px #e4e3e394;
+  border-radius: 5px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.suggestedBrands{
+  /* background-color: red; */
+  width: 90%;
+  margin-left: 5%;
+  margin-right: 5%;
+  box-shadow: 1px 1px 15px 8px #e4e3e394;
+}
