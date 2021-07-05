@@ -1,4 +1,4 @@
-import React, {usestate, useEffect} from 'react'
+import React, {usestate, useEffect, useContext} from 'react'
 import { useParams } from 'react-router-dom';
 import Axios from '../apis/axios'
 import { VeganContext } from '../context/VeganContext'
@@ -7,6 +7,7 @@ import { Spinner } from 'react-bootstrap'
 function BrandProfile() {
 
     const {id} = useParams();
+    const {brand, setBrand} = useContext(VeganContext)
 
     useEffect(() => {
         
@@ -14,6 +15,7 @@ function BrandProfile() {
             try {
                 const response = await Axios.get(`/brands/profile/${id}`)
                 console.log(response)
+                
             } catch (error) {
                 console.log(error)
             }
