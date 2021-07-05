@@ -24,7 +24,7 @@ function PreviewCard(props) {
 
         <Grid item xs={12} sm={4} md={4} lg={4}>
             <div className="previewCard" onClick={() => handleClick(props.identifier, props.type)}>
-                <img className="card-img-top" src={props.image} alt="Image Placeholder"/>
+                <img className="card-img-top" src={props.image} alt="Placeholder"/>
                 <div className="card-body">
                     <h5 className="card-title">{props.name}</h5>
                     <p className="card-text">{props.description}</p>

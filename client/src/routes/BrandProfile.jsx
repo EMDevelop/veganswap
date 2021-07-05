@@ -14,8 +14,8 @@ function BrandProfile() {
         const fetchData = async () => { 
             try {
                 const response = await Axios.get(`/brands/profile/${id}`)
-                console.log(response)
-                
+                setBrand(response.data.data.Brand)
+                console.log(brand)
             } catch (error) {
                 console.log(error)
             }
@@ -28,9 +28,11 @@ function BrandProfile() {
     return (
         <div className="generalPage">
            
-            <h1 className="mainPageHeader"> {`Brandy Branderson`} </h1>
+            <h1 className="mainPageHeader"> {`Brand Profile: ${brand.productname}`} </h1>
             <div className ="brandProfileCard">
-
+            <img src={brand.image} alt="Placeholder"/> 
+                <p>{brand.description}</p> 
+                <p>{`Brand Profile: ${brand.brandname}`}</p> 
             </div>
         </div>
     )
