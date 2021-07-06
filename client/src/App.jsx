@@ -12,6 +12,7 @@ import Swap from './routes/Swap';
 import IngredientsProfile from './routes/IngredientsProfile';
 import BrandProfile from './routes/BrandProfile';
 import RecipeProfile from './routes/RecipeProfile';
+import Add from './routes/Add';
 
 
 const App = () => {
@@ -25,6 +26,7 @@ const App = () => {
                             <Route exact path ="/ingredients/profile/:id" component={IngredientsProfile}></Route>
                             <Route exact path ="/brands/profile/:id" component={BrandProfile}></Route>
                             <Route exact path ="/recipes/profile/:id" component={RecipeProfile}></Route>
+                            <Route exact path ="/add" component={Add}></Route>
                         </Switch>
                     </Router>
         </VeganContextProvider>
@@ -33,4 +35,3 @@ const App = () => {
 
 export default App;
 
-//

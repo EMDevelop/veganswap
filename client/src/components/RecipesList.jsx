@@ -9,7 +9,7 @@ function RecipesList(props) {
     const { recipesList } = useContext(VeganContext);
 
     return (
-        <>
+        <div className ="alternativeList"> 
             <h1 className="subHeading">
                 Recipes:
             </h1> 
@@ -24,14 +24,14 @@ function RecipesList(props) {
                         name={recipe.title}
                         description={recipe.description}
                         image={recipe.image}
-                        createUser={recipe.username}
+                        createUser={recipe.credit}
                         identifier={recipe.id}
                         type="recipe"
                     />
                     )
                 })} 
          </Grid>
-        </>  
+        </div>  
     )
 }
 

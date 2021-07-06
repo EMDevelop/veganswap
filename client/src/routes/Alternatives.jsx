@@ -33,17 +33,17 @@ function Alternatives() {
 
 
     return (
-        <div className="alternativesPageGeneral">
+        <div className="generalPage">
 
             <h1 className="mainPageHeader">{`Alternatives For: ${notVegan}`}</h1>
             <Grid
                 container spacing={0}
                 className="gridLayout"
             >
-                <Grid item xs={12} sm={12} md={7}>
+                <Grid item xs={12} sm={12} md={6}>
                     {finishedLoading ? <IngredientsList /> : <Spinner animation="border" />}
                 </Grid>
-                <Grid item xs={12} sm={12} md={5}>
+                <Grid item xs={12} sm={12} md={6}>
                     {finishedLoading ? <RecipesList /> : <Spinner animation="border" />}
                 </Grid>
             </Grid>

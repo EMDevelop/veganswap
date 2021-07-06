@@ -17,18 +17,20 @@ function PreviewCard(props) {
             break;
             default: console.log("no type or path setup")
         }
-
     }
 
     return (
 
         <Grid item xs={12} sm={4} md={4} lg={4}>
             <div className="previewCard" onClick={() => handleClick(props.identifier, props.type)}>
-                <img className="card-img-top" src={props.image} alt="Placeholder"/>
-                <div className="card-body">
-                    <h5 className="card-title">{props.name}</h5>
-                    <p className="card-text">{props.description}</p>
-                    <p className="card-text"><small className="text-muted">{`By: ${props.createUser}`} </small></p>
+                <img className="previewImage" src={props.image} alt="Placeholder"/>
+                <div className="previewText">
+                    <h5 className="">{props.name}</h5>
+                    <p className="">
+                        <small className="text-muted">
+                            {`By: ${props.createUser}`} 
+                        </small>
+                    </p>
                 </div>
             </div>
         </Grid>

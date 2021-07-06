@@ -1,21 +1,23 @@
-import React, {usestate, useEffect, useContext} from 'react'
+import React, { useState, useEffect, useContext } from 'react'
 import { useParams } from 'react-router-dom';
 import Axios from '../apis/axios'
 import { VeganContext } from '../context/VeganContext'
 import { Spinner } from 'react-bootstrap'
+import ProfileCard from '../components/ProfileCard';
 
 function BrandProfile() {
 
-    const {id} = useParams();
-    const {brand, setBrand} = useContext(VeganContext)
+    const { id } = useParams();
+    const { brand, setBrand, setProfileType } = useContext(VeganContext)
+    const [finishedLoading, setFinishedLoading] = useState(null)
 
     useEffect(() => {
-        
-        const fetchData = async () => { 
+        setProfileType('brand')
+        const fetchData = async () => {
             try {
                 const response = await Axios.get(`/brands/profile/${id}`)
                 setBrand(response.data.data.Brand)
-                console.log(brand)
+                setFinishedLoading(true)
             } catch (error) {
                 console.log(error)
             }
@@ -23,17 +25,19 @@ function BrandProfile() {
         }
         fetchData();
     }, [])
-    
+
 
     return (
         <div className="generalPage">
-           
-            <h1 className="mainPageHeader"> {`Brand Profile: ${brand.productname}`} </h1>
-            <div className ="brandProfileCard">
-            <img src={brand.image} alt="Placeholder"/> 
-                <p>{brand.description}</p> 
-                <p>{`Brand Profile: ${brand.brandname}`}</p> 
-            </div>
+            {finishedLoading ?
+            <ProfileCard
+                image={brand.image}
+                title={brand.productname}
+                by={brand.brandname}
+                desc={brand.description}
+            />
+            : <Spinner animation="border" />
+        }
         </div>
     )
 }

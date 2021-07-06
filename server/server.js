@@ -53,7 +53,7 @@ app.get("/api/v1/alternatives/:id", async (req, res) => {
 
         //Fetch Ingredients
         const recipes = await db.query(`
-        SELECT r.ID, r.title, r.description, r.image, r.createdate, u.username
+        SELECT r.ID, r.title, r.description, r.image, r.credit, r.createdate, u.username
         FROM recipes r
         Join Users u on u.id = r.createuser
         WHERE r.ID IN 

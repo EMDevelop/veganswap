@@ -2,7 +2,7 @@ import React, {useContext} from 'react'
 import { VeganContext } from '../context/VeganContext'
 import PreviewCard from './PreviewCard';
 import { Grid } from '@material-ui/core'
-
+import { Spinner } from 'react-bootstrap'
 
 
 function IngredientBrands() {
