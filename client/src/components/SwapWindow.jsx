@@ -17,7 +17,7 @@ function SwapWindow() {
         history.push(`/alternatives/${id}`)
     }
 
-    const [options, setOptions] = useState([])
+    
 
     useEffect(() => {
         const fetchData = async () => {
@@ -31,7 +31,7 @@ function SwapWindow() {
         fetchData();
     }, [])
 
-
+    const [options, setOptions] = useState([])
     const onInputChange = (e) => {
         setOptions(notVegan.filter(option => option.name.toLowerCase().includes(e.target.value.toLowerCase())))
     }
@@ -40,7 +40,7 @@ function SwapWindow() {
     return (
         <div className="swapBox">
             <h1 className="mainPageHeader">Vegan Swap</h1>
-            <SearchDropDown nonVegalList={options} onInputChange={onInputChange} handleInputSelect={handleInputSelect} />
+            <SearchDropDown options={options} onInputChange={onInputChange} handleInputSelect={handleInputSelect} placeholder = 'Choose an item to swap' customClass ="swapScreen"/>
         </div>
     )
 }

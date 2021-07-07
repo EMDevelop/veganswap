@@ -14,6 +14,7 @@ export const VeganContextProvider = props => {
     const [recipeSteps, setRecipeSteps] = useState([])
     const [recipeIngredients, setRecipeIngredients] = useState([])
     const [profileType, setProfileType] = useState([])
+    const [addDropdown, setAddDropdown] = useState("I'd like to add a...")
 
     return (
 
@@ -37,7 +38,9 @@ export const VeganContextProvider = props => {
             recipeIngredients, 
             setRecipeIngredients, 
             profileType,
-            setProfileType
+            setProfileType, 
+            addDropdown, 
+            setAddDropdown
             }}
         >
             {props.children}

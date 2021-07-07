@@ -116,7 +116,7 @@ body {
 }
 
 /*  */
-  /* /Alternatives */
+  /* /General */
 /*  */
 
 .generalPage{
@@ -129,6 +129,26 @@ body {
   text-align: center;
 }
 
+/*  */
+  /* /Add */
+/*  */
+
+.step{
+  width: 90%;
+  margin-left: 5%;
+  margin-right: 5%;
+  min-height: 100px;
+  padding-right: 10px;
+  box-shadow: 1px 1px 15px 8px #e4e3e394;
+  height: fit-content;
+  margin-top: 10px;
+  border-radius: 5px;
+  display: flex;
+  flex-direction: row;
+  text-align: justify;
+  justify-content: center;
+  align-items: center;
+}
 
   /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
   /* Components */
@@ -304,8 +324,15 @@ body {
   /* /SearchDropDown */
 /*  */
 
-.searchDropDown{
+.swapDropdown{
   width: 50%
+}
+
+
+.addDropdown{
+  outline: none;
+  width: 30%;
+  
 }
 
 /*  */
@@ -487,6 +514,7 @@ body {
   border-radius: 5px;
   background-color: var(--lightGreen);
   backdrop-filter: blur(1.5px);
+  margin-bottom: 20px;
 }
 .profileText{
   width: 80%;
@@ -524,3 +552,50 @@ body {
 
 
 
+/* Button */
+.customButton{
+  background: var(--lightestTaupe);
+  color: var(--darkGreen);
+  border:none;
+  border-radius: 5px;
+  position:relative;
+  height:40px;
+  font-size:1.2em;
+  padding:0 2em;
+  cursor:pointer;
+  transition:800ms ease all;
+  outline:none;
+  width: 100px;
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  align-items: center;
+}
+.customButton:hover{
+  background:#fff;
+  color: var(--darkGreen);
+  border-radius: 20px;
+}
+.customButton:before,.customButton:after{
+  content:'';
+  position:absolute;
+  border-radius: 20px;
+  top:0;
+  right:0;
+  height:2px;
+  width:0;
+  background: var(--darkGreen);
+  transition:400ms ease all;
+}
+.customButton:after{
+  right:inherit;
+  top:inherit;
+  left:0;
+  bottom:0;
+  border-radius: 20px;
+}
+.customButton:hover:before, .customButton:hover:after{
+  width:100%;
+  transition:800ms ease all;
+  border-radius: 20px;
+}

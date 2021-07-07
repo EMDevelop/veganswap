@@ -8,15 +8,13 @@ function SequenceCard(props) {
                 return (
                     <div className="sequenceCardRows">
                         {row.image ? <img src={row.image} alt="" /> : <> </>}
-                        {props.type === "Ingredients" ? <> </>  : <h2 className="subHeading2"> {`${props.title} ${row.seq}`} </h2>}
+                        {props.type === "Ingredients" ? <> </> : <h2 className="subHeading2"> {`${props.title} ${row.seq}`} </h2>}
                         <p className="mainText">
-                            {row.description}
+                            {props.type === "Ingredients" ? `${row.quantity} ${row.measure} ${row.name}` : row.description}
                         </p>
+                        {row.note && <p className="mainText">{`* ${row.note}`}</p>}
                     </div>
-                )
-            }
-
-            )}
+                )})}
         </div>
     )
 }

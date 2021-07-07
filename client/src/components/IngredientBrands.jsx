@@ -12,6 +12,9 @@ function IngredientBrands() {
 
     return (
         <div className="suggestedBrands">
+            <h1 className="subHeading">
+                Suggested Brands:
+            </h1>
             <Grid 
                 className="gridLayout"  
                 container spacing={0}           

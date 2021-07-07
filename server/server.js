@@ -143,7 +143,7 @@ app.get("/api/v1/recipes/profile/:id", async (req, res) => {
             `, [req.params.id])
 
         const profileIngredients = await db.query(`
-            SELECT ID, SEQ, Description 
+            SELECT ID, SEQ, quantity,measure,name,note
             FROM RecipeIngredients 
             WHERE Recipes_ID = $1
             ORDER BY seq ASC;
