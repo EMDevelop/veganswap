@@ -11,7 +11,7 @@ import ProfileCard from '../components/ProfileCard';
 function RecipeProfile() {
 
     const { id } = useParams();
-    const { setRecipe, setRecipeIngredients, setRecipeSteps, recipe, recipeSteps, recipeIngredient, setProfileType } = useContext(VeganContext)
+    const { setRecipe, setRecipeIngredients, setRecipeSteps, recipe, recipeSteps, recipeIngredients, setProfileType } = useContext(VeganContext)
     const [finishedLoading, setFinishedLoading] = useState(null)
 
 
@@ -22,7 +22,7 @@ function RecipeProfile() {
             try {
                 const response = await Axios.get(`/recipes/profile/${id}`)
                 setRecipe(response.data.data.Profile)
-                setRecipeIngredients(response.data.data.Profile)
+                setRecipeIngredients(response.data.data.Ingredients)
                 setRecipeSteps(response.data.data.Steps)
                 setFinishedLoading(true)
             } catch (error) {
@@ -51,10 +51,17 @@ function RecipeProfile() {
                 className="gridLayout"
             >
                 <Grid item xs={12} sm={12} md={6}>
-                    {finishedLoading ? <SequenceCard /> : <Spinner animation="border" />}
+                    {finishedLoading ? <SequenceCard 
+                        data={recipeIngredients}
+                        type = "Ingredients"
+                    /> : <Spinner animation="border" />}
                 </Grid>
                 <Grid item xs={12} sm={12} md={6}>
-                    {finishedLoading ? <SequenceCard /> : <Spinner animation="border" />}
+                    {finishedLoading ? <SequenceCard 
+                        type = "Steps"
+                        title = "Step"
+                        data={recipeSteps}
+                    /> : <Spinner animation="border" />}
                 </Grid>
             </Grid>
         </div>

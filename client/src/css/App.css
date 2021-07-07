@@ -55,39 +55,34 @@ body {
   .mainPageHeader{
     color: var(--darkGreen);
     font-size: 2.5rem;
-    /* font-weight: bold; */
   }
 
   .subHeading{
-    /* color: var(--darkGreen); */
     color: var(--darkGreen);
     font-size: 1.5rem;
     font-weight: bold;
   }
 
+  .subHeading2{
+    color: var(--lightTaupe);
+    font-size: 1.2rem;
+    font-weight: bold;
+  }
 
-
+  .mainText{
+    color: var(--text);
+    font-size: 1rem;
+  }
 
   /* Grid */
-
   .gridLayout{
     width: 100%;
     margin: 0px;
     height: 100%;
     align-content: center;
     align-items: alignItems;
-    /* background-color: red; */
   }
 
-/* 
-  .gridLayout1{
-    width: 100%;
-    margin: 0px;
-    height: 100%;
-    align-content: center;
-    align-items: alignItems;
-    /* background-color: red; 
-  } */
 
 
   /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
@@ -110,9 +105,7 @@ body {
   /* /Swap */
 /*  */
 
-
 .swapPageGeneral{
-  /* background-color: red; */
   width: 100%;
   min-height: 90vh;
   height: fit-content;
@@ -132,12 +125,9 @@ body {
   height: fit-content;
   display: flex;
   flex-direction: column;
-  /* justify-content: center; */
   align-items: center;
   text-align: center;
 }
-
-
 
 
   /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
@@ -318,7 +308,6 @@ body {
   width: 50%
 }
 
-
 /*  */
   /* /  Ingredients / recipe list format */
 /*  */
@@ -459,6 +448,17 @@ body {
   align-items: center;
 }
 
+.sequenceCardRows{
+  width: 90%;
+  margin-left: 5%;
+  margin-right: 5%;
+  padding-right: 10px;
+  box-shadow: 1px 1px 15px 8px #e4e3e394;
+  height: fit-content;
+  margin-top: 10px;
+  border-radius: 5px;
+  text-align: justify;
+}
 
 
 /*  */
