@@ -6,6 +6,7 @@ import { Grid } from '@material-ui/core'
 import Axios from '../apis/axios'
 import { VeganContext } from '../context/VeganContext'
 import { Spinner } from 'react-bootstrap'
+import CollapsibleDiv from '../components/CollapsibleDiv';
 
 function Alternatives() {
     const { id } = useParams();
@@ -41,7 +42,11 @@ function Alternatives() {
                 className="gridLayout"
             >
                 <Grid item xs={12} sm={12} md={6}>
-                    {finishedLoading ? <IngredientsList /> : <Spinner animation="border" />}
+                    
+                        {finishedLoading ? <IngredientsList /> : <Spinner animation="border" />}
+                   
+                    
+
                 </Grid>
                 <Grid item xs={12} sm={12} md={6}>
                     {finishedLoading ? <RecipesList /> : <Spinner animation="border" />}

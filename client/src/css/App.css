@@ -304,7 +304,7 @@ body {
 /*  */
 
   .swapBox {
-    min-height: 40vh;
+    height: 40vh;
     min-width: fit-content;
     width: 40%;
     border-radius: 20px;
@@ -319,6 +319,16 @@ body {
     justify-content: center;
     align-items: center;
   }
+
+  .swapSearchBar{
+    width: 90%;
+    height: fit-content;
+    /* background-color:  lavenderblush; */
+    display: flex;
+    flex-direction: row;
+  }
+
+
 
 /*  */
   /* /SearchDropDown */
@@ -346,11 +356,7 @@ body {
   margin-left: 2.5%;
   margin-right: 2.5%;
   border-radius: 20px;
-  padding-bottom: 100px;
-  padding-left: 20px;
-  padding-right: 10px;
-  padding-top: 20px;
-  box-shadow: 1px 1px 15px 8px #e4e3e394;
+
   background-color: white;
   display: flex;
   flex-direction: column;
@@ -393,7 +399,8 @@ body {
 .previewImage{
   width: 100px;
   height: 100px;
-  background-color: var(--lightestTaupe);
+  /* background-color: var(--lightestTaupe); */
+  background-color: #f88379;
   border-radius: 5px;
   margin-bottom: 20px;
 }
@@ -598,4 +605,70 @@ body {
   width:100%;
   transition:800ms ease all;
   border-radius: 20px;
+}
+
+
+
+
+/*  */
+  /* /   collapsible component  */
+/*  */
+.collapsible{
+  background-color: transparent;
+  box-shadow: 1px 1px 15px 8px #e4e3e394;
+  background-color: white;
+  border-top-left-radius: 25px;
+  border-top-right-radius: 25px;
+  border-bottom-left-radius: 25px;
+  border-bottom-right-radius: 25px;
+}
+
+.collapsibleContainer{
+  /* box-shadow: 1px 1px 15px 8px #e4e3e394; */
+  width: 100%;
+  margin-right: 25%;
+  margin-left: 25%;
+  border-radius: 25px;
+}
+
+.collapsible .collapsibleBannerButton {
+  background-color: white;
+  border: unset;
+  cursor: pointer;
+  font:unset; 
+  /* border-top-right-radius: 25px;
+  border-top-left-radius: 25px; */
+  border-radius: 25px;
+  padding: 0.3rem;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+.bannerLabel{
+  flex:20;
+  color: var(--darkGreen);
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+.bannerIcon{
+  flex:1;
+}
+
+.collapsible .content {
+  background-color: transparent;
+}
+
+.collapsible .contentParent { 
+  overflow: hidden;
+  transition: height ease 0.3s;
+}
+
+.fa-arrow-circle-up{
+  color: pink;
+}
+
+.fa-arrow-circle-down{
+  color: pink;
 }

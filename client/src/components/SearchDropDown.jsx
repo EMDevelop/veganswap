@@ -35,7 +35,7 @@ function SearchDropDown(props) {
                 {options && options.map((item) => {
                     return (
                     <button type="button" key ={item.id} className="list-group-item list-group-item-action" onClick={(e) => handleInputSelect(e,item.id)}>
-                        {item.name}
+                        {item.name || item.title}
                     </button>
                     )
                 })}

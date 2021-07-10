@@ -15,17 +15,19 @@ app.listen(port, () => {
 app.use(cors());
 app.use(express.json())
 
-// Get list of non-vegan items
-app.get("/api/v1/nonvegan", async (req, res) => {
+// Get list of Items To Swap
+app.get("/api/v1/swapItem", async (req, res) => {
 
     try {
-        const response = await db.query(`
-            SELECT DISTINCT ID, name FROM NotVegan ORDER BY name ASC;
-            `)
+        const ingredient = await db.query(`SELECT id,name, isvegan, description FROM ingredients WHERE isVegan = 'n';`)
+        const recipe = await db.query(`SELECT id, isvegan, title FROM recipes WHERE isVegan = 'n';`)
 
         res.status(200).json({
             status: "success",
-            data: { NotVeganList: response.rows }
+            data: { 
+                ingredients: ingredient.rows, 
+                recipes: recipe.rows
+            }
         })
     } catch (error) {
         console.log("error")

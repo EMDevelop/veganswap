@@ -4,7 +4,7 @@ export const VeganContext = createContext();
 
 export const VeganContextProvider = props => {
 
-    const [notVegan, setNotVegan] = useState([]);
+    const [swapItem, setSwapItem] = useState([]);
     const [recipesList, setRecipesList] = useState([]);
     const [ingredientsList, setIngredientsList] = useState([]);
     const [selectedIngredient, setSelectedIngredient] = useState([])
@@ -19,8 +19,8 @@ export const VeganContextProvider = props => {
     return (
 
         <VeganContext.Provider value={{
-            notVegan, 
-            setNotVegan, 
+            swapItem, 
+            setSwapItem, 
             recipesList, 
             setRecipesList, 
             ingredientsList, 
