@@ -19,8 +19,8 @@ app.use(express.json())
 app.get("/api/v1/swapList", async (req, res) => {
 
     try {
-        const ingredient = await db.query(`SELECT id,name, isvegan, description FROM ingredients WHERE isVegan = 'n';`)
-        const recipe = await db.query(`SELECT id, isvegan, title FROM recipes WHERE isVegan = 'n';`)
+        const ingredient = await db.query(`SELECT id,name, isvegan, description FROM ingredient WHERE isVegan = 'n';`)
+        const recipe = await db.query(`SELECT id, isvegan, title FROM recipe WHERE isVegan = 'n';`)
 
         res.status(200).json({
             status: "success",
@@ -48,11 +48,11 @@ app.get("/api/v1/alternatives/ingredient/:id", async (req, res) => {
         //Fetch Ingredients as Ingredient Alternative
         const ingredients = await db.query(
                 `SELECT i.ID, i.name, i.description, i.image, i.createdate, u.username
-                FROM Ingredients i
+                FROM Ingredient i
                 Join Users u on u.id = i.createuser
                 WHERE i.ID IN 
                     (SELECT alternative_id
-                    FROM ingredientAlternatives
+                    FROM ingredientAlternative
                     WHERE swap_id = $1
                     AND type = 'ingredient')
                 ;`,
@@ -60,11 +60,11 @@ app.get("/api/v1/alternatives/ingredient/:id", async (req, res) => {
         //Fetch Recipes as Recipe Alternative
         const recipes = await db.query(
             `SELECT r.ID, r.title, r.description, r.image, r.createdate, u.username
-            FROM recipes r
-            Join Users u on u.id = r.createuser
+            FROM recipe r
+            Join users u on u.id = r.createuser
             WHERE r.ID IN 
                 (SELECT alternative_id
-                FROM ingredientAlternatives
+                FROM ingredientAlternative
                 WHERE swap_id = $1
                 AND type = 'recipe')
             ;`,
@@ -72,7 +72,7 @@ app.get("/api/v1/alternatives/ingredient/:id", async (req, res) => {
         //fetchSelected item
         const selected = await db.query(`
             SELECT name
-            FROM ingredients
+            FROM ingredient
             WHERE id = $1 ;`,
             [req.params.id])
         res.status(200).json({
@@ -133,8 +133,8 @@ app.get("/api/v1/ingredients/profile/:id", async (req, res) => {
         const ingredient = await db.query(
             `
             SELECT i.ID, i.name, i.description, i.image, i.createdate, u.username
-            FROM Ingredients i
-            Join Users u on u.id = i.createuser
+            FROM Ingredient i
+            Join users u on u.id = i.createuser
             WHERE i.ID = $1;
             `,
             [req.params.id])
@@ -142,8 +142,8 @@ app.get("/api/v1/ingredients/profile/:id", async (req, res) => {
         const brands = await db.query(
             `
             SELECT f.ID, f.brandname, f.productname, f.image, f.createdate,   u.username
-            FROM foodProducts f
-            Join Users u on u.id = f.createuser
+            FROM foodProduct f
+            Join users u on u.id = f.createuser
             WHERE f.alternative_id = $1
             `,
             [req.params.id])
@@ -165,8 +165,8 @@ app.get("/api/v1/foodproducts/profile/:id", async (req, res) => {
         const response = await db.query(
             `
             SELECT f.ID, f.brandname, f.productname, f.image, f.description, f.createdate, u.username
-            FROM foodProducts f
-            Join Users u on u.id = f.createuser
+            FROM foodProduct f
+            Join users u on u.id = f.createuser
             WHERE f.id = $1
             `, [req.params.id])
 
@@ -187,14 +187,14 @@ app.get("/api/v1/recipes/profile/:id", async (req, res) => {
     try {
         const profile = await db.query(`
             SELECT r.title, r.description, r.image, r.credit, r.createdate, u.username
-            FROM recipes r
+            FROM recipe r
             Join Users u on u.id = r.createuser
             WHERE r.ID = $1;
             `, [req.params.id])
 
         const profileIngredients = await db.query(`
             SELECT ID, SEQ, quantity,measure,name,note
-            FROM RecipeIngredients 
+            FROM RecipeIngredient
             WHERE Recipes_ID = $1
             ORDER BY seq ASC;
             `, [req.params.id])
@@ -202,7 +202,7 @@ app.get("/api/v1/recipes/profile/:id", async (req, res) => {
 
         const profileSteps = await db.query(`
             SELECT ID, SEQ, Description, Image
-            FROM recipesteps
+            FROM recipestep
             WHERE Recipes_ID = $1
             ORDER BY seq ASC;
             `, [req.params.id])
