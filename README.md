@@ -6,4 +6,10 @@ The goal of the project is to allow users to find Vegan alternatives to common i
 
 I'm hoping to create a community where people add recipes / ingredients and interact with content that others are adding. 
 
-It will be free to use, and more than anything I hope it is useful. 
+It will be free to use, and more than anything I hope it is useful.
+
+
+
+
+LICENCING
+** If you'd like to use some of the code in this project please do as long as it isn't a copy of the veganswap website**
