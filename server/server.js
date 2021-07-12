@@ -143,14 +143,21 @@ app.get("/api/v1/ingredients/profile/:id", async (req, res) => {
             `
             SELECT f.ID, f.brandname, f.productname, f.image, f.createdate,   u.username
             FROM foodProduct f
-            Join users u on u.id = f.createuser
-            WHERE f.alternative_id = $1
+            Join Users u on u.id = f.createuser
+            WHERE f.id in (
+                    SELECT foodProduct_ID
+                    FROM ingredientProduct
+                    WHERE ingredient_id = $1
+                );
             `,
             [req.params.id])
 
         res.status(200).json({
             status: "success",
-            data: { Ingredients: ingredient.rows[0], foodProducts: brands.rows }
+            data: { 
+                    Ingredients: ingredient.rows[0], 
+                    foodProducts: brands.rows 
+            }
         })
     } catch (error) {
         console.log("error")
