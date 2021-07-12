@@ -1,32 +1,56 @@
 import React, { useContext, useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom';
-import IngredientsList from '../components/IngredientsList'
-import RecipesList from '../components/RecipesList'
-import { Grid } from '@material-ui/core'
 import Axios from '../apis/axios'
 import { VeganContext } from '../context/VeganContext'
 import { Spinner } from 'react-bootstrap'
-import CollapsibleDiv from '../components/CollapsibleDiv';
+import VeganIngredientAlternatives from '../components/VeganIngredientAlternatives';
+import VeganRecipeAlternatives from '../components/VeganRecipeAlternatives';
 
 function Alternatives() {
-    const { id } = useParams();
+
+    const { id, type } = useParams();
     const [finishedLoading, setFinishedLoading] = useState(null)
-    const {
-        notVegan,
-        setNotVegan,
-        setRecipesList,
-        setIngredientsList } = useContext(VeganContext);
+    const {setAlternatives} = useContext(VeganContext);
+
+    const [componentLoad, setComponentLoad] = useState([])
+
+
 
     useEffect(() => {
+
+
+        switch(type) {
+            case 'ingredient':
+                setComponentLoad( <VeganIngredientAlternatives/>)
+            break;
+            case 'recipe':
+                setComponentLoad( <VeganRecipeAlternatives/>)
+            break;
+            default: 
+                console.log('Invalid Selection')
+
+        }
+        // if (type === 'ingredient') {
+            
+        // } 
+
         const fetchData = async () => {
             try {
-                const response = await Axios.get(`/alternatives/${id}`)
-                setNotVegan(response.data.boh.Selected.name)
-                setRecipesList(response.data.boh.Recipes)
-                setIngredientsList(response.data.boh.Ingredients)
-                setFinishedLoading(true)
+                switch (type) {
+                    case 'ingredient':
+                        const response = await Axios.get(`/alternatives/${type}/${id}`)
+                        setAlternatives(response.data.data)
+                        setFinishedLoading(true)
+                    break;
+                    case 'recipe':
+                       console.log('recipe data')
+                       setFinishedLoading(true)
+                    break;
+                    default:
+                        console.log("Invalid Page")
+                }
             } catch (error) {
-                console.log()
+                console.log(error)
             }
         };
         fetchData();
@@ -34,26 +58,9 @@ function Alternatives() {
 
 
     return (
-        <div className="generalPage">
-
-            <h1 className="mainPageHeader">{`Alternatives For: ${notVegan}`}</h1>
-            <Grid
-                container spacing={0}
-                className="gridLayout"
-            >
-                <Grid item xs={12} sm={12} md={6}>
-                    
-                        {finishedLoading ? <IngredientsList /> : <Spinner animation="border" />}
-                   
-                    
-
-                </Grid>
-                <Grid item xs={12} sm={12} md={6}>
-                    {finishedLoading ? <RecipesList /> : <Spinner animation="border" />}
-                </Grid>
-            </Grid>
-
-        </div>
+        <>
+            {finishedLoading ? componentLoad : <Spinner animation="border" />}
+        </>
     )
 }
 export default Alternatives

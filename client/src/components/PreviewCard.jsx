@@ -13,7 +13,7 @@ function PreviewCard(props) {
             break;
             case 'ingredient': history.push(`/ingredients/profile/${id}`) ;
             break;
-            case 'brand': history.push(`/brands/profile/${id}`); 
+            case 'foodProduct': history.push(`/foodProducts/profile/${id}`); 
             break;
             default: console.log("no type or path setup")
         }

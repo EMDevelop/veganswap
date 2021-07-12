@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useContext } from 'react'
 import { useParams } from 'react-router-dom';
-import IngredientBrands from '../components/IngredientBrands'
+import FoodProducts from '../components/FoodProducts'
 import Axios from '../apis/axios'
 import { VeganContext } from '../context/VeganContext'
 import { Spinner } from 'react-bootstrap'
@@ -11,15 +11,14 @@ function IngredientsProfile() {
 
     const [finishedLoading, setFinishedLoading] = useState(null)
     const { id } = useParams();
-    const { setIngredientBrands, setSelectedIngredient, selectedIngredient, setProfileType } = useContext(VeganContext)
+    const {setProfileType, ingredientProfile, setIngredientProfile } = useContext(VeganContext)
 
     useEffect(() => {
         setProfileType('ingredient')
         const fetchData = async () => {
             try {
                 const response = await Axios.get(`ingredients/profile/${id}`)
-                setSelectedIngredient(response.data.data.Ingredients)
-                setIngredientBrands(response.data.data.BrandList)
+                setIngredientProfile(response.data.data)
                 setFinishedLoading(true)
             } catch (error) {
                 console.log(error)
@@ -35,14 +34,14 @@ function IngredientsProfile() {
 
             {finishedLoading ?
                 <ProfileCard
-                    image={selectedIngredient.image}
-                    title={selectedIngredient.name}
-                    by={selectedIngredient.username}
-                    desc={selectedIngredient.description}
+                    image={ingredientProfile.Ingredients.image}
+                    title={ingredientProfile.Ingredients.name}
+                    by={ingredientProfile.Ingredients.username}
+                    desc={ingredientProfile.Ingredients.description}
                 />
                 : <Spinner animation="border" />
             }
-            {finishedLoading ? <IngredientBrands /> : <Spinner animation="border" />}
+            {finishedLoading ? <FoodProducts /> : <Spinner animation="border" />}
         </div>
     )
 }

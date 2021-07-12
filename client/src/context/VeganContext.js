@@ -4,11 +4,10 @@ export const VeganContext = createContext();
 
 export const VeganContextProvider = props => {
 
-    const [swapItem, setSwapItem] = useState([]);
-    const [recipesList, setRecipesList] = useState([]);
-    const [ingredientsList, setIngredientsList] = useState([]);
-    const [selectedIngredient, setSelectedIngredient] = useState([])
-    const [ingredientBrands, setIngredientBrands] = useState([])
+    const [swapList, setSwapList] = useState([]);
+    const [alternatives, setAlternatives] = useState([])
+    const [ingredientProfile, setIngredientProfile] = useState([])
+    const [foodProduct, setFoodProduct] = useState([])
     const [brand, setBrand] = useState([])
     const [recipe, setRecipe,] = useState([])
     const [recipeSteps, setRecipeSteps] = useState([])
@@ -19,18 +18,14 @@ export const VeganContextProvider = props => {
     return (
 
         <VeganContext.Provider value={{
-            swapItem, 
-            setSwapItem, 
-            recipesList, 
-            setRecipesList, 
-            ingredientsList, 
-            setIngredientsList, 
-            selectedIngredient, 
-            setSelectedIngredient, 
-            ingredientBrands, 
-            setIngredientBrands, 
-            brand, 
-            setBrand, 
+            swapList, 
+            setSwapList, 
+            alternatives,
+            setAlternatives,
+            ingredientProfile,
+            setIngredientProfile,
+            foodProduct,
+            setFoodProduct,
             recipe, 
             setRecipe, 
             recipeSteps,

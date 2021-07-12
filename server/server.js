@@ -16,7 +16,7 @@ app.use(cors());
 app.use(express.json())
 
 // Get list of Items To Swap
-app.get("/api/v1/swapItem", async (req, res) => {
+app.get("/api/v1/swapList", async (req, res) => {
 
     try {
         const ingredient = await db.query(`SELECT id,name, isvegan, description FROM ingredients WHERE isVegan = 'n';`)
@@ -24,8 +24,8 @@ app.get("/api/v1/swapItem", async (req, res) => {
 
         res.status(200).json({
             status: "success",
-            data: { 
-                ingredients: ingredient.rows, 
+            data: {
+                ingredients: ingredient.rows,
                 recipes: recipe.rows
             }
         })
@@ -35,75 +35,122 @@ app.get("/api/v1/swapItem", async (req, res) => {
 
 })
 
-// Get Alternatives
-app.get("/api/v1/alternatives/:id", async (req, res) => {
+// ---------------------  Get Alternatives  ----------------------
+
+//
+// Ingredient Alternatives
+// 
+
+app.get("/api/v1/alternatives/ingredient/:id", async (req, res) => {
 
     try {
 
-        //Fetch Ingredients
-        const ingredients = await db.query(`
-        SELECT i.ID, i.name, i.description, i.image, i.createdate, u.username
-        FROM Ingredients i
-        Join Users u on u.id = i.createuser
-        WHERE i.ID IN 
-            (SELECT Vegan_ID
-            FROM swaps
-            WHERE notVegan_ID = $1
-            AND type = 'ingredient')
-        ;`,
+        //Fetch Ingredients as Ingredient Alternative
+        const ingredients = await db.query(
+                `SELECT i.ID, i.name, i.description, i.image, i.createdate, u.username
+                FROM Ingredients i
+                Join Users u on u.id = i.createuser
+                WHERE i.ID IN 
+                    (SELECT alternative_id
+                    FROM ingredientAlternatives
+                    WHERE swap_id = $1
+                    AND type = 'ingredient')
+                ;`,
             [req.params.id])
-
-        //Fetch Ingredients
-        const recipes = await db.query(`
-        SELECT r.ID, r.title, r.description, r.image, r.credit, r.createdate, u.username
-        FROM recipes r
-        Join Users u on u.id = r.createuser
-        WHERE r.ID IN 
-            (SELECT Vegan_ID
-            FROM swaps
-            WHERE notVegan_ID = $1 
-            AND type = 'recipe')
-        ;`,
+        //Fetch Recipes as Recipe Alternative
+        const recipes = await db.query(
+            `SELECT r.ID, r.title, r.description, r.image, r.createdate, u.username
+            FROM recipes r
+            Join Users u on u.id = r.createuser
+            WHERE r.ID IN 
+                (SELECT alternative_id
+                FROM ingredientAlternatives
+                WHERE swap_id = $1
+                AND type = 'recipe')
+            ;`,
             [req.params.id])
-        
-            //fetchSelected item
+        //fetchSelected item
         const selected = await db.query(`
-                SELECT name FROM notVegan
-                WHERE ID = $1 ;`,
-                [req.params.id])
-
+            SELECT name
+            FROM ingredients
+            WHERE id = $1 ;`,
+            [req.params.id])
         res.status(200).json({
             status: "success",
-            boh: { Ingredients: ingredients.rows, Recipes: recipes.rows, Selected : selected.rows[0]}
+            data: { Ingredients: ingredients.rows, Recipes: recipes.rows, Selected: selected.rows[0] }
         })
     } catch (error) {
         console.log("error")
     }
-
 })
 
-// Get Ingredient + List of brands associated 
+
+//
+// Recipe Alternatives
+// 
+
+// app.get("/api/v1/alternatives/recipe/:id", async (req, res) => {
+
+//     try {
+
+//         //Fetch Ingredients as Ingredient Alternative
+//         const recipes = await db.query(
+//             ``,
+//             [req.params.id])
+//         //Fetch Recipes as Recipe Alternative
+//         const foodProducts = await db.query(
+//             ``,
+//             [req.params.id])
+//         //fetchSelected item
+//         const selected = await db.query(
+//         `select *`,
+//             [req.params.id])
+
+
+//         res.status(200).json({
+//             status: "success",
+//             data: { 
+//                 Recipes: ingredients.rows, 
+//                 FoodProducts: recipes.rows, 
+//                 Selected: selected.rows[0] 
+//             }
+//         })
+//     } catch (error) {
+//         console.log("error")
+//     }
+// })
+
+
+
+
+
+
+// Get Ingredient Profile + List of Ingredient foodProducts  
 app.get("/api/v1/ingredients/profile/:id", async (req, res) => {
 
     try {
-        
-        const ingredient = await db.query(`
-        SELECT i.ID, i.name, i.description, i.image, i.createdate, u.username
-        FROM Ingredients i
-        Join Users u on u.id = i.createuser
-        WHERE i.ID = $1;`,
+
+        const ingredient = await db.query(
+            `
+            SELECT i.ID, i.name, i.description, i.image, i.createdate, u.username
+            FROM Ingredients i
+            Join Users u on u.id = i.createuser
+            WHERE i.ID = $1;
+            `,
             [req.params.id])
-        
-        const brands = await db.query(`
-            SELECT b.ID, b.brandname, b.productname, b.image, b.createdate,   u.username
-            FROM brands b
-            Join Users u on u.id = b.createuser
-            WHERE b.ingredients_id = $1
-            `, [req.params.id])
+
+        const brands = await db.query(
+            `
+            SELECT f.ID, f.brandname, f.productname, f.image, f.createdate,   u.username
+            FROM foodProducts f
+            Join Users u on u.id = f.createuser
+            WHERE f.alternative_id = $1
+            `,
+            [req.params.id])
 
         res.status(200).json({
             status: "success",
-            data: { Ingredients: ingredient.rows[0],BrandList: brands.rows }
+            data: { Ingredients: ingredient.rows[0], foodProducts: brands.rows }
         })
     } catch (error) {
         console.log("error")
@@ -111,20 +158,21 @@ app.get("/api/v1/ingredients/profile/:id", async (req, res) => {
 
 })
 
-// Get Brand Profile
-app.get("/api/v1/brands/profile/:id", async (req, res) => {
+// Get foodProducts associated to a food product ID
+app.get("/api/v1/foodproducts/profile/:id", async (req, res) => {
 
     try {
-        const response = await db.query(`
-            SELECT b.ID, b.brandname, b.productname, b.image, b.description, b.createdate,   u.username
-            FROM brands b
-            Join Users u on u.id = b.createuser
-            WHERE b.ID = $1
+        const response = await db.query(
+            `
+            SELECT f.ID, f.brandname, f.productname, f.image, f.description, f.createdate, u.username
+            FROM foodProducts f
+            Join Users u on u.id = f.createuser
+            WHERE f.id = $1
             `, [req.params.id])
 
         res.status(200).json({
             status: "success",
-            data: { Brand: response.rows[0] }
+            data: { FoodProduct: response.rows[0] }
         })
     } catch (error) {
         console.log("error")
@@ -150,8 +198,8 @@ app.get("/api/v1/recipes/profile/:id", async (req, res) => {
             WHERE Recipes_ID = $1
             ORDER BY seq ASC;
             `, [req.params.id])
-        
-        
+
+
         const profileSteps = await db.query(`
             SELECT ID, SEQ, Description, Image
             FROM recipesteps
@@ -161,11 +209,11 @@ app.get("/api/v1/recipes/profile/:id", async (req, res) => {
 
         res.status(200).json({
             status: "success",
-            data: { 
+            data: {
                 Profile: profile.rows[0]
-                , 
-                Ingredients: profileIngredients.rows, 
-                Steps:  profileSteps.rows 
+                ,
+                Ingredients: profileIngredients.rows,
+                Steps: profileSteps.rows
             }
         })
     } catch (error) {

@@ -5,18 +5,19 @@ import { VeganContext } from '../context/VeganContext'
 import { Spinner } from 'react-bootstrap'
 import ProfileCard from '../components/ProfileCard';
 
-function BrandProfile() {
+function FoodProductProfile() {
 
     const { id } = useParams();
-    const { brand, setBrand, setProfileType } = useContext(VeganContext)
+    const { foodProduct,setFoodProduct, setProfileType } = useContext(VeganContext)
     const [finishedLoading, setFinishedLoading] = useState(null)
 
     useEffect(() => {
-        setProfileType('brand')
+        setProfileType('foodProduct')
         const fetchData = async () => {
             try {
-                const response = await Axios.get(`/brands/profile/${id}`)
-                setBrand(response.data.data.Brand)
+                const response = await Axios.get(`/foodproducts/profile/${id}`)
+                console.log(response.data.data)
+                setFoodProduct(response.data.data)
                 setFinishedLoading(true)
             } catch (error) {
                 console.log(error)
@@ -31,10 +32,10 @@ function BrandProfile() {
         <div className="generalPage">
             {finishedLoading ?
             <ProfileCard
-                image={brand.image}
-                title={brand.productname}
-                by={brand.brandname}
-                desc={brand.description}
+                image={foodProduct.FoodProduct.image}
+                title={foodProduct.FoodProduct.productname}
+                by={foodProduct.FoodProduct.brandname}
+                desc={foodProduct.FoodProduct.description}
             />
             : <Spinner animation="border" />
         }
@@ -42,4 +43,4 @@ function BrandProfile() {
     )
 }
 
-export default BrandProfile
+export default FoodProductProfile

@@ -11,8 +11,8 @@ function ProfileCard(props) {
         case 'ingredient':
             console.log("welcome to the ingredient profile")
         break;
-        case 'brand':
-            console.log("welcome to the brand profile")
+        case 'foodProduct':
+            console.log("welcome to the FoodProducts profile")
         break;
         case 'recipe':
             console.log("welcome to the recipe profile")

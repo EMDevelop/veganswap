@@ -6,8 +6,7 @@ import CollapsibleDiv from './CollapsibleDiv';
 
 function RecipesList(props) {
 
-
-    const { recipesList } = useContext(VeganContext);
+    const { alternatives } = useContext(VeganContext);
 
     return (
         <div className ="alternativeList"> 
@@ -16,7 +15,7 @@ function RecipesList(props) {
                         className="gridLayout"  
                         container spacing={0}           
                     >
-                        {recipesList && recipesList.map( (recipe) => {
+                        {alternatives && alternatives.Recipes.map( (recipe) => {
                             return(
                             <PreviewCard 
                                 key={recipe.id} 

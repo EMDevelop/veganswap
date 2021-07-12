@@ -5,29 +5,29 @@ import { Grid } from '@material-ui/core'
 import { Spinner } from 'react-bootstrap'
 
 
-function IngredientBrands() {
+function FoodProducts() {
 
-    const {ingredientBrands} = useContext(VeganContext)
+    const {ingredientProfile} = useContext(VeganContext)
 
 
     return (
         <div className="suggestedBrands">
             <h1 className="subHeading">
-                Suggested Brands:
+                Suggested Products:
             </h1>
             <Grid 
                 className="gridLayout"  
                 container spacing={0}           
             >
-                {ingredientBrands && ingredientBrands.map((brand)=>{
+                {ingredientProfile.foodProducts && ingredientProfile.foodProducts.map((product)=>{
                     return(
                     <PreviewCard 
-                            key={brand.id} 
-                            name={brand.productname}
-                            image={brand.image}
-                            createUser={brand.brandname}
-                            identifier={brand.id}
-                            type="brand"
+                            key={product.id} 
+                            name={product.productname}
+                            image={product.image}
+                            createUser={product.brandname}
+                            identifier={product.id}
+                            type="foodProduct"
                     />
                     )
                 })}
@@ -36,4 +36,4 @@ function IngredientBrands() {
     )
 }
 
-export default IngredientBrands
+export default FoodProducts

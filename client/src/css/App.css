@@ -377,8 +377,8 @@ body {
 .previewCard {
   background-color: rgba(255, 255, 255, 0.25);
   backdrop-filter: blur(1.5px);
-  min-height: 250px;
-  width: 250px;
+  height: fit-content;
+  width: fit-content;
   border-radius: 20px;
   display: flex;
   flex-direction: column;

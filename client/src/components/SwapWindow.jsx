@@ -2,25 +2,23 @@ import React, { useContext, useEffect, useState } from 'react'
 import Axios from '../apis/axios'
 import { VeganContext } from '../context/VeganContext'
 import { useHistory } from 'react-router-dom';
-
-//Components
 import SearchDropDown from './SearchDropDown';
 
 function SwapWindow() {
 
 
-    const { swapItem, setSwapItem } = useContext(VeganContext);
+    const { swapList, setSwapList } = useContext(VeganContext);
 
     let history = useHistory();
     const handleInputSelect = (e, id) => {
-        history.push(`/alternatives/${id}`)
+        history.push(`/alternatives/${dropdownSelect}/${id}`)
     }
 
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await Axios.get("/swapItem")
-                setSwapItem(response.data.data)
+                const response = await Axios.get("/swapList")
+                setSwapList(response.data.data)
             } catch (error) {
                 console.log(error)
             }
@@ -32,11 +30,11 @@ function SwapWindow() {
     const onInputChange = (e) => {
         switch (dropdownSelect) {
             case 'ingredient':
-                setOptions(swapItem.ingredients.filter(option => option.name.toLowerCase().includes(e.target.value.toLowerCase())))
-            break;
+                setOptions(swapList.ingredients.filter(option => option.name.toLowerCase().includes(e.target.value.toLowerCase())))
+                break;
             case 'recipe':
-                setOptions(swapItem.recipes.filter(option => option.title.toLowerCase().includes(e.target.value.toLowerCase())))
-            break;
+                setOptions(swapList.recipes.filter(option => option.title.toLowerCase().includes(e.target.value.toLowerCase())))
+                break;
             default:
                 console.log("not a valid selection")
         }
@@ -46,8 +44,15 @@ function SwapWindow() {
 
     const onDropdownSelect = (e) => {
         setDropdownSelect(e.target.value)
-        setOptions([])
+        setOptions([])                    // This isn't working
     }
+
+    // // might be something to do with this needs to change to do anything, so we need to remove its value from the onselect dropdown function somehow. 
+    // //idk ho wyou link them
+    // console.log(e.target.value)
+    // if (!e.target.value) {                  // this isn't working
+    //     setOptions([])
+    // }
 
     return (
         <div className="swapBox">
