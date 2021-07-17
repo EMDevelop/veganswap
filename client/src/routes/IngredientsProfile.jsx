@@ -29,9 +29,6 @@ function IngredientsProfile() {
 
     return (
         <div className="generalPage">
-            {/* <h1 className="mainPageHeader"> {`${selectedIngredient.name} Profile`} </h1> */}
-
-
             {finishedLoading ?
                 <ProfileCard
                     image={ingredientProfile.Ingredients.image}
@@ -41,7 +38,7 @@ function IngredientsProfile() {
                 />
                 : <Spinner animation="border" />
             }
-            {finishedLoading ? <FoodProducts /> : <Spinner animation="border" />}
+            {finishedLoading ? <FoodProducts type = 'ingredient'/> : <Spinner animation="border" />}
         </div>
     )
 }

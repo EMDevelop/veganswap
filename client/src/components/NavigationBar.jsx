@@ -1,16 +1,11 @@
 import React, {useState} from 'react'
-import {Navbar,Nav,NavDropdown} from "react-bootstrap";
+import {Navbar,Nav} from "react-bootstrap";
+import { useHistory } from 'react-router-dom';
+
 
 function NavigationBar() {
 
-    const [show, setShow] = useState(false);
-    const showDropdown = (e)=>{
-        setShow(!show);
-    }
-    const hideDropdown = e => {
-        setShow(false);
-    }
-
+    let history = useHistory();
 
     return (
         <>
@@ -21,8 +16,8 @@ function NavigationBar() {
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />
                 <Navbar.Collapse id="basic-navbar-nav">
                     <Nav className="mr-auto">
-                        <Nav.Link className = 'NavLinks' href="/">Swap</Nav.Link>
-                        <Nav.Link className = 'NavLinks' href="/add">Add</Nav.Link>
+                        <Nav.Link className = 'NavLinks' onClick={()=> history.push('/')}>Swap</Nav.Link>
+                        <Nav.Link className = 'NavLinks' onClick={()=> history.push('/Add')}>Add</Nav.Link>
                     </Nav>
                     {/* Add some kind of login/profile button here?  */}
                 </Navbar.Collapse>

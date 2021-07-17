@@ -1,111 +1,109 @@
-  /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
-  /* Global */
-  /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
-  /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~  */
-  /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~  */
-  /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~  */
-  /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~  */
-  /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~  */
-  /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~  */
-  /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~  */
-  /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~  */
-  /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~  */
-  /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~  */
-  /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~  */
+/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
+/* Global */
+/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
+/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~  */
+/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~  */
+/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~  */
+/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~  */
+/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~  */
+/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~  */
+/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~  */
+/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~  */
+/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~  */
+/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~  */
+/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~  */
 html,
-body { 
-    /* --max-width: 1170px; */
-    --darkestGreen: #203624;
-    --darkGreen: #486858;
-    --midGreen: #294B3B;
-    --lightGreen: #648977;
-    --lightTaupe: #DBC8B9;
-    --lightestTaupe: #E6D9CF;
-    --text: #808080;
-    margin: 0;
-    /* overflow: hidden; */
-    background-repeat: repeat;
-    font-family: muli !important;
-    max-width: 100%;
-    overflow-x: hidden;
-  }
+body {
+  /* --max-width: 1170px; */
+  --darkestGreen: #203624;
+  --darkGreen: #486858;
+  --midGreen: #294b3b;
+  --lightGreen: #648977;
+  --lightTaupe: #dbc8b9;
+  --lightestTaupe: #e6d9cf;
+  --text: #808080;
+  margin: 0;
+  /* overflow: hidden; */
+  background-repeat: repeat;
+  font-family: muli !important;
+  max-width: 100%;
+  overflow-x: hidden;
+}
 
-  @font-face {
-    src: url(https://use.typekit.net/aav7lhy.css);
-    font-family: muli,sans-serif;
-    font-weight: 400;
-    font-style: normal;
-  } 
-  
-  @font-face {
-    src: url(https://use.typekit.net/aav7lhy.css);
-    font-family: muli,sans-serif;
-    font-weight: 700;
-    font-style: italic;
-  } 
-  
-  @font-face {
-    src: url(https://use.typekit.net/aav7lhy.css);
-    font-family: muli,sans-serif;
-    font-weight: 700;
-    font-style: bold;
-  } 
-  
-  /* Headings */
-  .mainPageHeader{
-    color: var(--darkGreen);
-    font-size: 2.5rem;
-  }
+@font-face {
+  src: url(https://use.typekit.net/aav7lhy.css);
+  font-family: muli, sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
 
-  .subHeading{
-    color: var(--darkGreen);
-    font-size: 1.5rem;
-    font-weight: bold;
-  }
+@font-face {
+  src: url(https://use.typekit.net/aav7lhy.css);
+  font-family: muli, sans-serif;
+  font-weight: 700;
+  font-style: italic;
+}
 
-  .subHeading2{
-    color: var(--lightTaupe);
-    font-size: 1.2rem;
-    font-weight: bold;
-  }
+@font-face {
+  src: url(https://use.typekit.net/aav7lhy.css);
+  font-family: muli, sans-serif;
+  font-weight: 700;
+  font-style: bold;
+}
 
-  .mainText{
-    color: var(--text);
-    font-size: 1rem;
-  }
+/* Headings */
+.mainPageHeader {
+  color: var(--darkGreen);
+  font-size: 3.5rem;
+  margin-bottom: 50px;
+}
 
-  /* Grid */
-  .gridLayout{
-    width: 100%;
-    margin: 0px;
-    height: 100%;
-    align-content: center;
-    align-items: alignItems;
-  }
+.subHeading {
+  color: var(--darkGreen);
+  font-size: 1.5rem;
+  font-weight: bold;
+}
 
+.subHeading2 {
+  color: var(--lightTaupe);
+  font-size: 1.2rem;
+  font-weight: bold;
+}
 
+.mainText {
+  color: var(--text);
+  font-size: 1rem;
+}
 
-  /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
-  /* Routes / Pages */
-  /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
-  /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~  */
-  /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~  */
-  /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~  */
-  /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~  */
-  /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~  */
-  /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~  */
-  /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~  */
-  /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~  */
-  /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~  */
-  /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~  */
-  /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~  */
+/* Grid */
+.gridLayout {
+  width: 100%;
+  margin: 0px;
+  height: 100%;
+  align-content: center;
+  align-items: alignItems;
+}
 
+/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
+/* Routes / Pages */
+/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
+/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~  */
+/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~  */
+/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~  */
+/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~  */
+/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~  */
+/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~  */
+/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~  */
+/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~  */
+/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~  */
+/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~  */
+/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~  */
 
 /*  */
-  /* /Swap */
+/* /Swap */
 /*  */
 
-.swapPageGeneral{
+.swapPageGeneral {
   width: 100%;
   min-height: 90vh;
   height: fit-content;
@@ -113,13 +111,18 @@ body {
   justify-content: center;
   align-items: center;
   text-align: center;
+  background-color: transparent;
+  background-size: auto;
+  background-image: url("https://raw.githubusercontent.com/juliazieniewicz/backgroundsvg/main/Draft6.jpg");
+  background-size: 800px;
 }
 
 /*  */
-  /* /General */
+/* /General */
 /*  */
 
-.generalPage{
+.generalPage {
+  padding: 20px;
   width: 100%;
   min-height: 90vh;
   height: fit-content;
@@ -127,16 +130,19 @@ body {
   flex-direction: column;
   align-items: center;
   text-align: center;
+  background-color: transparent;
+  background-size: auto;
 }
 
 /*  */
-  /* /Add */
+/* /Add */
 /*  */
 
-.step{
+.step {
   width: 90%;
   margin-left: 5%;
   margin-right: 5%;
+  margin-bottom: 5%;
   min-height: 100px;
   padding-right: 10px;
   box-shadow: 1px 1px 15px 8px #e4e3e394;
@@ -150,66 +156,65 @@ body {
   align-items: center;
 }
 
-  /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
-  /* Components */
-  /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
-  /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~  */
-  /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~  */
-  /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~  */
-  /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~  */
-  /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~  */
-  /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~  */
-  /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~  */
-  /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~  */
-  /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~  */
-  /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~  */
-  /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~  */
-  
-/*  */
-  /* /Navbar -----------------------------------------------------------------------------------*/
-/*  */
+/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
+/* Components */
+/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
+/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~  */
+/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~  */
+/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~  */
+/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~  */
+/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~  */
+/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~  */
+/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~  */
+/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~  */
+/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~  */
+/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~  */
+/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~  */
 
+/*  */
+/* /Navbar -----------------------------------------------------------------------------------*/
+/*  */
 
 /* BASIC NAVBAR STYLING  */
-.MainLogo{
+.MainLogo {
   height: 60px;
   width: auto;
   padding-left: 20px;
 }
 
-.Navbar{
-  background-color: white; 
+.Navbar {
+  background-color: white;
   box-shadow: 1px 1px 15px 8px #e4e3e394;
 }
 
 /* NAVLINKS STYLING */
-.NavLinks{
+.NavLinks {
   font-weight: bold !important;
   display: flex !important;
   justify-content: center !important;
   align-items: center !important;
 }
-.NavLinks:hover{
-  color: var(--lightTaupe)  !important;
+.NavLinks:hover {
+  color: var(--lightTaupe) !important;
 }
 
 /* DROPDOWN STYLING */
-.DropdownNav:hover{
-  color: var(--lightTaupe)  !important;
+.DropdownNav:hover {
+  color: var(--lightTaupe) !important;
 }
 
-.DropdownNav a:hover{
-  color: var(--lightTaupe)  !important;
+.DropdownNav a:hover {
+  color: var(--lightTaupe) !important;
 }
 
-.DropdownNav a:optional{
-  color: var(--lightTaupe)  !important;
+.DropdownNav a:optional {
+  color: var(--lightTaupe) !important;
 }
 
-.dropdown-menu{
+.dropdown-menu {
   background-color: white !important;
   border-radius: 5% !important;
-  border: 2px solid white !important; 
+  border: 2px solid white !important;
 }
 
 .DropdownNav {
@@ -217,20 +222,19 @@ body {
   margin-top: auto;
   margin-bottom: auto;
   padding-top: 0px;
-  padding-bottom:0px;
+  padding-bottom: 0px;
   font-weight: bold;
 }
 
 .dropdownItemsNavbar {
-  margin-top:3%;
+  margin-top: 3%;
   margin-bottom: 3%;
 }
 
 /* Come back to this */
-.dropdown-item{
-  color:  var(--darkGreen);
+.dropdown-item {
+  color: var(--darkGreen);
 }
-
 
 /* DEVICE VIEWS STYLING */
 
@@ -239,34 +243,33 @@ body {
 }
 
 @media screen and (min-width: 991px) {
-  .Navbar{
-    height: 10vh; 
-    }
+  .Navbar {
+    height: 10vh;
+  }
 
-    .MainLogo{
-      height: 60px;
-      width: auto;
-      margin-right: 50px;
-    }
-
+  .MainLogo {
+    height: 60px;
+    width: auto;
+    margin-right: 50px;
+  }
 }
 
 @media screen and (max-width: 990px) {
   .dropdownItemsNavbar {
     text-align: center !important;
   }
-  .CTAButton{
+  .CTAButton {
     margin: auto;
     margin-top: 10%;
     margin-bottom: 10%;
     color: white !important;
-    background-color: var(--lightTaupe)  !important;
+    background-color: var(--lightTaupe) !important;
   }
-  .NavLinks{
+  .NavLinks {
     font-weight: bold !important;
     margin-top: 5%;
   }
-  .DropdownNav a{
+  .DropdownNav a {
     margin-top: 5%;
   }
 }
@@ -293,63 +296,105 @@ body {
   width: 100%;
 }
 
-
 /*  */
-  /* /Body Components -----------------------------------------------------------------------------------*/
-/*  */
-
-
-/*  */
-  /* /SwapWindow */
+/* /Body Components -----------------------------------------------------------------------------------*/
 /*  */
 
-  .swapBox {
-    height: 40vh;
-    min-width: fit-content;
-    width: 40%;
-    border-radius: 20px;
-    padding-bottom: 100px;
-    padding-left: 20px;
-    padding-right: 10px;
-    padding-top: 20px;
-    box-shadow: 1px 1px 15px 8px #e4e3e394;
-    background-color: white;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-  }
-
-  .swapSearchBar{
-    width: 90%;
-    height: fit-content;
-    /* background-color:  lavenderblush; */
-    display: flex;
-    flex-direction: row;
-  }
-
-
-
-/*  */
-  /* /SearchDropDown */
-/*  */
-
-.swapDropdown{
-  width: 50%
+.spinnerContainer {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
+.spinner-border {
+  width: 50px;
+  height: 50px;
+  color: var(--lightTaupe);
+  align-items: center;
+  text-align: center;
+  /* transform: translate(50%,50%); */
+}
 
-.addDropdown{
+/*  */
+/* /SwapWindow */
+/*  */
+
+.swapBox {
+  height: 40vh;
+  min-width: fit-content;
+  width: 60%;
+  max-width: 950px;
+  border-radius: 20px;
+  padding-bottom: 100px;
+  padding-left: 20px;
+  padding-right: 10px;
+  padding-top: 20px;
+  /* box-shadow: 1px 1px 15px 8px #e4e3e394; */
+  background-color: transparent;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.swapSearchBarContainer {
+  width: 100%;
+  height: 60px;
+  /* background-color:  lavenderblush; */
+  display: flex;
+  flex-direction: row;
+  box-shadow: 1px 1px 15px 8px #e4e3e394;
+  border-radius: 25px;
+  background-color: transparent;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  /* background-color: red; */
+}
+
+.swapDropdown {
   outline: none;
-  width: 30%;
-  
+  border-radius: none;
+  border: none;
+  flex: 2;
+  margin-right: 20px;
+  padding-left: 30px;
+  height: 60px;
+  border-top-left-radius: 25px;
+  border-bottom-left-radius: 25px;
+  color: var(--text);
+  background-color: var(--lightestTaupe);
+}
+
+.swapSearchBar {
+  flex: 6;
+  height: 50px;
+  margin-right: 20px;
+}
+.form-control {
+  height: 100%;
+  outline: none;
+  border: none;
+}
+
+.form-control:active .form-control:focus .form-control::after {
+  border: 0px !important;
+  outline: none !important;
+}
+
+.swapSearchBar:active .swapSearchBar:focus .swapSearchBar::after {
+  border: 0px !important;
+  outline: none !important;
 }
 
 /*  */
-  /* /  Ingredients / recipe list format */
+/* /  Ingredients / recipe list format */
 /*  */
-.alternativeList{
-
+.alternativeList {
   min-height: fit-content;
   min-width: fit-content;
   width: 95%;
@@ -365,14 +410,11 @@ body {
 }
 
 /*  */
-  /* /Card Components -------------------------------------------------------*/
+/* /Card Components -------------------------------------------------------*/
 /*  */
 
-
-
-
 /*  */
-  /* /Preview Card*/
+/* /Preview Card*/
 /*  */
 .previewCard {
   background-color: rgba(255, 255, 255, 0.25);
@@ -387,7 +429,7 @@ body {
   margin-left: 20px;
   margin-right: 20px;
   margin-top: 20px;
-  margin-bottom:30px;
+  margin-bottom: 30px;
   padding-top: 10px;
   outline: none;
   box-shadow: 1px 1px 15px 8px #e4e3e394;
@@ -396,7 +438,7 @@ body {
   align-items: center;
 }
 
-.previewImage{
+.previewImage {
   width: 100px;
   height: 100px;
   /* background-color: var(--lightestTaupe); */
@@ -405,14 +447,13 @@ body {
   margin-bottom: 20px;
 }
 
-.previewText{
+.previewText {
   padding-left: 20px;
   padding-right: 20px;
 }
 
-
 /*  */
-  /* /Profile Card */
+/* /Profile Card */
 /*  */
 .profileCard {
   background-color: rgba(255, 255, 255, 0.25);
@@ -428,7 +469,7 @@ body {
   justify-content: center;
 
   margin-top: 20px;
-  margin-bottom:30px;
+  margin-bottom: 30px;
   outline: none;
   box-shadow: 1px 1px 15px 8px #e4e3e394;
   display: flex;
@@ -436,7 +477,7 @@ body {
   align-items: center;
 }
 
-.brandProfileCard{
+.brandProfileCard {
   background-color: var(--lightGreen);
   backdrop-filter: blur(1.5px);
   width: 90%;
@@ -451,7 +492,7 @@ body {
   align-items: center;
 }
 
-.suggestedBrands{
+.suggestedBrands {
   /* background-color: red; */
   width: 90%;
   margin-left: 5%;
@@ -459,9 +500,8 @@ body {
   box-shadow: 1px 1px 15px 8px #e4e3e394;
 }
 
-
 /*  */
-  /* /Sequence Card */
+/* /Sequence Card */
 /*  */
 .sequenceCard {
   min-height: fit-content;
@@ -482,7 +522,7 @@ body {
   align-items: center;
 }
 
-.sequenceCardRows{
+.sequenceCardRows {
   width: 90%;
   margin-left: 5%;
   margin-right: 5%;
@@ -494,17 +534,16 @@ body {
   text-align: justify;
 }
 
-
 /*  */
-  /* /Profile Card */
+/* /Profile Card */
 /*  */
 .profileContents {
   width: 100%;
   display: flex;
-  flex-direction: row; 
+  flex-direction: row;
 }
 
-.profileImageContainer{
+.profileImageContainer {
   width: 100%;
   display: flex;
   justify-content: center;
@@ -523,7 +562,7 @@ body {
   backdrop-filter: blur(1.5px);
   margin-bottom: 20px;
 }
-.profileText{
+.profileText {
   width: 80%;
   height: fit-content;
   display: flex;
@@ -534,7 +573,7 @@ body {
   padding-bottom: 20px;
 }
 
-.profileBy{
+.profileBy {
   letter-spacing: 3px;
   font-size: 1rem;
   font-weight: bold;
@@ -544,76 +583,74 @@ body {
   height: 22px;
 }
 
-.profileAuthor{
+.profileAuthor {
   color: var(--lightTaupe);
   font-weight: bold;
   text-align: left;
   width: 100%;
 }
 
-.profileDescription{ 
+.profileDescription {
   width: 100%;
   color: var(--text);
 }
 
-
-
-
 /* Button */
-.customButton{
+.customButton {
   background: var(--lightestTaupe);
   color: var(--darkGreen);
-  border:none;
+  border: none;
   border-radius: 5px;
-  position:relative;
-  height:40px;
-  font-size:1.2em;
-  padding:0 2em;
-  cursor:pointer;
-  transition:800ms ease all;
-  outline:none;
-  width: 100px;
+  position: relative;
+  height: 40px;
+  font-size: 1.2em;
+  padding: 0 2em;
+  cursor: pointer;
+  transition: 800ms ease all;
+  outline: none;
+  width: fit-content;
   display: flex;
   justify-content: center;
   text-align: center;
   align-items: center;
+  margin-left: 10px;
+  margin-right: 10px;
 }
-.customButton:hover{
-  background:#fff;
+.customButton:hover {
+  background: #fff;
   color: var(--darkGreen);
   border-radius: 20px;
 }
-.customButton:before,.customButton:after{
-  content:'';
-  position:absolute;
+.customButton:before,
+.customButton:after {
+  content: "";
+  position: absolute;
   border-radius: 20px;
-  top:0;
-  right:0;
-  height:2px;
-  width:0;
+  top: 0;
+  right: 0;
+  height: 2px;
+  width: 0;
   background: var(--darkGreen);
-  transition:400ms ease all;
+  transition: 400ms ease all;
 }
-.customButton:after{
-  right:inherit;
-  top:inherit;
-  left:0;
-  bottom:0;
+.customButton:after {
+  right: inherit;
+  top: inherit;
+  left: 0;
+  bottom: 0;
   border-radius: 20px;
 }
-.customButton:hover:before, .customButton:hover:after{
-  width:100%;
-  transition:800ms ease all;
+.customButton:hover:before,
+.customButton:hover:after {
+  width: 100%;
+  transition: 800ms ease all;
   border-radius: 20px;
 }
 
-
-
-
 /*  */
-  /* /   collapsible component  */
+/* /   collapsible component  */
 /*  */
-.collapsible{
+.collapsible {
   background-color: transparent;
   box-shadow: 1px 1px 15px 8px #e4e3e394;
   background-color: white;
@@ -623,7 +660,7 @@ body {
   border-bottom-right-radius: 25px;
 }
 
-.collapsibleContainer{
+.collapsibleContainer {
   /* box-shadow: 1px 1px 15px 8px #e4e3e394; */
   width: 100%;
   margin-right: 25%;
@@ -635,7 +672,7 @@ body {
   background-color: white;
   border: unset;
   cursor: pointer;
-  font:unset; 
+  font: unset;
   /* border-top-right-radius: 25px;
   border-top-left-radius: 25px; */
   border-radius: 25px;
@@ -646,29 +683,123 @@ body {
   align-items: center;
   justify-content: center;
 }
-.bannerLabel{
-  flex:20;
+.bannerLabel {
+  flex: 20;
   color: var(--darkGreen);
   font-size: 1.5rem;
   font-weight: bold;
 }
-.bannerIcon{
-  flex:1;
+.bannerIcon {
+  flex: 1;
 }
 
 .collapsible .content {
   background-color: transparent;
 }
 
-.collapsible .contentParent { 
+.collapsible .contentParent {
   overflow: hidden;
   transition: height ease 0.3s;
 }
 
-.fa-arrow-circle-up{
+.fa-arrow-circle-up {
   color: pink;
 }
 
-.fa-arrow-circle-down{
+.fa-arrow-circle-down {
   color: pink;
+}
+
+/*  */
+/* / Add Screen--------------------------------------------------- */
+/*  */
+
+.addDropdown {
+  height: 50px;
+  width: 300px;
+  border: solid 1px var(--lightGreen);
+  border-radius: 5px;
+  /* margin-bottom: 5px; */
+  margin-left: auto;
+  margin-right: 5%;
+}
+
+/*  */
+/* / Form General */
+/*  */
+
+.formContainer {
+  padding: 20px;
+  box-shadow: 1px 1px 15px 8px #e4e3e394;
+  width: 80%;
+  min-height: 50vh;
+  height: fit-content;
+  margin-left: 10%;
+  margin-right: 10%;
+  margin-bottom: 30px;
+  display: flex;
+  flex-direction: column;
+}
+
+.textInput {
+  height: 50px;
+  width: 300px;
+  border: solid 1px var(--lightGreen);
+  border-radius: 5px;
+  margin-bottom: 5px;
+  margin-left: auto;
+  margin-right: 5%;
+}
+
+.textInputArea {
+  height: 100px;
+  width: 500px;
+  border: solid 1px var(--lightGreen);
+  border-radius: 5px;
+  margin-bottom: 5px;
+  margin-left: auto;
+  margin-right: 5%;
+}
+
+.uploadImage {
+  margin-left: auto;
+  margin-right: 5%;
+}
+
+.formLabel {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  color: var(--text);
+}
+
+/*  */
+/* / Ingredients */
+/*  */
+
+.checkBox {
+  margin-right: 10px;
+  width: 15px;
+  height: 50px;
+}
+
+.formHeader {
+  width: 60%;
+  height: fit-content;
+  margin-left: 20%;
+  margin-right: 20%;
+  margin-bottom: 2%;
+  margin-top: 2%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* background-color: cadetblue; */
+}
+.checkboxContainer {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
 }

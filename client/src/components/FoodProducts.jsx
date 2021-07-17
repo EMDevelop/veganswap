@@ -1,37 +1,52 @@
-import React, {useContext} from 'react'
+import React, {useContext, useState, useEffect} from 'react'
 import { VeganContext } from '../context/VeganContext'
 import PreviewCard from './PreviewCard';
 import { Grid } from '@material-ui/core'
-import { Spinner } from 'react-bootstrap'
+import CollapsibleDiv from './CollapsibleDiv';
 
 
-function FoodProducts() {
+function FoodProducts(props) {
 
-    const {ingredientProfile} = useContext(VeganContext)
-
+    const {ingredientProfile, alternatives} = useContext(VeganContext)
 
     return (
-        <div className="suggestedBrands">
-            <h1 className="subHeading">
-                Suggested Products:
-            </h1>
-            <Grid 
-                className="gridLayout"  
-                container spacing={0}           
-            >
-                {ingredientProfile.foodProducts && ingredientProfile.foodProducts.map((product)=>{
-                    return(
-                    <PreviewCard 
-                            key={product.id} 
-                            name={product.productname}
-                            image={product.image}
-                            createUser={product.brandname}
-                            identifier={product.id}
-                            type="foodProduct"
-                    />
-                    )
-                })}
-            </Grid>
+        <div className ="alternativeList"> 
+            <CollapsibleDiv label="Suggested Products" autoOpen="yes">
+                <Grid 
+                    className="gridLayout"  
+                    container spacing={0}           
+                >
+                    {props.type === 'ingredient' 
+                    ? ingredientProfile.foodProducts.map((product)=>{
+                        return(
+                        <PreviewCard 
+                                key={product.id} 
+                                name={product.productname}
+                                image={product.image}
+                                createUser={product.brandname}
+                                identifier={product.id}
+                                type="foodProduct"
+                        />
+                        )
+                    })
+                    : 
+                    alternatives.FoodProducts.map((product)=>{
+                        return(
+                        <PreviewCard 
+                                key={product.id} 
+                                name={product.productname}
+                                image={product.image}
+                                createUser={product.brandname}
+                                identifier={product.id}
+                                type="foodProduct"
+                        />
+                        )
+                    })
+                    }
+        
+                    
+                </Grid>
+            </CollapsibleDiv>
         </div>
     )
 }

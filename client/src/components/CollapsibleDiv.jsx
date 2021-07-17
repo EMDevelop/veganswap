@@ -8,7 +8,7 @@ function CollapsibleDiv(props) {
 
     useEffect(() => {
         const openOnLoad = () => {
-            props.autoOpen === "yes" && setIsOpen(true)
+            props.autoOpen === "yes" ? setIsOpen(true) : console.log('not expanding')
         }
         openOnLoad()
 

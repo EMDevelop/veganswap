@@ -14,8 +14,8 @@ function SearchDropDown(props) {
                 setDropdownClass("addDropdown")
             break;
             case 'swapScreen':
-                setDropdownClass("swapDropdown")
-            break;
+                setDropdownClass("swapSearchBar")
+            break;       
             default:
             console.log("no customClass prop detected")
         }
@@ -28,20 +28,24 @@ function SearchDropDown(props) {
                 type="text" 
                 className="form-control" 
                 placeholder={props.placeholder}
-                aria-label="Username" 
+                aria-label="InputSelect" 
                 onChange={onInputChange}
+                value={props.textValue}
             />
             <ul className="list-group">
                 {options && options.map((item) => {
                     return (
-                    <button type="button" key ={item.id} className="list-group-item list-group-item-action" onClick={(e) => handleInputSelect(e,item.id)}>
+                    <button 
+                    type="button" 
+                    key ={item.id} 
+                    className="list-group-item list-group-item-action" 
+                    onClick={(e) => handleInputSelect(e,item.id)} 
+                    >
                         {item.name || item.title}
                     </button>
                     )
                 })}
             </ul>
-
-
         </div>
     )
 }

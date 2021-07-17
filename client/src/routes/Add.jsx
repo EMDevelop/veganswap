@@ -1,45 +1,29 @@
 import React, {useState, useEffect, useContext} from 'react'
-// import AddButton from '../components/AddButton'
+import AddButton from '../components/AddButton'
+import AddFoodProduct from '../components/AddFoodProduct'
+import AddIngredient from '../components/AddIngredient'
+import AddRecipe from '../components/AddRecipe'
 import {VeganContext} from '../context/VeganContext'
 
 // import SearchDropDown from '../components/SearchDropDown'
 
 function Add() {
 
-    
-    const {addDropdown, setAddDropdown} = useContext(VeganContext)
-
-    const [addComponent, setAddComponent] = useState(<p>this worked</p>)
-    const [linkComponent, linkAddComponent] = useState(<p>this worked</p>)
-
-    const handleDropdownSelect = (e) => {
-        setAddDropdown(e.target.value)
-    }
+    const [addComponent, setAddComponent] = useState(<></>)
 
     return (
         <div className="generalPage">
 
+            <h1 className="mainPageHeader">
+                What would you like to Add? 
+            </h1>
             <div className="step">
-            I'd like to add a..
-                <select 
-                        className="addDropdown"  
-                        value={addDropdown} 
-                        onChange={(e) => handleDropdownSelect(e)}
-                        >
-                        
-                            <option disabled>I'd like to add a...</option>
-                            <option value="ingredient">Vegan ingredient</option>    
-                            <option value="brand">Vegan brand</option>    
-                            <option value="recipe">Vegan recipe</option>                     
-                </select>
+                <button className="customButton" value = "Ingredient" onClick={() => setAddComponent(<AddIngredient/>)}>Ingredient</button>
+                <button className="customButton" value = "Ingredient" onClick={() => setAddComponent(<AddRecipe/>)}>Recipe</button>
+                <button className="customButton" value = "Ingredient" onClick={() => setAddComponent(<AddFoodProduct/>)}>Food Product</button>
             </div>
-            To replace A....
-            <div className="step">
-                {addComponent}
-            </div>
-            <div className="step">
-                {linkComponent}
-            </div>
+           
+            {addComponent}
 
         </div>
     )
