@@ -64,6 +64,12 @@ body {
   font-weight: bold;
 }
 
+.subHeadingSmall {
+  color: var(--darkGreen);
+  font-size: 1.2rem;
+  font-weight: bold;
+}
+
 .subHeading2 {
   color: var(--lightTaupe);
   font-size: 1.2rem;
@@ -82,6 +88,10 @@ body {
   height: 100%;
   align-content: center;
   align-items: alignItems;
+}
+
+.errorText {
+  color: #f88379;
 }
 
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
@@ -115,6 +125,7 @@ body {
   background-size: auto;
   background-image: url("https://raw.githubusercontent.com/juliazieniewicz/backgroundsvg/main/Draft6.jpg");
   background-size: 800px;
+  background-position: 0px 400px;
 }
 
 /*  */
@@ -139,16 +150,16 @@ body {
 /*  */
 
 .step {
-  width: 90%;
-  margin-left: 5%;
-  margin-right: 5%;
-  margin-bottom: 5%;
-  min-height: 100px;
+  width: fit-content;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 2%;
+  padding: 20px;
+  border-radius: 25px;
   padding-right: 10px;
   box-shadow: 1px 1px 15px 8px #e4e3e394;
   height: fit-content;
   margin-top: 10px;
-  border-radius: 5px;
   display: flex;
   flex-direction: row;
   text-align: justify;
@@ -698,7 +709,7 @@ body {
 }
 
 .collapsible .contentParent {
-  overflow: hidden;
+  overflow: auto;
   transition: height ease 0.3s;
 }
 
@@ -732,7 +743,7 @@ body {
   padding: 20px;
   box-shadow: 1px 1px 15px 8px #e4e3e394;
   width: 80%;
-  min-height: 50vh;
+  /* min-height: 50vh; */
   height: fit-content;
   margin-left: 10%;
   margin-right: 10%;
@@ -786,20 +797,79 @@ body {
 
 .formHeader {
   width: 60%;
-  height: fit-content;
   margin-left: 20%;
   margin-right: 20%;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  height: fit-content;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+
+.formHeaderButtons {
   margin-bottom: 2%;
   margin-top: 2%;
   display: flex;
   align-items: center;
   justify-content: center;
-  /* background-color: cadetblue; */
 }
-.checkboxContainer {
+
+/*  */
+/* / Tool Tip */
+/*  */
+
+.toolTip {
+  width: fit-content;
+  height: fit-content;
+  margin-left: auto;
+  margin-right: auto;
+  border-radius: 25px;
+}
+
+.toolButton {
+  height: fit-content;
+  width: fit-content;
+  border: none;
+  background-color: transparent;
+}
+
+li {
+  list-style-type: none;
+  margin-left: 0px;
+  padding: 0px;
+}
+
+.toolTip .toolExpanded {
+  /* height: fit-content; */
+  height: 0px;
+  overflow: hidden;
+  transition: height ease 0.3s;
+  position: absolute;
+  background-color: var(--lightestTaupe);
+  border-radius: 25px;
+  padding-left: 10px;
+  padding-top: 10px;
+  z-index: 1;
+  margin-right: 20px;
+  text-align: left;
+}
+
+.toolText {
+  color: var(--text);
+  font-size: 1rem;
+}
+
+.fa-question-circle {
+  color: var(--lightTaupe);
+  /* height: auto; */
+  /* width: 200px; */
+}
+
+.toolContent {
   display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
+  flex-direction: column;
+  margin: 0;
+  padding: 0;
 }

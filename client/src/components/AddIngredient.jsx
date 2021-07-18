@@ -4,18 +4,70 @@ import SearchDropDown from "./SearchDropDown";
 import Axios from "../apis/axios";
 import { VeganContext } from "../context/VeganContext";
 import { Spinner } from "react-bootstrap";
+import ToolTip from "./ToolTip";
 
+function AddIngredient() {
+  const [form, setForm] = useState(<></>);
+
+  //   useEffect(() => {
+  //     setForm(true);
+  //   }, []);
+
+  return (
+    <CollapsibleDiv autoOpen="yes">
+      <h1 className="subHeadingSmall">Is your ingredient Vegan?</h1>
+      <div className="formHeader">
+        <div className="formHeaderButtons">
+          <button
+            className="customButton"
+            value="VeganIngredient"
+            onClick={() => setForm(<VeganIngredient />)}
+          >
+            Vegan
+          </button>
+
+          <button
+            className="customButton"
+            value="VeganIngredient"
+            onClick={() => setForm(<NonVeganIngredient />)}
+          >
+            Non-Vegan
+          </button>
+        </div>
+        <div className="formHeaderToolTip">
+          <ToolTip>
+            <p className="toolText">
+              Vegan: You'll be adding a Vegan ingredient, and telling the
+              community which non-vegan ingredient this is an Alternative for.
+            </p>
+            <p className="toolText">
+              Non-Vegan: You'll be adding a non-vegan ingredient that you'd like
+              the community to suggest alternatives for.
+            </p>
+          </ToolTip>
+        </div>
+      </div>
+      {form}
+    </CollapsibleDiv>
+  );
+}
+// ------------------------------------------------------
+
+// Vegan Ingreident
+
+// ------------------------------------------------------
 const VeganIngredient = () => {
-  const [finishedLoading, setFinishedLoading] = useState(null);
+  const [finishedRequest, setFinishedRequest] = useState(null);
+  const [finishedFormSubmit, setFinishedFormSubmit] = useState(true);
   const [options, setOptions] = useState([]);
-  const [selectedIngredient, setSelectedIngredient] = useState([]);
+  const [selectedIngredient, setSelectedIngredient] = useState(null);
   const [textValue, setTextValue] = useState([]);
   const [buttonText, setButtonText] = useState("Submit");
-  // const [buttonText, setButtonText] = useState('Submit')
   const [name, setName] = useState([]);
   const [description, setDescription] = useState([]);
   // const [image, setImage] = useState([])
   const [variety, setVariety] = useState([]);
+  const [errorMessage, setErrorMessage] = useState([]);
 
   const { swapList, setSwapList } = useContext(VeganContext);
 
@@ -23,10 +75,33 @@ const VeganIngredient = () => {
     setSelectedIngredient(id);
     setTextValue(e.target.innerText);
     setOptions([]);
+    setErrorMessage([]);
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    if (selectedIngredient) {
+      try {
+        setFinishedFormSubmit(false);
+        setButtonText("Sending...");
+        const veganIngredient = await Axios.post("/vIngredient", {
+          name,
+          variety,
+          description,
+          selectedIngredient,
+        });
+        setButtonText("Sent, thanks very much for contributing!");
+        setFinishedFormSubmit(true);
+        setDescription([]);
+        setVariety([]);
+        setName([]);
+      } catch (error) {
+        console.log(error);
+      }
+    } else {
+      setErrorMessage("Error: Please select a Non-Vegan Igredient");
+    }
   };
 
   const onInputChange = (e) => {
@@ -47,7 +122,7 @@ const VeganIngredient = () => {
       try {
         const response = await Axios.get("/ingredients");
         setSwapList(response.data.data);
-        setFinishedLoading(true);
+        setFinishedRequest(true);
       } catch (error) {
         console.log(error);
       }
@@ -57,8 +132,13 @@ const VeganIngredient = () => {
 
   return (
     <>
-      {finishedLoading ? (
+      {finishedRequest ? (
         <form className="formContainer">
+          {/* Error and Loading wheel */}
+          {errorMessage && <p className="errorText">{errorMessage}</p>}
+          {!finishedFormSubmit && <Spinner animation="border" />}
+
+          {/* Main Form */}
           <label className="formLabel">
             Choose a Non-Vegan Ingredient to link your alternative to:
             <SearchDropDown
@@ -92,7 +172,7 @@ const VeganIngredient = () => {
           </label>
           <label className="formLabel">
             Description:
-            <textArea
+            <textarea
               type="text"
               value={description}
               onChange={(e) => setDescription(e.target.value)}
@@ -121,6 +201,12 @@ const VeganIngredient = () => {
     </>
   );
 };
+
+// ------------------------------------------------------
+
+// Non Vegan Ingreident
+
+// ------------------------------------------------------
 
 const NonVeganIngredient = () => {
   const [buttonText, setButtonText] = useState("Submit");
@@ -169,34 +255,5 @@ const NonVeganIngredient = () => {
     </form>
   );
 };
-
-function AddIngredient() {
-  const [checked, setChecked] = React.useState(false);
-  const handleChecked = () => {
-    setChecked(!checked);
-  };
-
-  useEffect(() => {
-    setChecked(true);
-  }, []);
-
-  return (
-    <CollapsibleDiv label="Add Your Ingredient Below:" autoOpen="yes">
-      <div className="formHeader">
-        <label className="checkboxContainer">
-          <input
-            type="checkbox"
-            checked={checked}
-            onChange={handleChecked}
-            className="checkBox"
-          />
-          Vegan Ingredient?
-        </label>
-      </div>
-
-      {checked ? <VeganIngredient /> : <NonVeganIngredient />}
-    </CollapsibleDiv>
-  );
-}
 
 export default AddIngredient;

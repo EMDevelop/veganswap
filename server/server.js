@@ -68,6 +68,30 @@ app.get("/api/v1/ingredients", async (req, res) => {
   }
 });
 
+// Turns out I didn't need this as I could do the check by only allowing selected rows from the initial get
+//this was inteded for use on the AddIngredient page within the Vegan Ingredient section
+// ---------------------------Check Section----------------------
+// app.get("/api/v1/nvIngredientCheck/:id", async (req, res) => {
+//   try {
+//     const nvIngredient = await db.query(
+//       `SELECT id FROM ingredient WHERE isVegan = 'n' AND id = $1;`,
+//       [req.params.id]
+//     );
+
+//     res.status(200).json({
+//       status: "success",
+//       data: {
+//         nvIngredinet: nvIngredient.rows[0],
+//       },
+//     });
+//   } catch (err) {
+//     res.json({
+//       status: "failure",
+//       error: err,
+//     });
+//   }
+// });
+
 // ---------------------  Get Alternatives  ----------------------
 
 //
@@ -299,7 +323,7 @@ app.get("/api/v1/recipes/profile/:id", async (req, res) => {
 app.post("/api/v1/nvIngredient", async (req, res) => {
   try {
     const response = await db.query(
-      "INSERT INTO ingredient (name,variety,isVegan, createuser) VALUES ($1,$2,'n',1) RETURNING *",
+      "INSERT INTO ingredient (isVegan, name,variety, createuser) VALUES ('n',$1,$2,1) RETURNING *",
       [req.body.name, req.body.variety]
     );
 
@@ -307,6 +331,33 @@ app.post("/api/v1/nvIngredient", async (req, res) => {
       status: "success",
       data: {
         nvIngredient: response.rows[0],
+      },
+    });
+  } catch (err) {
+    console.log(err);
+  }
+});
+
+//Create a Vegan Ingredient
+app.post("/api/v1/vIngredient", async (req, res) => {
+  try {
+    const addIngredient = await db.query(
+      "INSERT INTO ingredient (isVegan, name,variety, description, createuser) VALUES  ('y',$1,$2,$3,1) RETURNING *",
+      [req.body.name, req.body.variety, req.body.description]
+    );
+
+    const ingredientID = addIngredient.rows[0].id;
+
+    const addIngredientLink = await db.query(
+      "INSERT INTO ingredientAlternative (swap_ID,alternative_ID, type, createuser ) VALUES($1,$2,'ingredient',1) RETURNING *",
+      [req.body.selectedIngredient, ingredientID]
+    );
+
+    res.status(200).json({
+      status: "success",
+      data: {
+        vIngredient: addIngredient.rows[0],
+        addIngredientLink: addIngredientLink.rows[0],
       },
     });
   } catch (err) {
