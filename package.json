@@ -6,7 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "concurrently \"npm start --prefix client\" \"npm start --prefix server\"",
-    "build": "cd client && npm run-script build"
+    "build": "cd client && npm run build"
   },
   "repository": {
     "type": "git",
@@ -17,5 +17,5 @@
   "bugs": {
     "url": "https://github.com/EMDevelop/veganswap/issues"
   },
-  "homepage": "https://github.com/EMDevelop/veganswap#readme"
+  "homepage": "https://github.com/EMDevelop/veganswap/client/"
 }
