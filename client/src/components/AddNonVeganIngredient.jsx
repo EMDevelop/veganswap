@@ -54,12 +54,16 @@ function AddNonVeganIngredient() {
     setErrorMessage(null);
     setName(e.target.value);
     setVarietyOptions([]);
-    swapList &&
-      setNameOptions(
-        swapList.ingredients.filter((option) =>
-          option.name.toLowerCase().includes(e.target.value.toLowerCase())
-        )
-      );
+
+    // Create a filtered search result list based on input
+    let filteredNameList = swapList.ingredients.filter((option) =>
+      option.name.toLowerCase().includes(e.target.value.toLowerCase())
+    );
+
+    // create a distinct list of those values returned
+    setNameOptions([
+      ...new Map(filteredNameList.map((item) => [item["name"], item])).values(),
+    ]);
 
     if (e.target.value === "") {
       setNameOptions([]);
@@ -104,7 +108,7 @@ function AddNonVeganIngredient() {
     if (nameDuplicate && varietyDuplicate) {
       validationPass = false;
       setErrorMessage(
-        "The Ingredient you are trying to submit already exists!"
+        "The Ingredient you are trying to submit already exists, would you like to add a vegan alternative Instead? "
       );
       setErrorClass("errorTextBold");
     }
@@ -112,14 +116,14 @@ function AddNonVeganIngredient() {
     if (variety === "" && nameDuplicate) {
       validationPass = false;
       setErrorMessage(
-        "The Ingredient you are trying to submit already exists!"
+        "The Ingredient you are trying to submit already exists, would you like to add a vegan alternative Instead?"
       );
       setErrorClass("errorTextBold");
     }
 
     if (variety === "" && name === "") {
       validationPass = false;
-      setErrorMessage("Please select at least an ingredient Name");
+      setErrorMessage("Please fill in the Name field");
       setErrorClass("errorText");
     }
 
@@ -140,8 +144,10 @@ function AddNonVeganIngredient() {
         name,
         variety,
       });
-      setButtonText("Sent, thanks very much for contributing!");
+      setButtonText("Sent!");
       setFinishedFormSubmit(true);
+      setErrorMessage("Sent, thanks very much for contributing!");
+      setErrorClass("successMessage");
       setName("");
       setVariety("");
     } catch (error) {

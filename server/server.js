@@ -70,29 +70,24 @@ app.get("/api/v1/nvIngredients", async (req, res) => {
 
 //GET Non-Vegan recipe
 
-// Turns out I didn't need this as I could do the check by only allowing selected rows from the initial get
-//this was inteded for use on the AddIngredient page within the Vegan Ingredient section
-// ---------------------------Check Section----------------------
-// app.get("/api/v1/nvIngredientCheck/:id", async (req, res) => {
-//   try {
-//     const nvIngredient = await db.query(
-//       `SELECT id FROM ingredient WHERE isVegan = 'n' AND id = $1;`,
-//       [req.params.id]
-//     );
-
-//     res.status(200).json({
-//       status: "success",
-//       data: {
-//         nvIngredinet: nvIngredient.rows[0],
-//       },
-//     });
-//   } catch (err) {
-//     res.json({
-//       status: "failure",
-//       error: err,
-//     });
-//   }
-// });
+app.get("/api/v1/nvRecipes", async (req, res) => {
+  try {
+    const recipe = await db.query(
+      `SELECT id, title FROM recipe WHERE isVegan = 'n';`
+    );
+    res.status(200).json({
+      status: "success",
+      data: {
+        Recipes: recipe.rows,
+      },
+    });
+  } catch (err) {
+    res.json({
+      status: "failure",
+      error: err,
+    });
+  }
+});
 
 // ---------------------  Get Alternatives  ----------------------
 

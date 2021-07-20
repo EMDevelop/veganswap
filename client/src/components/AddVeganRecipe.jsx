@@ -20,8 +20,20 @@ function AddVeganRecipe(props) {
 
   const { swapList, setSwapList } = useContext(VeganContext);
 
-  const handleSubmit = async (e) => {
+  const formValidation = (e) => {
     e.preventDefault();
+    let validationPass = true;
+    //  check that the value doesn't exist in the list
+
+    // If name is empry, do not submit
+
+    if (validationPass) {
+      handleSubmit();
+    }
+  };
+
+  const handleSubmit = async (e) => {
+    console.log("this worked");
     console.log(selectedLink);
   };
 
@@ -140,7 +152,7 @@ function AddVeganRecipe(props) {
           <h2 className="subHeadingSmall">Add Ingredients</h2>
           <h2 className="subHeadingSmall">Add Steps</h2>
           <button
-            onClick={handleSubmit}
+            onClick={formValidation}
             type="submit"
             className="btn btn-primary"
           >

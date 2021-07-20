@@ -99,9 +99,16 @@ body {
   font-weight: bold;
 }
 
+.successMessage {
+  color: green;
+  font-weight: bold;
+}
+
 .warningText {
   color: rgb(218, 170, 13);
 }
+
+/* Input Placeholders */
 
 ::placeholder {
   /* Chrome, Firefox, Opera, Safari 10.1+ */
