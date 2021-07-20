@@ -30,7 +30,6 @@ function Alternatives() {
       try {
         const response = await Axios.get(`/alternatives/${type}/${id}`);
         setAlternatives(response.data.data);
-        console.log(response.data.data);
         setFinishedLoading(true);
       } catch (error) {
         console.log(error);

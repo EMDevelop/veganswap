@@ -8,6 +8,7 @@ import { Spinner } from "react-bootstrap";
 function SwapWindow() {
   const { swapList, setSwapList } = useContext(VeganContext);
   const [finishedLoading, setFinishedLoading] = useState(null);
+  const [setLabel, setSetLabel] = useState("ingredient");
 
   let history = useHistory();
   const handleInputSelect = (e, id) => {
@@ -15,6 +16,12 @@ function SwapWindow() {
   };
 
   useEffect(() => {
+    if (dropdownSelect === "recipe") {
+      setSetLabel("title");
+    } else {
+      setSetLabel("name");
+    }
+
     const fetchData = async () => {
       try {
         const response = await Axios.get("/swapList");
@@ -53,15 +60,13 @@ function SwapWindow() {
 
   const onDropdownSelect = (e) => {
     setDropdownSelect(e.target.value);
-    setOptions([]); // This isn't working
-  };
 
-  // // might be something to do with this needs to change to do anything, so we need to remove its value from the onselect dropdown function somehow.
-  // //idk ho wyou link them
-  // console.log(e.target.value)
-  // if (!e.target.value) {                  // this isn't working
-  //     setOptions([])
-  // }
+    if (e.target.value === "recipe") {
+      setSetLabel("title");
+    } else {
+      setSetLabel("name");
+    }
+  };
 
   return (
     <div className="swapBox">
@@ -84,6 +89,8 @@ function SwapWindow() {
             handleInputSelect={handleInputSelect}
             placeholder="Choose an item to swap"
             customClass="swapScreen"
+            dropdownSelect={dropdownSelect}
+            customOptions={setLabel}
           />
         </div>
       ) : (

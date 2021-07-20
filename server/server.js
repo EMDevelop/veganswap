@@ -48,11 +48,11 @@ app.get("/api/v1/swapList", async (req, res) => {
   }
 });
 
-// GET Non-Vegan Recipe
-app.get("/api/v1/ingredients", async (req, res) => {
+// GET Non-Vegan ingredients
+app.get("/api/v1/nvIngredients", async (req, res) => {
   try {
     const ingredient = await db.query(
-      `SELECT id,name, isvegan FROM ingredient WHERE isVegan = 'n';`
+      `SELECT id,name,variety,isvegan FROM ingredient WHERE isVegan = 'n';`
     );
     res.status(200).json({
       status: "success",
@@ -67,6 +67,8 @@ app.get("/api/v1/ingredients", async (req, res) => {
     });
   }
 });
+
+//GET Non-Vegan recipe
 
 // Turns out I didn't need this as I could do the check by only allowing selected rows from the initial get
 //this was inteded for use on the AddIngredient page within the Vegan Ingredient section
@@ -338,7 +340,7 @@ app.post("/api/v1/nvIngredient", async (req, res) => {
   }
 });
 
-//Create a Vegan Ingredient
+//Create a Vegan Ingredient + Link to a Non Vegan Ingredient
 app.post("/api/v1/vIngredient", async (req, res) => {
   try {
     const addIngredient = await db.query(
@@ -358,6 +360,93 @@ app.post("/api/v1/vIngredient", async (req, res) => {
       data: {
         vIngredient: addIngredient.rows[0],
         addIngredientLink: addIngredientLink.rows[0],
+      },
+    });
+  } catch (err) {
+    console.log(err);
+  }
+});
+
+//Create a non-vegan recipe
+app.post("/api/v1/nvRecipe", async (req, res) => {
+  try {
+    const response = await db.query(
+      "INSERT INTO recipe (isVegan, title, createuser) VALUES ('n',$1,1) RETURNING *",
+      [req.body.title]
+    );
+
+    res.status(200).json({
+      status: "success",
+      data: {
+        nvRecipe: response.rows[0],
+      },
+    });
+  } catch (err) {
+    console.log(err);
+    res.status(200).json({
+      status: "failure",
+      error: err,
+    });
+  }
+});
+
+//Create a vegan recipe + link to an Ingredient
+app.post("/api/v1/vRecipe/Ingredient", async (req, res) => {
+  try {
+    const addRecipe = await db.query(
+      "INSERT INTO recipe ( isvegan, title, description, credit, url, createuser) VALUES ('y',$1,$2,$3,$4,1) RETURNING *",
+      [
+        req.body.title,
+        req.body.description,
+        req.body.credit,
+        req.body.setCreditURL,
+      ]
+    );
+
+    const recipeID = addRecipe.rows[0].id;
+
+    const addIngredientLink = await db.query(
+      "INSERT INTO ingredientAlternative (swap_id, alternative_id, type, createuser) Values ($1,$2,'recipe',1) RETURNING *",
+      [req.body.selectedLink, recipeID]
+    );
+
+    res.status(200).json({
+      status: "success",
+      data: {
+        vRecipe: addRecipe.rows[0],
+        IngredientLink: addIngredientLink.rows[0],
+      },
+    });
+  } catch (err) {
+    console.log(err);
+  }
+});
+
+//Create a vegan recipe + link to a Recipe
+app.post("/api/v1/vRecipe/Recipe", async (req, res) => {
+  try {
+    const addRecipe = await db.query(
+      "INSERT INTO recipe ( isvegan, title, description, credit, url, createuser) VALUES ('y',$1,$2,$3,$4,1) RETURNING *",
+      [
+        req.body.title,
+        req.body.description,
+        req.body.credit,
+        req.body.setCreditURL,
+      ]
+    );
+
+    const recipeID = addRecipe.rows[0].id;
+
+    const addRecipeLink = await db.query(
+      "INSERT INTO recipeAlternative (swap_id, alternative_id, type, createuser) Values ($1,$2,'recipe',1) RETURNING *",
+      [req.body.selectedLink, recipeID]
+    );
+
+    res.status(200).json({
+      status: "success",
+      data: {
+        vRecipe: addRecipe.rows[0],
+        RecipeLink: addRecipeLink.rows[0],
       },
     });
   } catch (err) {

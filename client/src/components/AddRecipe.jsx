@@ -1,10 +1,8 @@
-import React, { useState, useContext, useEffect } from "react";
+import React, { useState } from "react";
 import CollapsibleDiv from "./CollapsibleDiv";
-import SearchDropDown from "./SearchDropDown";
-import Axios from "../apis/axios";
-import { VeganContext } from "../context/VeganContext";
-import { Spinner } from "react-bootstrap";
 import ToolTip from "./ToolTip";
+import AddNonVeganRecipe from "./AddNonVeganRecipe";
+import AddVeganRecipe from "./AddVeganRecipe";
 
 function AddRecipe() {
   const [form, setForm] = useState(<></>);
@@ -17,7 +15,7 @@ function AddRecipe() {
 
   const handleNonVeganSelect = () => {
     setShowLinkChoice(false);
-    setForm(<NonVeganRecipe />);
+    setForm(<AddNonVeganRecipe />);
   };
 
   return (
@@ -67,14 +65,14 @@ function AddRecipe() {
               <button
                 className="customButton"
                 value="VeganIngredient"
-                //   onClick={() => setChecked(true)}
+                onClick={() => setForm(<AddVeganRecipe type="ingedient" />)}
               >
                 Ingredient
               </button>
               <button
                 className="customButton"
                 value="VeganIngredient"
-                //   onClick={() => setChecked(false)}
+                onClick={() => setForm(<AddVeganRecipe type="recipe" />)}
               >
                 Recipe
               </button>
@@ -100,11 +98,3 @@ function AddRecipe() {
 }
 
 export default AddRecipe;
-
-function VeganRecipe(props) {
-  return <> Vegan Recipe </>;
-}
-
-function NonVeganRecipe() {
-  return <> Non Vegan Recipe Form </>;
-}
