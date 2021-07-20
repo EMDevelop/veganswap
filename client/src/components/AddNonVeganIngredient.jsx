@@ -150,6 +150,7 @@ function AddNonVeganIngredient() {
       setErrorClass("successMessage");
       setName("");
       setVariety("");
+      setVarietyOptions([]);
     } catch (error) {
       console.log(error);
     }
@@ -185,13 +186,15 @@ function AddNonVeganIngredient() {
           customOptions="variety"
         />
       </label>
-      <button
-        onClick={formValidation}
-        type="submit"
-        className="btn btn-primary"
-      >
-        {buttonText}
-      </button>
+      <div className="buttonContainer">
+        <button
+          onClick={formValidation}
+          type="submit"
+          className="formSubmitButton"
+        >
+          {buttonText}
+        </button>
+      </div>
     </form>
   ) : (
     <Spinner animation="border" />

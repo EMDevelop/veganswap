@@ -85,27 +85,26 @@ function AddNonVeganRecipe() {
   };
 
   const handleSubmit = async () => {
-    console.log("submit happened!");
-    // try {
-    //   setFinishedFormSubmit(false);
-    //   setButtonText("Sending...");
-    //   await Axios.post("/nvRecipe", {
-    //     title,
-    //   });
-    //   setButtonText("Sent");
-    //   setFinishedFormSubmit(true);
-    //   setErrorClass("successMessage");
-    //   setErrorMessage("Thanks very much for contributing!");
-    // } catch (error) {
-    //   console.log(error);
-    // }
+    try {
+      setFinishedFormSubmit(false);
+      setButtonText("Sending...");
+      await Axios.post("/nvRecipe", {
+        title,
+      });
+      setButtonText("Sent");
+      setFinishedFormSubmit(true);
+      setErrorClass("successMessage");
+      setErrorMessage("Thanks very much for contributing!");
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return finishedRequest ? (
     <form className="formContainer">
       {errorMessage && <p className={errorClass}>{errorMessage}</p>}
       {!finishedFormSubmit && <Spinner animation="border" />}
-      <h2 className="subHeadingSmall">Add Recipe</h2>
+      <h2 className="subHeadingSmall">Add Non-Vegan Recipe</h2>
 
       <label className="formLabel">
         Title:
@@ -119,13 +118,15 @@ function AddNonVeganRecipe() {
           customOptions="title"
         />
       </label>
-      <button
-        onClick={formValidation}
-        type="submit"
-        className="btn btn-primary"
-      >
-        {buttonText}
-      </button>
+      <div className="buttonContainer">
+        <button
+          onClick={formValidation}
+          type="submit"
+          className="formSubmitButton"
+        >
+          {buttonText}
+        </button>
+      </div>
     </form>
   ) : (
     <Spinner animation="border" />

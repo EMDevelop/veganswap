@@ -65,14 +65,26 @@ function AddRecipe() {
               <button
                 className="customButton"
                 value="VeganIngredient"
-                onClick={() => setForm(<AddVeganRecipe type="ingedient" />)}
+                onClick={() =>
+                  setForm(
+                    <AddVeganRecipe
+                      type="ingredient"
+                      customOptions="name"
+                      variety={true}
+                    />
+                  )
+                }
               >
                 Ingredient
               </button>
               <button
                 className="customButton"
                 value="VeganIngredient"
-                onClick={() => setForm(<AddVeganRecipe type="recipe" />)}
+                onClick={() =>
+                  setForm(
+                    <AddVeganRecipe type="recipe" customOptions="title" />
+                  )
+                }
               >
                 Recipe
               </button>

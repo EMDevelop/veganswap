@@ -10,31 +10,152 @@ function AddVeganRecipe(props) {
   const [options, setOptions] = useState([]);
   const [selectedLink, setSelectedLink] = useState(null);
   const [buttonText, setButtonText] = useState("Submit");
-  const [title, setTitle] = useState([]);
-  const [description, setDescription] = useState([]);
+  const [title, setTitle] = useState("");
+  const [description, setDescription] = useState("");
   // const [image, setImage] = useState([])
   const [errorMessage, setErrorMessage] = useState([]);
+  const [errorClass, setErrorClass] = useState("errorText");
+
   const [credit, setCredit] = useState([]);
-  const [creditURL, setCreditURL] = useState([]);
-  const [textValue, setTextValue] = useState([]);
+  const [creditURL, setCreditURL] = useState("");
+  const [textValue, setTextValue] = useState("");
+  const [customOptions, setCustomOptions] = useState("");
 
   const { swapList, setSwapList } = useContext(VeganContext);
 
   const formValidation = (e) => {
     e.preventDefault();
     let validationPass = true;
-    //  check that the value doesn't exist in the list
+    let nvIngredientExists = false;
+    let nvRecipeExists = false;
 
-    // If name is empry, do not submit
+    // Check that value entered is in the dropdown list
+
+    if (props.type === "ingredient") {
+      // if props = ingredient (see Outcome A)
+      nvRecipeExists = true;
+      swapList.ingredients.map((option) => {
+        const name = option.name;
+        let variety = "";
+        if (option.variety) {
+          variety = `, ${option.variety}`;
+        }
+        let combined = `${name}${variety}`;
+
+        if (
+          textValue.toString().toLowerCase() ===
+          combined.toString().toLowerCase()
+        ) {
+          nvIngredientExists = true;
+        }
+      });
+    } else {
+      // if props = recipe
+      console.log("ye ye i ran");
+      nvIngredientExists = true;
+      swapList.recipes.map((option) => {
+        // console.log(textValue.toString().toLowerCase());
+        // console.log(option.textValue.toString().toLowerCase());
+        if (
+          textValue.toString().toLowerCase() ===
+          option.title.toString().toLowerCase()
+        ) {
+          nvRecipeExists = true;
+        }
+      });
+    }
+
+    // outcome A
+    if (!nvRecipeExists) {
+      validationPass = false;
+      setErrorClass("errorText");
+      setErrorMessage(
+        "There isn't a Non-Vegan recipe of this variety, please add one on the Non-Vegan ingredient form"
+      );
+    }
+
+    if (!nvIngredientExists) {
+      validationPass = false;
+      setErrorClass("errorText");
+      setErrorMessage(
+        "There isn't a Non-Vegan ingredient of this variety, please add one on the Non-Vegan ingredient form"
+      );
+    }
+
+    //Check Dropdowns
+    if (!title) {
+      validationPass = false;
+      setErrorMessage("Please fill in the Title field");
+      setErrorClass("errorText");
+    }
+
+    // Empty Fields
+
+    if (!textValue) {
+      validationPass = false;
+      setErrorMessage("Please fill in the Link field");
+      setErrorClass("errorText");
+    }
+
+    if (!title) {
+      validationPass = false;
+      setErrorMessage("Please fill in the Title field");
+      setErrorClass("errorText");
+    }
+    if (!description) {
+      validationPass = false;
+      setErrorMessage("Please fill in the Description field");
+      setErrorClass("errorText");
+    }
+    if (!credit) {
+      validationPass = false;
+      setErrorMessage("Please fill in the Credit field");
+      setErrorClass("errorText");
+    }
+
+    if (!creditURL) {
+      validationPass = false;
+      setErrorMessage("Please fill in the Credit URL field");
+      setErrorClass("errorText");
+    }
 
     if (validationPass) {
       handleSubmit();
     }
   };
 
-  const handleSubmit = async (e) => {
-    console.log("this worked");
-    console.log(selectedLink);
+  const handleSubmit = async () => {
+    setFinishedFormSubmit(false);
+    setButtonText("Sending...");
+    try {
+      if (props.type === "ingredient") {
+        const response = await Axios.post("/vRecipe/Ingredient", {
+          title,
+          description,
+          credit,
+          creditURL,
+          selectedLink,
+        });
+      } else {
+        // handle recipe API
+        const response = await Axios.post("/vRecipe/Recipe", {
+          title,
+          description,
+          credit,
+          creditURL,
+          selectedLink,
+        });
+      }
+    } catch (error) {}
+    setErrorClass("successMessage");
+    setErrorMessage("Sent, thanks very much for contributing!");
+    setFinishedFormSubmit(true);
+    setTitle("");
+    setTextValue("");
+    setCreditURL("");
+    setCredit("");
+    setDescription("");
+    setButtonText("Submit");
   };
 
   const handleInputSelect = (e, id) => {
@@ -72,7 +193,6 @@ function AddVeganRecipe(props) {
         const response = await Axios.get("/SwapList");
         setSwapList(response.data.data);
         setFinishedRequest(true);
-        console.log(swapList);
       } catch (error) {
         console.log(error);
       }
@@ -85,7 +205,7 @@ function AddVeganRecipe(props) {
       {finishedRequest ? (
         <form className="formContainer">
           {/* Error and Loading wheel */}
-          {errorMessage && <p className="errorText">{errorMessage}</p>}
+          {errorMessage && <p className={errorClass}>{errorMessage}</p>}
           {!finishedFormSubmit && <Spinner animation="border" />}
 
           {props.link}
@@ -100,10 +220,11 @@ function AddVeganRecipe(props) {
               handleInputSelect={handleInputSelect}
               placeholder={`Non-Vegan ${props.type} Link`}
               customClass="addScreen"
-              customOptions="title"
+              customOptions={props.customOptions}
+              setVariety={props.variety}
             />
           </label>
-          <h2 className="subHeadingSmall">Add Recipe</h2>
+          <h2 className="subHeadingSmall">Add Vegan Recipe</h2>
           <label className="formLabel">
             Title:
             <input
@@ -151,13 +272,15 @@ function AddVeganRecipe(props) {
           </label>
           <h2 className="subHeadingSmall">Add Ingredients</h2>
           <h2 className="subHeadingSmall">Add Steps</h2>
-          <button
-            onClick={formValidation}
-            type="submit"
-            className="btn btn-primary"
-          >
-            {buttonText}
-          </button>
+          <div className="buttonContainer">
+            <button
+              onClick={formValidation}
+              type="submit"
+              className="formSubmitButton"
+            >
+              {buttonText}
+            </button>
+          </div>
         </form>
       ) : (
         <div className="spinnerContainer">

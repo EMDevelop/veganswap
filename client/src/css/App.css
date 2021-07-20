@@ -424,6 +424,15 @@ body {
   border: none;
 }
 
+.searchResultButton {
+}
+
+.list-group-item .list-group-item-action {
+  display: flex;
+  align-items: left;
+  justify-content: left;
+}
+
 .form-control:active .form-control:focus .form-control::after {
   border: 0px !important;
   outline: none !important;
@@ -778,6 +787,8 @@ body {
 .formContainer {
   padding: 20px;
   box-shadow: 1px 1px 15px 8px #e4e3e394;
+  background-color: var(--lightestTaupe);
+  border-radius: 25px;
   width: 80%;
   /* min-height: 50vh; */
   height: fit-content;
@@ -918,4 +929,21 @@ li {
   flex-direction: column;
   margin: 0;
   padding: 0;
+}
+
+/* form button */
+
+.buttonContainer {
+  width: 100%;
+}
+
+.formSubmitButton {
+  margin-top: 20px;
+  background-color: var(--lightGreen);
+  color: white;
+  width: 200px;
+  border-radius: 5px;
+  height: 40px;
+  box-shadow: 1px 1px 15px 8px #e4e3e394;
+  border: none;
 }

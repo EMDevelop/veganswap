@@ -51,10 +51,6 @@ function SearchDropDown(props) {
                   className="list-group-item list-group-item-action"
                   onClick={(e) => handleInputSelect(e, item.id)}
                 >
-                  {/* {`${item[customOptions]} ${
-                    item.variety && `, ${item.variety}`
-                  }`} */}
-
                   {item[customOptions]}
                   {item.variety && setVariety && `, ${item.variety}`}
                 </button>

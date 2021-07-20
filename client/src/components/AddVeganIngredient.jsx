@@ -37,7 +37,9 @@ function AddVeganIngredient() {
         description,
         selectedIngredient,
       });
-      setButtonText("Sent, thanks very much for contributing!");
+      setErrorClass("successMessage");
+      setErrorMessage("Sent, thanks very much for contributing!");
+      setButtonText("Submit");
       setFinishedFormSubmit(true);
       setDescription("");
       setVariety("");
@@ -135,7 +137,7 @@ function AddVeganIngredient() {
       {finishedRequest ? (
         <form className="formContainer">
           {/* Error and Loading wheel */}
-          {errorMessage && <p className="errorText">{errorMessage}</p>}
+          {errorMessage && <p className={errorClass}>{errorMessage}</p>}
           {!finishedFormSubmit && <Spinner animation="border" />}
 
           {/* Main Form */}
@@ -197,13 +199,15 @@ function AddVeganIngredient() {
             Image:
             <input type="file" className="uploadImage" />
           </label>
-          <button
-            onClick={formValidation}
-            type="submit"
-            className="btn btn-primary"
-          >
-            {buttonText}
-          </button>
+          <div className="buttonContainer">
+            <button
+              onClick={formValidation}
+              type="submit"
+              className="formSubmitButton"
+            >
+              {buttonText}
+            </button>
+          </div>
         </form>
       ) : (
         <div className="spinnerContainer">
