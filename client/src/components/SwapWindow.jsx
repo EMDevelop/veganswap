@@ -11,6 +11,7 @@ function SwapWindow() {
   const [setLabel, setSetLabel] = useState("ingredient");
 
   let history = useHistory();
+
   const handleInputSelect = (e, id) => {
     history.push(`/alternatives/${dropdownSelect}/${id}`);
   };
@@ -37,10 +38,18 @@ function SwapWindow() {
   const [options, setOptions] = useState([]);
   const onInputChange = (e) => {
     switch (dropdownSelect) {
+      // We need to change this filter so it searches for both option.name and option.
       case "ingredient":
         setOptions(
-          swapList.ingredients.filter((option) =>
-            option.name.toLowerCase().includes(e.target.value.toLowerCase())
+          swapList.ingredients.filter(
+            (option) =>
+              option.name
+                .toLowerCase()
+                .includes(e.target.value.toLowerCase()) ||
+              (option.variety &&
+                option.variety
+                  .toLowerCase()
+                  .includes(e.target.value.toLowerCase()))
           )
         );
         break;
@@ -60,7 +69,6 @@ function SwapWindow() {
 
   const onDropdownSelect = (e) => {
     setDropdownSelect(e.target.value);
-
     if (e.target.value === "recipe") {
       setSetLabel("title");
     } else {
@@ -82,7 +90,7 @@ function SwapWindow() {
             <option value="recipe">Recipes</option>
             <option disabled>Products</option>
           </select>
-          {/* class for below is swapSearchBar */}
+          {/* need to add  */}
           <SearchDropDown
             options={options}
             onInputChange={onInputChange}
@@ -91,6 +99,7 @@ function SwapWindow() {
             customClass="swapScreen"
             dropdownSelect={dropdownSelect}
             customOptions={setLabel}
+            setVariety={true}
           />
         </div>
       ) : (

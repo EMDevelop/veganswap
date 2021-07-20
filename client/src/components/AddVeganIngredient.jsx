@@ -11,11 +11,12 @@ function AddVeganIngredient() {
   const [selectedIngredient, setSelectedIngredient] = useState(null);
   const [textValue, setTextValue] = useState([]);
   const [buttonText, setButtonText] = useState("Submit");
-  const [name, setName] = useState([]);
-  const [description, setDescription] = useState([]);
+  const [name, setName] = useState("");
+  const [description, setDescription] = useState("");
   // const [image, setImage] = useState([])
-  const [variety, setVariety] = useState([]);
+  const [variety, setVariety] = useState("");
   const [errorMessage, setErrorMessage] = useState([]);
+  const [errorClass, setErrorClass] = useState("errorText");
 
   const { swapList, setSwapList } = useContext(VeganContext);
 
@@ -27,36 +28,37 @@ function AddVeganIngredient() {
   };
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
-
-    if (selectedIngredient) {
-      try {
-        setFinishedFormSubmit(false);
-        setButtonText("Sending...");
-        const veganIngredient = await Axios.post("/vIngredient", {
-          name,
-          variety,
-          description,
-          selectedIngredient,
-        });
-        setButtonText("Sent, thanks very much for contributing!");
-        setFinishedFormSubmit(true);
-        setDescription([]);
-        setVariety([]);
-        setName([]);
-      } catch (error) {
-        console.log(error);
-      }
-    } else {
-      setErrorMessage("Error: Please select a Non-Vegan Igredient");
+    try {
+      setFinishedFormSubmit(false);
+      setButtonText("Sending...");
+      const veganIngredient = await Axios.post("/vIngredient", {
+        name,
+        variety,
+        description,
+        selectedIngredient,
+      });
+      setButtonText("Sent, thanks very much for contributing!");
+      setFinishedFormSubmit(true);
+      setDescription("");
+      setVariety("");
+      setName("");
+      setTextValue("");
+    } catch (error) {
+      console.log(error);
     }
   };
 
   const onInputChange = (e) => {
+    setErrorMessage(null);
     swapList &&
       setOptions(
-        swapList.ingredients.filter((option) =>
-          option.name.toLowerCase().includes(e.target.value.toLowerCase())
+        swapList.ingredients.filter(
+          (option) =>
+            option.name.toLowerCase().includes(e.target.value.toLowerCase()) ||
+            (option.variety &&
+              option.variety
+                .toLowerCase()
+                .includes(e.target.value.toLowerCase()))
         )
       );
     setTextValue(e.target.value);
@@ -78,6 +80,56 @@ function AddVeganIngredient() {
     fetchData();
   }, []);
 
+  const formValidation = (e) => {
+    e.preventDefault();
+    let validationPass = true;
+    let nvIngredientExists = false;
+
+    // Check if non-Vegan Ingredient is linked to something that is actually in the list
+    swapList.ingredients.map((option) => {
+      const name = option.name;
+      let variety = "";
+      if (option.variety) {
+        variety = `, ${option.variety}`;
+      }
+      let combined = `${name}${variety}`;
+
+      if (textValue.toString() === combined.toString()) {
+        nvIngredientExists = true;
+      }
+    });
+
+    if (!nvIngredientExists) {
+      validationPass = false;
+      setErrorClass("errorText");
+      setErrorMessage(
+        "There isn't a Non-Vegan ingredient of this variety, please add one on the Non-Vegan ingredient form"
+      );
+    }
+
+    if (name === "") {
+      validationPass = false;
+      setErrorMessage("Please fill in the Name field");
+      setErrorClass("errorText");
+    }
+
+    if (description === "") {
+      validationPass = false;
+      setErrorMessage("Please fill in the Description field");
+      setErrorClass("errorText");
+    }
+
+    // how do I tell if the input of the form is
+
+    // check that name is not null
+
+    // add warning if no description is added
+
+    if (validationPass) {
+      handleSubmit();
+    }
+  };
+
   return (
     <>
       {finishedRequest ? (
@@ -98,6 +150,7 @@ function AddVeganIngredient() {
               placeholder="Non-Vegan Ingredient Link"
               customClass="addScreen" /* btw, this is same as: className = addDropdown */
               customOptions="name"
+              setVariety={true}
             />
           </label>
           <h2 className="subHeadingSmall">Add Ingredient</h2>
@@ -106,7 +159,10 @@ function AddVeganIngredient() {
             <input
               type="text"
               value={name}
-              onChange={(e) => setName(e.target.value)}
+              onChange={(e) => {
+                setName(e.target.value);
+                setErrorMessage("");
+              }}
               className="textInput"
               placeholder="e.g. Tofu"
             />
@@ -116,7 +172,9 @@ function AddVeganIngredient() {
             <input
               type="text"
               value={variety}
-              onChange={(e) => setVariety(e.target.value)}
+              onChange={(e) => {
+                setVariety(e.target.value);
+              }}
               className="textInput"
               placeholder="e.g. Firm"
             />
@@ -126,7 +184,10 @@ function AddVeganIngredient() {
             <textarea
               type="text"
               value={description}
-              onChange={(e) => setDescription(e.target.value)}
+              onChange={(e) => {
+                setDescription(e.target.value);
+                setErrorMessage("");
+              }}
               className="textInputArea"
               placeholder="e.g. Tofu, also known as bean curd, is a food prepared by coagulating soy milk and then pressing the resulting curds into solid white blocks of varying softness..."
             />
@@ -137,7 +198,7 @@ function AddVeganIngredient() {
             <input type="file" className="uploadImage" />
           </label>
           <button
-            onClick={handleSubmit}
+            onClick={formValidation}
             type="submit"
             className="btn btn-primary"
           >

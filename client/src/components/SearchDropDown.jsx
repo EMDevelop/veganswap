@@ -8,10 +8,10 @@ function SearchDropDown(props) {
     customClass,
     customOptions,
     dropdownSelect,
+    setVariety,
   } = props;
   const [dropdownClass, setDropdownClass] = useState();
-  const [varietyList, setVarietyList] = useState(null);
-  const [buttonLabel, setButtonLabel] = useState();
+  const [showVariety, setShowVariety] = useState(null);
 
   useEffect(() => {
     switch (customClass) {
@@ -23,6 +23,10 @@ function SearchDropDown(props) {
         break;
       default:
         console.log("no customClass prop detected");
+    }
+
+    if (dropdownSelect === "ingredient") {
+      setShowVariety(true);
     }
   }, []);
 
@@ -47,7 +51,12 @@ function SearchDropDown(props) {
                   className="list-group-item list-group-item-action"
                   onClick={(e) => handleInputSelect(e, item.id)}
                 >
+                  {/* {`${item[customOptions]} ${
+                    item.variety && `, ${item.variety}`
+                  }`} */}
+
                   {item[customOptions]}
+                  {item.variety && setVariety && `, ${item.variety}`}
                 </button>
               )
             );

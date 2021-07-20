@@ -30,7 +30,7 @@ app.use(express.json());
 app.get("/api/v1/swapList", async (req, res) => {
   try {
     const ingredient = await db.query(
-      `SELECT id,name, isvegan FROM ingredient WHERE isVegan = 'n';`
+      `SELECT id,name, variety, isvegan FROM ingredient WHERE isVegan = 'n';`
     );
     const recipe = await db.query(
       `SELECT id, isvegan, title FROM recipe WHERE isVegan = 'n';`
@@ -104,7 +104,7 @@ app.get("/api/v1/alternatives/ingredient/:id", async (req, res) => {
   try {
     //Fetch Ingredients as Ingredient Alternative
     const ingredients = await db.query(
-      `SELECT i.ID, i.name, i.description, i.image, i.createdate, u.username
+      `SELECT i.ID, i.name,  i.description, i.image, i.createdate, u.username
                 FROM Ingredient i
                 Join Users u on u.id = i.createuser
                 WHERE i.ID IN 
@@ -131,7 +131,7 @@ app.get("/api/v1/alternatives/ingredient/:id", async (req, res) => {
     //fetchSelected item
     const selected = await db.query(
       `
-            SELECT name
+            SELECT name, variety
             FROM ingredient
             WHERE id = $1 ;`,
       [req.params.id]

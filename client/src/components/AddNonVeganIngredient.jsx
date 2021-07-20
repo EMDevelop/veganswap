@@ -6,8 +6,8 @@ import { Spinner } from "react-bootstrap";
 
 function AddNonVeganIngredient() {
   const [buttonText, setButtonText] = useState("Submit");
-  const [name, setName] = useState([]);
-  const [variety, setVariety] = useState([]);
+  const [name, setName] = useState("");
+  const [variety, setVariety] = useState("");
   const [errorMessage, setErrorMessage] = useState([]);
   const [finishedRequest, setFinishedRequest] = useState(null);
   const [finishedFormSubmit, setFinishedFormSubmit] = useState(true);
@@ -15,8 +15,6 @@ function AddNonVeganIngredient() {
   const [varietyOptions, setVarietyOptions] = useState([]);
   const [errorClass, setErrorClass] = useState("errorText");
   const [isNameSelected, setIsNameSelected] = useState(false);
-  const [duplicateName, setDuplicateName] = useState(null);
-  const [duplicateVariety, setDuplicateVariety] = useState(null);
 
   const { swapList, setSwapList } = useContext(VeganContext);
 
@@ -39,7 +37,7 @@ function AddNonVeganIngredient() {
     setIsNameSelected(true);
     setErrorClass("warningText");
     setErrorMessage(
-      "*  If the variety already exists for this ingredient name, please do not duplicate existing entries"
+      "*  If the variety already exists for this ingredient name, you will need to use a unique variety"
     );
   };
 
@@ -47,14 +45,13 @@ function AddNonVeganIngredient() {
     if (isNameSelected) {
       setErrorClass("errorText");
       setErrorMessage(
-        "  * The ingredient you're trying to add already exists, please add something unique"
+        " Your selection already exists, would you like to add a vegan alternative Instead?"
       );
     }
   };
 
   const onNameInputChange = (e) => {
     setErrorMessage(null);
-    setDuplicateName(null);
     setName(e.target.value);
     setVarietyOptions([]);
     swapList &&
@@ -72,13 +69,8 @@ function AddNonVeganIngredient() {
 
   // I need to pull back only those rows that
 
-  console.log(duplicateVariety);
-  console.log(variety);
-
   const onVarietyInputChange = (e) => {
-    // ----------------------------------------------
-
-    // setDuplicateVariety(null);
+    setErrorMessage(null);
     setVariety(e.target.value);
     swapList &&
       setVarietyOptions(
@@ -86,19 +78,19 @@ function AddNonVeganIngredient() {
       );
 
     if (e.target.value === "") {
-      setVarietyOptions([]);
+      setVarietyOptions("");
     }
   };
 
   const formValidation = (e) => {
-    //  -------------------------------------------
-    console.log(duplicateVariety);
-    console.log(variety);
-
     e.preventDefault();
+    let nameDuplicate = false;
+    let varietyDuplicate = false;
+    let validationPass = true;
+
     swapList.ingredients.map((ingredient) => {
       if (ingredient.name.toLowerCase() === name.toString().toLowerCase())
-        setDuplicateName(true);
+        nameDuplicate = true;
     });
 
     swapList.ingredients.map((ingredient) => {
@@ -106,52 +98,55 @@ function AddNonVeganIngredient() {
         ingredient.variety &&
         ingredient.variety.toLowerCase() === variety.toString().toLowerCase()
       )
-        setDuplicateVariety(true);
-
-      if (duplicateName && duplicateVariety) {
-        console.log("same");
-      } else {
-        console.log("not same");
-      }
+        varietyDuplicate = true;
     });
+
+    if (nameDuplicate && varietyDuplicate) {
+      validationPass = false;
+      setErrorMessage(
+        "The Ingredient you are trying to submit already exists!"
+      );
+      setErrorClass("errorTextBold");
+    }
+
+    if (variety === "" && nameDuplicate) {
+      validationPass = false;
+      setErrorMessage(
+        "The Ingredient you are trying to submit already exists!"
+      );
+      setErrorClass("errorTextBold");
+    }
+
+    if (variety === "" && name === "") {
+      validationPass = false;
+      setErrorMessage("Please select at least an ingredient Name");
+      setErrorClass("errorText");
+    }
+
+    if (validationPass) {
+      handleSubmit();
+    }
 
     // also, try and stop using State - I think the state isn't setting until after the validation happens.
 
     // I need to add a conditon here for if variety is empty, but there is already a "name" which has no variety.
   };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-
-    //  -------------------------------------------
-    console.log(duplicateVariety);
-
-    //   setErrorClass("errorTextBold");
-    //   setErrorMessage(
-    //     "The Ingredient you are trying to submit already exists!"
-    //   );
-    // } else {
-    //   console.log(name);
-    //   console.log(duplicateName);
-    //   console.log(variety);
-    //   console.log(duplicateVariety);
-    //   console.log("this happened you sausage");
-    // }
-
-    // try {
-    //   setFinishedFormSubmit(false);
-    //   setButtonText("Sending...");
-    //   await Axios.post("/nvIngredient", {
-    //     name,
-    //     variety,
-    //   });
-    //   setButtonText("Sent");
-    //   setFinishedFormSubmit(true);
-    //   setName([]);
-    //   setVariety([]);
-    // } catch (error) {
-    //   console.log(error);
-    // }
+  const handleSubmit = async () => {
+    try {
+      setFinishedFormSubmit(false);
+      setButtonText("Sending...");
+      await Axios.post("/nvIngredient", {
+        name,
+        variety,
+      });
+      setButtonText("Sent, thanks very much for contributing!");
+      setFinishedFormSubmit(true);
+      setName("");
+      setVariety("");
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return finishedRequest ? (
