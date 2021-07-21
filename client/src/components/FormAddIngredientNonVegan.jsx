@@ -3,8 +3,9 @@ import Axios from "../apis/axios";
 import { VeganContext } from "../context/VeganContext";
 import SearchDropDown from "./SearchDropDown";
 import { Spinner } from "react-bootstrap";
+import { print, capitaliseFirstLetter } from "../modules/helper.js";
 
-function AddNonVeganIngredient() {
+function FormAddIngredientNonVegan() {
   const [buttonText, setButtonText] = useState("Submit");
   const [name, setName] = useState("");
   const [variety, setVariety] = useState("");
@@ -52,7 +53,7 @@ function AddNonVeganIngredient() {
 
   const onNameInputChange = (e) => {
     setErrorMessage(null);
-    setName(e.target.value);
+    setName(capitaliseFirstLetter(e.target.value));
     setVarietyOptions([]);
 
     // Create a filtered search result list based on input
@@ -75,7 +76,7 @@ function AddNonVeganIngredient() {
 
   const onVarietyInputChange = (e) => {
     setErrorMessage(null);
-    setVariety(e.target.value);
+    setVariety(capitaliseFirstLetter(e.target.value));
     swapList &&
       setVarietyOptions(
         swapList.ingredients.filter((option) => option.name === name)
@@ -97,13 +98,15 @@ function AddNonVeganIngredient() {
         nameDuplicate = true;
     });
 
-    swapList.ingredients.map((ingredient) => {
-      if (
-        ingredient.variety &&
-        ingredient.variety.toLowerCase() === variety.toString().toLowerCase()
-      )
-        varietyDuplicate = true;
-    });
+    swapList.ingredients
+      .filter((option) => option.name.toLowerCase().includes(name))
+      .map((ingredient) => {
+        if (
+          ingredient.variety &&
+          ingredient.variety.toLowerCase() === variety.toString().toLowerCase()
+        )
+          varietyDuplicate = true;
+      });
 
     if (nameDuplicate && varietyDuplicate) {
       validationPass = false;
@@ -201,4 +204,4 @@ function AddNonVeganIngredient() {
   );
 }
 
-export default AddNonVeganIngredient;
+export default FormAddIngredientNonVegan;

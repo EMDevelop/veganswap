@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import CollapsibleDiv from "./CollapsibleDiv";
 import ToolTip from "./ToolTip";
-import AddNonVeganRecipe from "./AddNonVeganRecipe";
-import AddVeganRecipe from "./AddVeganRecipe";
+import FormAddRecipeNonVegan from "./FormAddRecipeNonVegan";
+import FormAddRecipeVegan from "./FormAddRecipeVegan";
 
 function AddRecipe() {
   const [form, setForm] = useState(<></>);
@@ -15,7 +15,7 @@ function AddRecipe() {
 
   const handleNonVeganSelect = () => {
     setShowLinkChoice(false);
-    setForm(<AddNonVeganRecipe />);
+    setForm(<FormAddRecipeNonVegan />);
   };
 
   return (
@@ -67,7 +67,7 @@ function AddRecipe() {
                 value="VeganIngredient"
                 onClick={() =>
                   setForm(
-                    <AddVeganRecipe
+                    <FormAddRecipeVegan
                       type="ingredient"
                       customOptions="name"
                       variety={true}
@@ -82,7 +82,7 @@ function AddRecipe() {
                 value="VeganIngredient"
                 onClick={() =>
                   setForm(
-                    <AddVeganRecipe type="recipe" customOptions="title" />
+                    <FormAddRecipeVegan type="recipe" customOptions="title" />
                   )
                 }
               >

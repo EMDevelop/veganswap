@@ -3,8 +3,9 @@ import Axios from "../apis/axios";
 import { VeganContext } from "../context/VeganContext";
 import SearchDropDown from "./SearchDropDown";
 import { Spinner } from "react-bootstrap";
+import { print, capitaliseFirstLetter } from "../modules/helper.js";
 
-function AddNonVeganRecipe() {
+function FormAddRecipeNonVegan() {
   const [buttonText, setButtonText] = useState("Submit");
   const [title, setTitle] = useState("");
   const [errorMessage, setErrorMessage] = useState([]);
@@ -41,7 +42,7 @@ function AddNonVeganRecipe() {
 
   const onInputChange = (e) => {
     setErrorMessage(null);
-    setTitle(e.target.value);
+    setTitle(capitaliseFirstLetter(e.target.value));
     swapList &&
       setTitleOptions(
         swapList.Recipes.filter((option) =>
@@ -57,7 +58,6 @@ function AddNonVeganRecipe() {
     e.preventDefault();
     let validationPass = true;
     let titleDuplicate = false;
-
     //  check that the value doesn't exist in the list
     swapList.Recipes.map((recipe) => {
       if (recipe.title.toLowerCase() === title.toString().toLowerCase())
@@ -133,4 +133,4 @@ function AddNonVeganRecipe() {
   );
 }
 
-export default AddNonVeganRecipe;
+export default FormAddRecipeNonVegan;

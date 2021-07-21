@@ -10,31 +10,32 @@ function Add() {
 
   return (
     <div className="generalPage">
-      <h1 className="mainPageHeader">What would you like to Add?</h1>
-      <div className="step">
-        <button
-          className="customButton"
-          value="Ingredient"
-          onClick={() => setAddComponent(<AddIngredient />)}
-        >
-          Ingredient
-        </button>
-        <button
-          className="customButton"
-          value="Recipe"
-          onClick={() => setAddComponent(<AddRecipe />)}
-        >
-          Recipe
-        </button>
-        <button
-          className="customButton"
-          value="FoodProduct"
-          onClick={() => setAddComponent(<AddFoodProduct />)}
-        >
-          Food Product
-        </button>
+      <div className="addHeader">
+        <h1 className="subHeading">What would you like to Add?</h1>
+        <div className="addHeaderButtons">
+          <button
+            className="customButton"
+            value="Ingredient"
+            onClick={() => setAddComponent(<AddIngredient />)}
+          >
+            Ingredient
+          </button>
+          <button
+            className="customButton"
+            value="Recipe"
+            onClick={() => setAddComponent(<AddRecipe />)}
+          >
+            Recipe
+          </button>
+          <button
+            className="customButton"
+            value="FoodProduct"
+            onClick={() => setAddComponent(<AddFoodProduct />)}
+          >
+            Suggested Product
+          </button>
+        </div>
       </div>
-
       {addComponent}
     </div>
   );

@@ -4,11 +4,14 @@ import { VeganContext } from "../context/VeganContext";
 import { useHistory } from "react-router-dom";
 import SearchDropDown from "./SearchDropDown";
 import { Spinner } from "react-bootstrap";
+import { print } from "../modules/helper.js";
 
 function SwapWindow() {
   const { swapList, setSwapList } = useContext(VeganContext);
   const [finishedLoading, setFinishedLoading] = useState(null);
   const [setLabel, setSetLabel] = useState("ingredient");
+  const [options, setOptions] = useState("");
+  const [dropdownSelect, setDropdownSelect] = useState("...");
 
   let history = useHistory();
 
@@ -22,7 +25,6 @@ function SwapWindow() {
     } else {
       setSetLabel("name");
     }
-
     const fetchData = async () => {
       try {
         const response = await Axios.get("/swapList");
@@ -35,7 +37,6 @@ function SwapWindow() {
     fetchData();
   }, []);
 
-  const [options, setOptions] = useState([]);
   const onInputChange = (e) => {
     switch (dropdownSelect) {
       // We need to change this filter so it searches for both option.name and option.
@@ -52,6 +53,7 @@ function SwapWindow() {
                   .includes(e.target.value.toLowerCase()))
           )
         );
+        if (e.target.value === "") setOptions([]);
         break;
       case "recipe":
         setOptions(
@@ -59,13 +61,12 @@ function SwapWindow() {
             option.title.toLowerCase().includes(e.target.value.toLowerCase())
           )
         );
+        if (e.target.value === "") setOptions([]);
         break;
       default:
         console.log("not a valid selection");
     }
   };
-
-  const [dropdownSelect, setDropdownSelect] = useState("ingredient");
 
   const onDropdownSelect = (e) => {
     setDropdownSelect(e.target.value);
@@ -81,21 +82,24 @@ function SwapWindow() {
       <h1 className="mainPageHeader">Vegan Swap</h1>
       {finishedLoading ? (
         <div className="swapSearchBarContainer">
+          <h2 className="swapSubHeader">Show me alternatives for this</h2>
           <select
             className="swapDropdown"
             value={dropdownSelect}
             onChange={(e) => onDropdownSelect(e)}
           >
-            <option value="ingredient">Ingredients</option>
-            <option value="recipe">Recipes</option>
+            <option disabled>...</option>
+            <option value="ingredient">Ingredient</option>
+            <option value="recipe">Recipe</option>
             <option disabled>Products</option>
           </select>
-          {/* need to add  */}
+          <h2 className="swapSubHeader">called</h2>
+
           <SearchDropDown
             options={options}
             onInputChange={onInputChange}
             handleInputSelect={handleInputSelect}
-            placeholder="Choose an item to swap"
+            placeholder="..."
             customClass="swapScreen"
             dropdownSelect={dropdownSelect}
             customOptions={setLabel}

@@ -10,16 +10,26 @@ function SearchDropDown(props) {
     dropdownSelect,
     setVariety,
   } = props;
-  const [dropdownClass, setDropdownClass] = useState();
+  const [containerClass, setContainerClass] = useState("");
+  const [listGroup, setListGroup] = useState("");
+  const [resultList, setResultList] = useState("");
+  const [input, setInput] = useState("");
+
   const [showVariety, setShowVariety] = useState(null);
 
   useEffect(() => {
     switch (customClass) {
       case "addScreen":
-        setDropdownClass("addDropdown");
+        setContainerClass("swapPageSearchContainer");
+        setListGroup("addPageSearchListGroup");
+        setResultList("addPageSearchtButton");
+        setInput("addPageSearchInput");
         break;
       case "swapScreen":
-        setDropdownClass("swapSearchBar");
+        setContainerClass("swapPageSearchContainer");
+        setListGroup("swapPageDropdownListGroup");
+        setResultList("swapPageSearchtButton");
+        setInput("swapPageSearchInput");
         break;
       default:
         console.log("no customClass prop detected");
@@ -31,16 +41,16 @@ function SearchDropDown(props) {
   }, []);
 
   return (
-    <div className={dropdownClass}>
+    <div className={containerClass}>
       <input
         type="text"
-        className="form-control"
+        className={input}
         placeholder={props.placeholder}
         aria-label="InputSelect"
         onChange={onInputChange}
         value={props.textValue}
       />
-      <ul className="list-group">
+      <ul className={listGroup}>
         {options &&
           options.map((item) => {
             return (
@@ -48,7 +58,7 @@ function SearchDropDown(props) {
                 <button
                   type="button"
                   key={item.id}
-                  className="list-group-item list-group-item-action"
+                  className={resultList}
                   onClick={(e) => handleInputSelect(e, item.id)}
                 >
                   {item[customOptions]}

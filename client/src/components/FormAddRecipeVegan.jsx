@@ -3,25 +3,39 @@ import SearchDropDown from "./SearchDropDown";
 import Axios from "../apis/axios";
 import { VeganContext } from "../context/VeganContext";
 import { Spinner } from "react-bootstrap";
+import { print, capitaliseFirstLetter } from "../modules/helper.js";
 
-function AddVeganRecipe(props) {
+function FormAddRecipeVegan(props) {
+  const [buttonText, setButtonText] = useState("Submit");
+  const [errorMessage, setErrorMessage] = useState([]);
+  const [errorClass, setErrorClass] = useState("errorText");
   const [finishedRequest, setFinishedRequest] = useState(null);
   const [finishedFormSubmit, setFinishedFormSubmit] = useState(true);
   const [options, setOptions] = useState([]);
   const [selectedLink, setSelectedLink] = useState(null);
-  const [buttonText, setButtonText] = useState("Submit");
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   // const [image, setImage] = useState([])
-  const [errorMessage, setErrorMessage] = useState([]);
-  const [errorClass, setErrorClass] = useState("errorText");
 
   const [credit, setCredit] = useState([]);
   const [creditURL, setCreditURL] = useState("");
   const [textValue, setTextValue] = useState("");
-  const [customOptions, setCustomOptions] = useState("");
+  // const [customOptions, setCustomOptions] = useState("");
 
   const { swapList, setSwapList } = useContext(VeganContext);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await Axios.get("/SwapList");
+        setSwapList(response.data.data);
+        setFinishedRequest(true);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    fetchData();
+  }, []);
 
   const formValidation = (e) => {
     e.preventDefault();
@@ -51,7 +65,7 @@ function AddVeganRecipe(props) {
       });
     } else {
       // if props = recipe
-      console.log("ye ye i ran");
+
       nvIngredientExists = true;
       swapList.recipes.map((option) => {
         // console.log(textValue.toString().toLowerCase());
@@ -64,7 +78,6 @@ function AddVeganRecipe(props) {
         }
       });
     }
-
     // outcome A
     if (!nvRecipeExists) {
       validationPass = false;
@@ -73,7 +86,6 @@ function AddVeganRecipe(props) {
         "There isn't a Non-Vegan recipe of this variety, please add one on the Non-Vegan ingredient form"
       );
     }
-
     if (!nvIngredientExists) {
       validationPass = false;
       setErrorClass("errorText");
@@ -81,25 +93,16 @@ function AddVeganRecipe(props) {
         "There isn't a Non-Vegan ingredient of this variety, please add one on the Non-Vegan ingredient form"
       );
     }
-
     //Check Dropdowns
     if (!title) {
       validationPass = false;
       setErrorMessage("Please fill in the Title field");
       setErrorClass("errorText");
     }
-
     // Empty Fields
-
     if (!textValue) {
       validationPass = false;
       setErrorMessage("Please fill in the Link field");
-      setErrorClass("errorText");
-    }
-
-    if (!title) {
-      validationPass = false;
-      setErrorMessage("Please fill in the Title field");
       setErrorClass("errorText");
     }
     if (!description) {
@@ -112,19 +115,18 @@ function AddVeganRecipe(props) {
       setErrorMessage("Please fill in the Credit field");
       setErrorClass("errorText");
     }
-
     if (!creditURL) {
       validationPass = false;
       setErrorMessage("Please fill in the Credit URL field");
       setErrorClass("errorText");
     }
-
     if (validationPass) {
       handleSubmit();
     }
   };
 
   const handleSubmit = async () => {
+    console.log("submit ran");
     setFinishedFormSubmit(false);
     setButtonText("Sending...");
     try {
@@ -146,7 +148,9 @@ function AddVeganRecipe(props) {
           selectedLink,
         });
       }
-    } catch (error) {}
+    } catch (error) {
+      console.log(error);
+    }
     setErrorClass("successMessage");
     setErrorMessage("Sent, thanks very much for contributing!");
     setFinishedFormSubmit(true);
@@ -166,7 +170,8 @@ function AddVeganRecipe(props) {
   };
 
   const onInputChange = (e) => {
-    setTextValue(e.target.value);
+    setTextValue(capitaliseFirstLetter(e.target.value));
+
     if (props.type === "ingredient") {
       swapList &&
         setOptions(
@@ -186,19 +191,6 @@ function AddVeganRecipe(props) {
       setOptions([]);
     }
   };
-
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await Axios.get("/SwapList");
-        setSwapList(response.data.data);
-        setFinishedRequest(true);
-      } catch (error) {
-        console.log(error);
-      }
-    };
-    fetchData();
-  }, []);
 
   return (
     <>
@@ -230,7 +222,7 @@ function AddVeganRecipe(props) {
             <input
               type="text"
               value={title}
-              onChange={(e) => setTitle(e.target.value)}
+              onChange={(e) => setTitle(capitaliseFirstLetter(e.target.value))}
               className="textInput"
               placeholder="e.g. Tofu"
             />
@@ -240,7 +232,9 @@ function AddVeganRecipe(props) {
             <textarea
               type="text"
               value={description}
-              onChange={(e) => setDescription(e.target.value)}
+              onChange={(e) =>
+                setDescription(capitaliseFirstLetter(e.target.value))
+              }
               className="textInputArea"
               placeholder="e.g. Tofu, also known as bean curd, is a food prepared by coagulating soy milk and then pressing the resulting curds into solid white blocks of varying softness..."
             />
@@ -250,7 +244,7 @@ function AddVeganRecipe(props) {
             <input
               type="text"
               value={credit}
-              onChange={(e) => setCredit(e.target.value)}
+              onChange={(e) => setCredit(capitaliseFirstLetter(e.target.value))}
               className="textInput"
               placeholder="e.g. John Doe"
             />
@@ -291,4 +285,4 @@ function AddVeganRecipe(props) {
   );
 }
 
-export default AddVeganRecipe;
+export default FormAddRecipeVegan;

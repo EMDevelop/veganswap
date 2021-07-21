@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import CollapsibleDiv from "./CollapsibleDiv";
 import ToolTip from "./ToolTip";
-import AddVeganIngredient from "./AddVeganIngredient";
-import AddNonVeganIngredient from "./AddNonVeganIngredient";
+import FormAddIngredientVegan from "./FormAddIngredientVegan";
+import FormAddIngredientNonVegan from "./FormAddIngredientNonVegan";
 
 function AddIngredient() {
   const [form, setForm] = useState(<></>);
@@ -15,7 +15,8 @@ function AddIngredient() {
           <button
             className="customButton"
             value="VeganIngredient"
-            onClick={() => setForm(<AddVeganIngredient />)}
+            onClick={() => setForm(<FormAddIngredientVegan />)}
+            //  FormVeganIngredient
           >
             Vegan
           </button>
@@ -23,7 +24,7 @@ function AddIngredient() {
           <button
             className="customButton"
             value="VeganIngredient"
-            onClick={() => setForm(<AddNonVeganIngredient />)}
+            onClick={() => setForm(<FormAddIngredientNonVegan />)}
           >
             Non-Vegan
           </button>

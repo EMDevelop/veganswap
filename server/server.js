@@ -30,10 +30,32 @@ app.use(express.json());
 app.get("/api/v1/swapList", async (req, res) => {
   try {
     const ingredient = await db.query(
-      `SELECT id,name, variety, isvegan FROM ingredient WHERE isVegan = 'n';`
+      `SELECT id,name, variety, isvegan FROM ingredient WHERE isVegan = 'n' order by name, variety asc;`
     );
     const recipe = await db.query(
       `SELECT id, isvegan, title FROM recipe WHERE isVegan = 'n';`
+    );
+
+    res.status(200).json({
+      status: "success",
+      data: {
+        ingredients: ingredient.rows,
+        recipes: recipe.rows,
+      },
+    });
+  } catch (error) {
+    console.log("error");
+  }
+});
+
+// GET Non-Vegan Recipe and Ingredient
+app.get("/api/v1/swapListVegan", async (req, res) => {
+  try {
+    const ingredient = await db.query(
+      `SELECT id,name, variety, isvegan FROM ingredient WHERE isVegan = 'y' order by name, variety asc;`
+    );
+    const recipe = await db.query(
+      `SELECT id, isvegan, title FROM recipe WHERE isVegan = 'n' order by title asc;`
     );
 
     res.status(200).json({
@@ -52,7 +74,7 @@ app.get("/api/v1/swapList", async (req, res) => {
 app.get("/api/v1/nvIngredients", async (req, res) => {
   try {
     const ingredient = await db.query(
-      `SELECT id,name,variety,isvegan FROM ingredient WHERE isVegan = 'n';`
+      `SELECT id,name,variety,isvegan FROM ingredient WHERE isVegan = 'n' order by name, variety asc;`
     );
     res.status(200).json({
       status: "success",
@@ -73,7 +95,7 @@ app.get("/api/v1/nvIngredients", async (req, res) => {
 app.get("/api/v1/nvRecipes", async (req, res) => {
   try {
     const recipe = await db.query(
-      `SELECT id, title FROM recipe WHERE isVegan = 'n';`
+      `SELECT id, title FROM recipe WHERE isVegan = 'n' order by title asc;`
     );
     res.status(200).json({
       status: "success",
@@ -388,7 +410,7 @@ app.post("/api/v1/nvRecipe", async (req, res) => {
 //Create a vegan recipe + link to an Ingredient
 app.post("/api/v1/vRecipe/Ingredient", async (req, res) => {
   try {
-    const addRecipe = await db.query(
+    const recipe = await db.query(
       "INSERT INTO recipe ( isvegan, title, description, credit, url, createuser) VALUES ('y',$1,$2,$3,$4,1) RETURNING *",
       [
         req.body.title,
@@ -398,9 +420,9 @@ app.post("/api/v1/vRecipe/Ingredient", async (req, res) => {
       ]
     );
 
-    const recipeID = addRecipe.rows[0].id;
+    const recipeID = recipe.rows[0].id;
 
-    const addIngredientLink = await db.query(
+    const ingredientLink = await db.query(
       "INSERT INTO ingredientAlternative (swap_id, alternative_id, type, createuser) Values ($1,$2,'recipe',1) RETURNING *",
       [req.body.selectedLink, recipeID]
     );
@@ -408,8 +430,8 @@ app.post("/api/v1/vRecipe/Ingredient", async (req, res) => {
     res.status(200).json({
       status: "success",
       data: {
-        vRecipe: addRecipe.rows[0],
-        IngredientLink: addIngredientLink.rows[0],
+        vRecipe: recipe.rows[0],
+        IngredientLink: ingredientLink.rows[0],
       },
     });
   } catch (err) {
@@ -420,7 +442,7 @@ app.post("/api/v1/vRecipe/Ingredient", async (req, res) => {
 //Create a vegan recipe + link to a Recipe
 app.post("/api/v1/vRecipe/Recipe", async (req, res) => {
   try {
-    const addRecipe = await db.query(
+    const recipe = await db.query(
       "INSERT INTO recipe ( isvegan, title, description, credit, url, createuser) VALUES ('y',$1,$2,$3,$4,1) RETURNING *",
       [
         req.body.title,
@@ -430,9 +452,9 @@ app.post("/api/v1/vRecipe/Recipe", async (req, res) => {
       ]
     );
 
-    const recipeID = addRecipe.rows[0].id;
+    const recipeID = recipe.rows[0].id;
 
-    const addRecipeLink = await db.query(
+    const recipeLink = await db.query(
       "INSERT INTO recipeAlternative (swap_id, alternative_id, type, createuser) Values ($1,$2,'recipe',1) RETURNING *",
       [req.body.selectedLink, recipeID]
     );
@@ -440,8 +462,72 @@ app.post("/api/v1/vRecipe/Recipe", async (req, res) => {
     res.status(200).json({
       status: "success",
       data: {
-        vRecipe: addRecipe.rows[0],
-        RecipeLink: addRecipeLink.rows[0],
+        vRecipe: recipe.rows[0],
+        RecipeLink: recipeLink.rows[0],
+      },
+    });
+  } catch (err) {
+    console.log(err);
+  }
+});
+
+//Create a food product + link to a Recipe
+//Add Food Product
+// INSERT INTO foodProduct (BrandName, ProductName, Description, createUser) Values ()
+//Link Food Recipe
+// INSERT INTO recipeProduct (recipe_id, foodproduct_id, createuser) VALUES (6, 8, 1) ;
+
+app.post("/api/v1/FoodProduct/Recipe", async (req, res) => {
+  try {
+    const foodProduct = await db.query(
+      "INSERT INTO foodProduct (BrandName, ProductName, Description, createUser) Values($1,$2,$3,1) RETURNING *",
+      [req.body.brandName, req.body.productName, req.body.description]
+    );
+
+    const foodProductID = foodProduct.rows[0].id;
+
+    const recipeLink = await db.query(
+      "INSERT INTO recipeProduct (recipe_id, foodproduct_id, createuser) VALUES  ($1,$2,1) RETURNING *",
+      [req.body.selectedLink, foodProductID]
+    );
+
+    res.status(200).json({
+      status: "success",
+      data: {
+        FoodProduct: foodProduct.rows[0],
+        RecipeLink: recipeLink.rows[0],
+      },
+    });
+  } catch (err) {
+    console.log(err);
+  }
+});
+
+//Create a food product + link to a ingredient
+//Add Food Product
+// INSERT INTO foodProduct (BrandName, ProductName, Description, createUser) Values ()
+//Link to ingredient
+// INSERT INTO ingredientProduct (ingredient_id, foodProduct_id,CreateUser ) VALUES (3, 1, 1) ;
+
+app.post("/api/v1/FoodProduct/Ingredient", async (req, res) => {
+  try {
+    const foodProduct = await db.query(
+      "INSERT INTO foodProduct (BrandName, ProductName, Description, createUser) Values($1,$2,$3,1) RETURNING *",
+      [req.body.brandName, req.body.productName, req.body.description]
+    );
+
+    const foodProductID = foodProduct.rows[0].id;
+
+    const ingredientLink = await db.query(
+      "INSERT INTO ingredientProduct (ingredient_id, foodProduct_id,CreateUser ) VALUES  ($1,$2,1) RETURNING *",
+      [req.body.selectedLink, foodProductID]
+    );
+
+    res.status(200).json({
+      status: "success",
+      data: {
+        FoodProduct: foodProduct.rows[0],
+        RecipeLink: ingredientLink.rows[0],
       },
     });
   } catch (err) {

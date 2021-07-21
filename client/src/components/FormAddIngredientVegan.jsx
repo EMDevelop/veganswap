@@ -3,8 +3,9 @@ import SearchDropDown from "./SearchDropDown";
 import Axios from "../apis/axios";
 import { VeganContext } from "../context/VeganContext";
 import { Spinner } from "react-bootstrap";
+import { print, capitaliseFirstLetter } from "../modules/helper.js";
 
-function AddVeganIngredient() {
+function FormAddIngredientVegan() {
   const [finishedRequest, setFinishedRequest] = useState(null);
   const [finishedFormSubmit, setFinishedFormSubmit] = useState(true);
   const [options, setOptions] = useState([]);
@@ -63,7 +64,7 @@ function AddVeganIngredient() {
                 .includes(e.target.value.toLowerCase()))
         )
       );
-    setTextValue(e.target.value);
+    setTextValue(capitaliseFirstLetter(e.target.value));
     if (e.target.value === "") {
       setOptions([]);
     }
@@ -162,7 +163,7 @@ function AddVeganIngredient() {
               type="text"
               value={name}
               onChange={(e) => {
-                setName(e.target.value);
+                setName(capitaliseFirstLetter(e.target.value));
                 setErrorMessage("");
               }}
               className="textInput"
@@ -175,7 +176,7 @@ function AddVeganIngredient() {
               type="text"
               value={variety}
               onChange={(e) => {
-                setVariety(e.target.value);
+                setVariety(capitaliseFirstLetter(e.target.value));
               }}
               className="textInput"
               placeholder="e.g. Firm"
@@ -187,7 +188,7 @@ function AddVeganIngredient() {
               type="text"
               value={description}
               onChange={(e) => {
-                setDescription(e.target.value);
+                setDescription(capitaliseFirstLetter(e.target.value));
                 setErrorMessage("");
               }}
               className="textInputArea"
@@ -218,4 +219,4 @@ function AddVeganIngredient() {
   );
 }
 
-export default AddVeganIngredient;
+export default FormAddIngredientVegan;
