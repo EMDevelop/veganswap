@@ -4,14 +4,15 @@ import { VeganContext } from "../context/VeganContext";
 import { useHistory } from "react-router-dom";
 import SearchDropDown from "./SearchDropDown";
 import { Spinner } from "react-bootstrap";
-import { print } from "../modules/helper.js";
+import { print, capitaliseFirstLetter } from "../modules/helper.js";
 
 function SwapWindow() {
   const { swapList, setSwapList } = useContext(VeganContext);
   const [finishedLoading, setFinishedLoading] = useState(null);
   const [setLabel, setSetLabel] = useState("ingredient");
   const [options, setOptions] = useState("");
-  const [dropdownSelect, setDropdownSelect] = useState("...");
+  const [dropdownSelect, setDropdownSelect] = useState("________");
+  const [textValue, setTextValue] = useState("");
 
   let history = useHistory();
 
@@ -38,6 +39,8 @@ function SwapWindow() {
   }, []);
 
   const onInputChange = (e) => {
+    setTextValue(capitaliseFirstLetter(e.target.value));
+
     switch (dropdownSelect) {
       // We need to change this filter so it searches for both option.name and option.
       case "ingredient":
@@ -82,24 +85,25 @@ function SwapWindow() {
       <h1 className="mainPageHeader">Vegan Swap</h1>
       {finishedLoading ? (
         <div className="swapSearchBarContainer">
-          <h2 className="swapSubHeader">Show me alternatives for this</h2>
+          <h2 className="swapSubHeader">Show vegan alternatives for</h2>
           <select
             className="swapDropdown"
             value={dropdownSelect}
             onChange={(e) => onDropdownSelect(e)}
           >
-            <option disabled>...</option>
+            <option disabled>________</option>
             <option value="ingredient">Ingredient</option>
             <option value="recipe">Recipe</option>
             <option disabled>Products</option>
           </select>
-          <h2 className="swapSubHeader">called</h2>
+          <h2 className="swapSubHeader">|</h2>
 
           <SearchDropDown
             options={options}
             onInputChange={onInputChange}
             handleInputSelect={handleInputSelect}
-            placeholder="..."
+            placeholder="________"
+            textValue={textValue}
             customClass="swapScreen"
             dropdownSelect={dropdownSelect}
             customOptions={setLabel}

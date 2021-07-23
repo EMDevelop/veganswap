@@ -13,16 +13,25 @@ export function currentDateTime() {
   return datestring;
 }
 
-export function print(test) {
-  console.log(`${currentDateTime()}: ${test}`);
+export function print(label, value) {
+  console.log(`${currentDateTime()}::${label}:: ${value}`);
 }
 
 export function capitaliseFirstLetter(string) {
   let arr = [];
-  if (string && string[0] === string[0].toLowerCase()) {
-    for (let index = 0; index < string.length; index++) {
-      index === 0 ? arr.push(string[0].toUpperCase()) : arr.push(string[index]);
+  if (string) {
+    if (string[0] === string[0].toLowerCase()) {
+      for (let index = 0; index < string.length; index++) {
+        index === 0
+          ? arr.push(string[0].toUpperCase())
+          : arr.push(string[index]);
+      }
+      return arr.join("");
+    } else {
+      for (let index = 0; index < string.length; index++) {
+        arr.push(string[index]);
+      }
+      return arr.join("");
     }
-    return arr.join("");
   }
 }

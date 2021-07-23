@@ -17,7 +17,6 @@ function FormAddFoodProduct(props) {
   const [description, setDescription] = useState("");
   const [options, setOptions] = useState([]);
   const [textValue, setTextValue] = useState("");
-
   const { swapList, setSwapList } = useContext(VeganContext);
 
   useEffect(() => {
@@ -41,7 +40,9 @@ function FormAddFoodProduct(props) {
   };
 
   const onInputChange = (e) => {
-    setTextValue(capitaliseFirstLetter(e.target.value));
+    setErrorMessage("");
+    let capVal = capitaliseFirstLetter(e.target.value);
+    setTextValue(capVal);
     if (props.type === "ingredient") {
       swapList &&
         setOptions(
@@ -145,36 +146,78 @@ function FormAddFoodProduct(props) {
   const handleSubmit = async () => {
     console.log("submit ran");
     setFinishedFormSubmit(false);
-    setButtonText("Sending...");
+    // setButtonText("Sending...");
 
-    try {
-      if (props.type === "ingredient") {
-        const response = await Axios.post("/FoodProduct/Ingredient", {
-          brandName,
-          productName,
-          description,
-          selectedLink,
-        });
-      } else {
-        // handle recipe API
-        const response = await Axios.post("/FoodProduct/Recipe", {
-          brandName,
-          productName,
-          description,
-          selectedLink,
-        });
-      }
-    } catch (error) {
-      console.log(error);
-    }
-    setErrorClass("successMessage");
-    setErrorMessage("Sent, thanks very much for contributing!");
+    // Testing Image Upload
+    handleSubmitFile();
+
+    // try {
+    //   if (props.type === "ingredient") {
+    //     const response = await Axios.post("/FoodProduct/Ingredient", {
+    //       brandName,
+    //       productName,
+    //       description,
+    //       selectedLink,
+    //     });
+    //   } else {
+    //     // handle recipe API
+    //     const response = await Axios.post("/FoodProduct/Recipe", {
+    //       brandName,
+    //       productName,
+    //       description,
+    //       selectedLink,
+    //     });
+    //   }
+    // } catch (error) {
+    //   console.log(error);
+    // }
+    // setErrorClass("successMessage");
+    // setErrorMessage("Sent, thanks very much for contributing!");
     setFinishedFormSubmit(true);
-    setBrandName("");
-    setProductName("");
-    setTextValue("");
-    setDescription("");
-    setButtonText("Submit");
+    // setBrandName("");
+    // setProductName("");
+    // setTextValue("");
+    // setDescription("");
+    // setButtonText("Submit");
+  };
+
+  // Image
+  const [selectedFile, setSelectedFile] = useState("");
+  const [previewSource, setPreviewSource] = useState("");
+
+  const handleFileInputChange = (e) => {
+    const file = e.target.files[0];
+    previewFile(file);
+  };
+
+  const previewFile = (file) => {
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onloadend = () => {
+      setPreviewSource(reader.result);
+    };
+  };
+
+  const handleSubmitFile = (e) => {
+    if (!previewSource) {
+      setErrorClass("errorClass");
+      setErrorMessage("No Image, Please Upload An Image");
+      return;
+    }
+
+    uploadImage(previewSource);
+  };
+
+  const uploadImage = async (imageText) => {
+    try {
+      const response = await Axios.post("/imageUpload", {
+        data: JSON.stringify({ data: imageText }),
+        headers: { "Content-type": "application.json" },
+      });
+      print("imageUploadResponse", response);
+    } catch (error) {
+      print("Error Image Upload", error);
+    }
   };
 
   return finishedRequest ? (
@@ -201,19 +244,17 @@ function FormAddFoodProduct(props) {
           setVariety={props.variety}
         />
       </label>
-
       <h2 className="subHeadingSmall">Add Branded Product</h2>
-
       {/* Add BrandName, Product Name, Description, Image */}
-
       <label className="formLabel">
         Product Name:
         <input
           type="text"
           value={productName}
-          onChange={(e) =>
-            setProductName(capitaliseFirstLetter(e.target.value))
-          }
+          onChange={(e) => {
+            let capVal = capitaliseFirstLetter(e.target.value);
+            setProductName(capVal);
+          }}
           className="textInput"
           placeholder="e.g. Tomato Ketchup"
         />
@@ -223,7 +264,10 @@ function FormAddFoodProduct(props) {
         <input
           type="text"
           value={brandName}
-          onChange={(e) => setBrandName(capitaliseFirstLetter(e.target.value))}
+          onChange={(e) => {
+            let capVal = capitaliseFirstLetter(e.target.value);
+            setBrandName(capVal);
+          }}
           className="textInput"
           placeholder="e.g. Heinz"
         />
@@ -233,18 +277,34 @@ function FormAddFoodProduct(props) {
         <textarea
           type="text"
           value={description}
-          onChange={(e) =>
-            setDescription(capitaliseFirstLetter(e.target.value))
-          }
+          onChange={(e) => {
+            let capVal = capitaliseFirstLetter(e.target.value);
+            setDescription(capVal);
+          }}
           className="textInputArea"
           placeholder="e.g. Tofu, also known as bean curd, is a food prepared by coagulating soy milk and then pressing the resulting curds into solid white blocks of varying softness..."
         />
       </label>
+
       <label className="formLabel">
         Image:
-        <input type="file" className="uploadImage" />
+        <input
+          type="file"
+          name="image"
+          onChange={handleFileInputChange}
+          className="uploadImage"
+          value={selectedFile}
+        />
       </label>
-
+      <div className="uploadPreviewImageContainer">
+        {previewSource && (
+          <img
+            src={previewSource}
+            alt="chosen"
+            className="uploadPreviewImage"
+          ></img>
+        )}
+      </div>
       <div className="buttonContainer">
         <button
           onClick={formValidation}

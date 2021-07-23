@@ -53,7 +53,9 @@ function FormAddIngredientNonVegan() {
 
   const onNameInputChange = (e) => {
     setErrorMessage(null);
-    setName(capitaliseFirstLetter(e.target.value));
+    let capVal = capitaliseFirstLetter(e.target.value);
+    setName(capVal);
+
     setVarietyOptions([]);
 
     // Create a filtered search result list based on input
@@ -75,8 +77,10 @@ function FormAddIngredientNonVegan() {
   // I need to pull back only those rows that
 
   const onVarietyInputChange = (e) => {
-    setErrorMessage(null);
-    setVariety(capitaliseFirstLetter(e.target.value));
+    setErrorMessage("");
+    let capVal = capitaliseFirstLetter(e.target.value);
+    setVariety(capVal);
+
     swapList &&
       setVarietyOptions(
         swapList.ingredients.filter((option) => option.name === name)
@@ -94,7 +98,7 @@ function FormAddIngredientNonVegan() {
     let validationPass = true;
 
     swapList.ingredients.map((ingredient) => {
-      if (ingredient.name.toLowerCase() === name.toString().toLowerCase())
+      if (ingredient.name.toLowerCase() === name.toLowerCase())
         nameDuplicate = true;
     });
 
@@ -140,6 +144,8 @@ function FormAddIngredientNonVegan() {
   };
 
   const handleSubmit = async () => {
+    // capitaliseFirstLetter(name);
+    // capitaliseFirstLetter(variety);
     try {
       setFinishedFormSubmit(false);
       setButtonText("Sending...");
@@ -151,12 +157,12 @@ function FormAddIngredientNonVegan() {
       setFinishedFormSubmit(true);
       setErrorMessage("Sent, thanks very much for contributing!");
       setErrorClass("successMessage");
-      setName("");
-      setVariety("");
-      setVarietyOptions([]);
     } catch (error) {
       console.log(error);
     }
+    // setName("");
+    setVariety("");
+    setVarietyOptions([]);
   };
 
   return finishedRequest ? (

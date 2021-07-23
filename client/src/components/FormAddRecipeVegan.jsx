@@ -170,8 +170,10 @@ function FormAddRecipeVegan(props) {
   };
 
   const onInputChange = (e) => {
-    setTextValue(capitaliseFirstLetter(e.target.value));
-
+    let capVal = capitaliseFirstLetter(e.target.value);
+    print("newTing", capVal);
+    setTextValue(capVal);
+    setErrorMessage("");
     if (props.type === "ingredient") {
       swapList &&
         setOptions(
@@ -222,7 +224,11 @@ function FormAddRecipeVegan(props) {
             <input
               type="text"
               value={title}
-              onChange={(e) => setTitle(capitaliseFirstLetter(e.target.value))}
+              onChange={(e) => {
+                let capVal = capitaliseFirstLetter(e.target.value);
+                setTitle(capVal);
+                setErrorMessage("");
+              }}
               className="textInput"
               placeholder="e.g. Tofu"
             />
@@ -232,9 +238,11 @@ function FormAddRecipeVegan(props) {
             <textarea
               type="text"
               value={description}
-              onChange={(e) =>
-                setDescription(capitaliseFirstLetter(e.target.value))
-              }
+              onChange={(e) => {
+                let capVal = capitaliseFirstLetter(e.target.value);
+                setDescription(capVal);
+                setErrorMessage("");
+              }}
               className="textInputArea"
               placeholder="e.g. Tofu, also known as bean curd, is a food prepared by coagulating soy milk and then pressing the resulting curds into solid white blocks of varying softness..."
             />
@@ -244,7 +252,11 @@ function FormAddRecipeVegan(props) {
             <input
               type="text"
               value={credit}
-              onChange={(e) => setCredit(capitaliseFirstLetter(e.target.value))}
+              onChange={(e) => {
+                let capVal = capitaliseFirstLetter(e.target.value);
+                setCredit(capVal);
+                setErrorMessage("");
+              }}
               className="textInput"
               placeholder="e.g. John Doe"
             />
@@ -254,7 +266,10 @@ function FormAddRecipeVegan(props) {
             <input
               type="text"
               value={creditURL}
-              onChange={(e) => setCreditURL(e.target.value)}
+              onChange={(e) => {
+                setCreditURL(e.target.value);
+                setErrorMessage("");
+              }}
               className="textInputURL"
               placeholder="e.g. www.foodwebsite.com/recipe/johndoe/tofu"
             />

@@ -36,6 +36,21 @@ select:focus {
   outline: none;
 }
 
+h2 {
+  margin: 0;
+}
+
+select {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none; /* Remove default arrow */
+  /* background-image: url(...); Add custom arrow */
+}
+
+select::-ms-expand {
+  display: none; /* Hide the default arrow in Internet Explorer 10 and Internet Explorer 11 */
+}
+
 @font-face {
   src: url(https://use.typekit.net/aav7lhy.css);
   font-family: muli, sans-serif;
@@ -68,7 +83,7 @@ select:focus {
   color: var(--lightTaupe);
   font-size: 2rem;
   padding: 0px;
-  margin: 0px;
+  margin-right: 20px;
 }
 
 .subHeading {
@@ -388,7 +403,6 @@ select:focus {
 .swapBox {
   height: 40vh;
   min-width: fit-content;
-  width: 60%;
   /* max-width: 950px; */
   border-radius: 20px;
   padding-bottom: 100px;
@@ -416,13 +430,10 @@ select:focus {
 /* ------------------------------- */
 
 .swapSearchBarContainer {
-  width: 100%;
+  width: fit-content;
   height: fit-content;
   padding-top: 20px;
   padding-bottom: 20px;
-  /* background-color:  lavenderblush; */
-  display: flex;
-  flex-direction: row;
   box-shadow: 1px 1px 15px 8px #e4e3e394;
   border-radius: 25px;
   background-color: white;
@@ -431,7 +442,7 @@ select:focus {
   align-items: center;
   justify-content: center;
   text-align: center;
-  /* background-color: red; */
+  padding-left: 20px;
 }
 
 .swapDropdown {
@@ -439,13 +450,13 @@ select:focus {
   outline: none;
   background-color: transparent;
   color: var(--lightGreen);
-  font-size: 3rem;
+  font-size: 2rem;
   width: fit-content;
 }
 
 .swapPageSearchContainer {
   height: 50px;
-  width: 300px;
+  width: 170px;
   border: none;
   outline: none;
 }
@@ -455,10 +466,11 @@ select:focus {
   outline: none;
   background-color: transparent;
   height: 100%;
-  width: 100%;
+  width: fit-content;
+
   color: var(--lightGreen);
   /* text-decoration: underline; */
-  font-size: 3rem;
+  font-size: 2rem;
 }
 
 .swapPageSearchInput::placeholder {
@@ -477,14 +489,15 @@ select:focus {
 }
 
 .swapPageSearchtButton {
-  width: 300px;
-  height: 40px;
+  width: fit-content;
+  height: fit-content;
   text-align: left;
-  padding-left: 20px;
-  background-color: white;
+  background-color: transparent;
+  color: var(--lightGreen);
   border-radius: 5px;
   border: none;
   font-family: muli, sans-serif;
+  font-size: 2rem;
 }
 
 .swapPageDropdown {
@@ -1052,4 +1065,21 @@ li {
   height: 40px;
   box-shadow: 1px 1px 15px 8px #e4e3e394;
   border: none;
+}
+
+/* Image Upload */
+
+.uploadPreviewImageContainer {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.uploadPreviewImage {
+  display: block;
+  max-width: 250px;
+  max-height: 250px;
+  width: auto;
+  height: auto;
 }

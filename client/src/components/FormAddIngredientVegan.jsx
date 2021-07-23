@@ -52,7 +52,9 @@ function FormAddIngredientVegan() {
   };
 
   const onInputChange = (e) => {
-    setErrorMessage(null);
+    let capVal = capitaliseFirstLetter(e.target.value);
+    setTextValue(capVal);
+    setErrorMessage("");
     swapList &&
       setOptions(
         swapList.ingredients.filter(
@@ -64,7 +66,7 @@ function FormAddIngredientVegan() {
                 .includes(e.target.value.toLowerCase()))
         )
       );
-    setTextValue(capitaliseFirstLetter(e.target.value));
+
     if (e.target.value === "") {
       setOptions([]);
     }
@@ -163,7 +165,8 @@ function FormAddIngredientVegan() {
               type="text"
               value={name}
               onChange={(e) => {
-                setName(capitaliseFirstLetter(e.target.value));
+                let capVal = capitaliseFirstLetter(e.target.value);
+                setName(capVal);
                 setErrorMessage("");
               }}
               className="textInput"
@@ -176,7 +179,9 @@ function FormAddIngredientVegan() {
               type="text"
               value={variety}
               onChange={(e) => {
-                setVariety(capitaliseFirstLetter(e.target.value));
+                let capVal = capitaliseFirstLetter(e.target.value);
+                setVariety(capVal);
+                setErrorMessage("");
               }}
               className="textInput"
               placeholder="e.g. Firm"
@@ -188,7 +193,8 @@ function FormAddIngredientVegan() {
               type="text"
               value={description}
               onChange={(e) => {
-                setDescription(capitaliseFirstLetter(e.target.value));
+                let capVal = capitaliseFirstLetter(e.target.value);
+                setDescription(capVal);
                 setErrorMessage("");
               }}
               className="textInputArea"

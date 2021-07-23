@@ -31,7 +31,6 @@ function FormAddRecipeNonVegan() {
   }, []);
 
   const handleInputSelect = (e, id) => {
-    // setTextValue(e.target.innerText);
     setTitleOptions([]);
     setTitle("");
     setErrorMessage(
@@ -41,8 +40,9 @@ function FormAddRecipeNonVegan() {
   };
 
   const onInputChange = (e) => {
-    setErrorMessage(null);
-    setTitle(capitaliseFirstLetter(e.target.value));
+    setErrorMessage("");
+    let capVal = capitaliseFirstLetter(e.target.value);
+    setTitle(capVal);
     swapList &&
       setTitleOptions(
         swapList.Recipes.filter((option) =>

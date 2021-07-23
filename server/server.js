@@ -4,6 +4,8 @@ const app = express();
 const morgan = require("morgan");
 const db = require("./db");
 const cors = require("cors");
+const bodyParser = require("body-parser"); //https://www.npmjs.com/package/body-parser
+const { cloudinary } = require("./utils/cloudinary");
 
 //change
 const port = process.env.PORT || 3001;
@@ -14,6 +16,12 @@ app.listen(port, () => {
 
 app.use(cors());
 app.use(express.json());
+
+// Not working for some reason?
+
+// app.use(bodyParser.json({ limit: 10000 }));
+// app.use(bodyParser.urlencoded({ extended: false }));
+// app.use(bodyParser.raw({ limit: 10000 }));
 
 // GET section---------------------------------------------------------
 // ---------------------------------------------------------
@@ -531,6 +539,21 @@ app.post("/api/v1/FoodProduct/Ingredient", async (req, res) => {
       },
     });
   } catch (err) {
+    console.log(err);
+  }
+});
+
+//----------------------------------------------------------Image
+app.post("/api/v1/imageUpload", async (req, res) => {
+  try {
+    const fileStr = req.body.data;
+    console.log(fileStr);
+    // console.log("Testing 1");
+    const uploadResponse = await cloudinary.uploader.upload(fileStr);
+    // console.log("Testing 2");
+    res.json({ status: "success", response: uploadResponse });
+  } catch (err) {
+    res.status(500).json({ status: "failure", error: err });
     console.log(err);
   }
 });
