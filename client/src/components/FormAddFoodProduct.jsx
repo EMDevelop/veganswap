@@ -193,6 +193,7 @@ function FormAddFoodProduct(props) {
   const previewFile = (file) => {
     const reader = new FileReader();
     reader.readAsDataURL(file);
+
     reader.onloadend = () => {
       setPreviewSource(reader.result);
     };
@@ -211,7 +212,7 @@ function FormAddFoodProduct(props) {
   const uploadImage = async (imageText) => {
     try {
       const response = await Axios.post("/imageUpload", {
-        data: JSON.stringify({ data: imageText }),
+        data: imageText,
         headers: { "Content-type": "application.json" },
       });
       print("imageUploadResponse", response);

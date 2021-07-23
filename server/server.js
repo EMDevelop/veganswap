@@ -549,7 +549,7 @@ app.post("/api/v1/imageUpload", async (req, res) => {
     const fileStr = req.body.data;
     console.log(fileStr);
     // console.log("Testing 1");
-    const uploadResponse = await cloudinary.uploader.upload(fileStr);
+    const uploadResponse = await cloudinary.uploader.upload(fileStr, {});
     // console.log("Testing 2");
     res.json({ status: "success", response: uploadResponse });
   } catch (err) {
