@@ -13,6 +13,7 @@ import IngredientsProfile from "./routes/IngredientsProfile";
 import FoodProductProfile from "./routes/FoodProductProfile";
 import RecipeProfile from "./routes/RecipeProfile";
 import Add from "./routes/Add";
+import Test from "./routes/Test";
 
 const App = () => {
   return (
@@ -41,6 +42,7 @@ const App = () => {
             path="/recipes/profile/:id"
             component={RecipeProfile}
           ></Route>
+          <Route exact path="/test" component={Test}></Route>
           <Route exact path="/add" component={Add}></Route>
         </Switch>
       </Router>

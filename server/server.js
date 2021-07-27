@@ -488,17 +488,19 @@ app.post("/api/v1/vRecipe/Recipe", async (req, res) => {
 app.post("/api/v1/FoodProduct/Recipe", async (req, res) => {
   try {
     const foodProduct = await db.query(
-      "INSERT INTO foodProduct (BrandName, ProductName, Description, createUser) Values($1,$2,$3,1) RETURNING *",
-      [req.body.brandName, req.body.productName, req.body.description]
+      "INSERT INTO foodProduct (BrandName, ProductName, Description, image, createUser) Values($1,$2,$3,$4,1) RETURNING *",
+      [
+        req.body.brandName,
+        req.body.productName,
+        req.body.description,
+        req.body.publicID,
+      ]
     );
-
     const foodProductID = foodProduct.rows[0].id;
-
     const recipeLink = await db.query(
       "INSERT INTO recipeProduct (recipe_id, foodproduct_id, createuser) VALUES  ($1,$2,1) RETURNING *",
       [req.body.selectedLink, foodProductID]
     );
-
     res.status(200).json({
       status: "success",
       data: {
@@ -511,17 +513,16 @@ app.post("/api/v1/FoodProduct/Recipe", async (req, res) => {
   }
 });
 
-//Create a food product + link to a ingredient
-//Add Food Product
-// INSERT INTO foodProduct (BrandName, ProductName, Description, createUser) Values ()
-//Link to ingredient
-// INSERT INTO ingredientProduct (ingredient_id, foodProduct_id,CreateUser ) VALUES (3, 1, 1) ;
-
 app.post("/api/v1/FoodProduct/Ingredient", async (req, res) => {
   try {
     const foodProduct = await db.query(
-      "INSERT INTO foodProduct (BrandName, ProductName, Description, createUser) Values($1,$2,$3,1) RETURNING *",
-      [req.body.brandName, req.body.productName, req.body.description]
+      "INSERT INTO foodProduct (BrandName, ProductName, Description, Image, createUser) Values($1,$2,$3,$4,1) RETURNING *",
+      [
+        req.body.brandName,
+        req.body.productName,
+        req.body.description,
+        req.body.publicID,
+      ]
     );
 
     const foodProductID = foodProduct.rows[0].id;
@@ -544,16 +545,24 @@ app.post("/api/v1/FoodProduct/Ingredient", async (req, res) => {
 });
 
 //----------------------------------------------------------Image
+// Get
+app.get("/api/v1/images", async (req, res) => {
+  const { resources } = await cloudinary.search
+    .expression("folder:veganswap")
+    .sort_by("public_id", "desc")
+    .max_results(30)
+    .execute();
+  const publicIds = resources.map((file) => file.public_id);
+  res.send(publicIds);
+});
+
+// Upload
 app.post("/api/v1/imageUpload", async (req, res) => {
   try {
     const fileStr = req.body.data;
-    console.log(fileStr);
-    // console.log("Testing 1");
     const uploadResponse = await cloudinary.uploader.upload(fileStr, {});
-    // console.log("Testing 2");
     res.json({ status: "success", response: uploadResponse });
   } catch (err) {
     res.status(500).json({ status: "failure", error: err });
-    console.log(err);
   }
 });

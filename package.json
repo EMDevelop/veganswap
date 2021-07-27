@@ -17,5 +17,6 @@
   "bugs": {
     "url": "https://github.com/EMDevelop/veganswap/issues"
   },
-  "homepage": "https://github.com/EMDevelop/veganswap/client/build"
+  "homepage": "https://github.com/EMDevelop/veganswap/client/build",
+  "dependencies": {}
 }

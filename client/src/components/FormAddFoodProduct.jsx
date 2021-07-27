@@ -4,6 +4,10 @@ import { VeganContext } from "../context/VeganContext";
 import SearchDropDown from "./SearchDropDown";
 import { Spinner } from "react-bootstrap";
 import { print, capitaliseFirstLetter } from "../modules/helper.js";
+import ImageUpload from "./ImageUpload";
+
+// for showing images
+import { Image } from "cloudinary-react";
 
 function FormAddFoodProduct(props) {
   const [buttonText, setButtonText] = useState("Submit");
@@ -17,13 +21,25 @@ function FormAddFoodProduct(props) {
   const [description, setDescription] = useState("");
   const [options, setOptions] = useState([]);
   const [textValue, setTextValue] = useState("");
+  const [selectedImage, setSelectedImage] = useState("");
+  const [imagePublicID, setImagePublicID] = useState("");
+
   const { swapList, setSwapList } = useContext(VeganContext);
+
+  //Images test
+  const [imageIds, setImageIds] = useState([]);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         const response = await Axios.get("/swapListVegan");
         setSwapList(response.data.data);
+
+        // Images test
+        const res = await Axios.get("/images");
+        // const data = await res.json();
+        setImageIds(res.data);
+
         setFinishedRequest(true);
       } catch (error) {
         console.log(error);
@@ -122,6 +138,7 @@ function FormAddFoodProduct(props) {
       setErrorMessage("Please fill in the Brand Name field");
       setErrorClass("errorText");
     }
+
     if (!productName) {
       validationPass = false;
       setErrorMessage("Please fill in the Product Name field");
@@ -138,39 +155,56 @@ function FormAddFoodProduct(props) {
       setErrorClass("errorText");
     }
 
+    if (!selectedImage) {
+      validationPass = false;
+      setErrorClass("errorText");
+      setErrorMessage("No Image, Please Upload An Image");
+    }
+
     if (validationPass) {
       handleSubmit();
     }
   };
 
   const handleSubmit = async () => {
-    console.log("submit ran");
     setFinishedFormSubmit(false);
-    // setButtonText("Sending...");
+    setButtonText("Sending...");
+    let publicID = "";
 
-    // Testing Image Upload
-    handleSubmitFile();
+    // Image Upload
+    try {
+      const response = await Axios.post("/imageUpload", {
+        data: selectedImage,
+        headers: { "Content-type": "application.json" },
+      });
+      publicID = response.data.response.public_id;
+    } catch (error) {
+      print("Error Image Upload", error);
+    }
 
-    // try {
-    //   if (props.type === "ingredient") {
-    //     const response = await Axios.post("/FoodProduct/Ingredient", {
-    //       brandName,
-    //       productName,
-    //       description,
-    //       selectedLink,
-    //     });
-    //   } else {
-    //     // handle recipe API
-    //     const response = await Axios.post("/FoodProduct/Recipe", {
-    //       brandName,
-    //       productName,
-    //       description,
-    //       selectedLink,
-    //     });
-    //   }
-    // } catch (error) {
-    //   console.log(error);
-    // }
+    console.log(publicID);
+    try {
+      if (props.type === "ingredient") {
+        const response = await Axios.post("/FoodProduct/Ingredient", {
+          brandName,
+          productName,
+          description,
+          selectedLink,
+          publicID,
+        });
+      } else {
+        // handle recipe API
+        const response = await Axios.post("/FoodProduct/Recipe", {
+          brandName,
+          productName,
+          description,
+          selectedLink,
+          publicID,
+        });
+      }
+    } catch (error) {
+      console.log(error);
+    }
     // setErrorClass("successMessage");
     // setErrorMessage("Sent, thanks very much for contributing!");
     setFinishedFormSubmit(true);
@@ -178,51 +212,24 @@ function FormAddFoodProduct(props) {
     // setProductName("");
     // setTextValue("");
     // setDescription("");
-    // setButtonText("Submit");
-  };
-
-  // Image
-  const [selectedFile, setSelectedFile] = useState("");
-  const [previewSource, setPreviewSource] = useState("");
-
-  const handleFileInputChange = (e) => {
-    const file = e.target.files[0];
-    previewFile(file);
-  };
-
-  const previewFile = (file) => {
-    const reader = new FileReader();
-    reader.readAsDataURL(file);
-
-    reader.onloadend = () => {
-      setPreviewSource(reader.result);
-    };
-  };
-
-  const handleSubmitFile = (e) => {
-    if (!previewSource) {
-      setErrorClass("errorClass");
-      setErrorMessage("No Image, Please Upload An Image");
-      return;
-    }
-
-    uploadImage(previewSource);
-  };
-
-  const uploadImage = async (imageText) => {
-    try {
-      const response = await Axios.post("/imageUpload", {
-        data: imageText,
-        headers: { "Content-type": "application.json" },
-      });
-      print("imageUploadResponse", response);
-    } catch (error) {
-      print("Error Image Upload", error);
-    }
+    setButtonText("Submit");
   };
 
   return finishedRequest ? (
     <form className="formContainer">
+      {/* Image Test */}
+
+      {imageIds &&
+        imageIds.map((imageId, index) => (
+          <Image
+            key={index}
+            cloudName={process.env.REACT_APP_CLOUDINARY_NAME}
+            publicId={imageId}
+            width="300"
+            crop="scale"
+          />
+        ))}
+
       {errorMessage && <p className={errorClass}>{errorMessage}</p>}
       {/* {!finishedFormSubmit && <Spinner animation="border" />} */}
       <h2 className="subHeadingSmall">Link</h2>
@@ -287,25 +294,7 @@ function FormAddFoodProduct(props) {
         />
       </label>
 
-      <label className="formLabel">
-        Image:
-        <input
-          type="file"
-          name="image"
-          onChange={handleFileInputChange}
-          className="uploadImage"
-          value={selectedFile}
-        />
-      </label>
-      <div className="uploadPreviewImageContainer">
-        {previewSource && (
-          <img
-            src={previewSource}
-            alt="chosen"
-            className="uploadPreviewImage"
-          ></img>
-        )}
-      </div>
+      <ImageUpload getImage={setSelectedImage} />
       <div className="buttonContainer">
         <button
           onClick={formValidation}
