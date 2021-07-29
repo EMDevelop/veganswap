@@ -78,7 +78,11 @@ function FormAddFoodProduct(props) {
       setOptions([]);
     }
   };
-
+  //
+  //
+  //
+  // Form Validation
+  //
   const formValidation = (e) => {
     e.preventDefault();
     let validationPass = true;
@@ -165,7 +169,11 @@ function FormAddFoodProduct(props) {
       handleSubmit();
     }
   };
-
+  //
+  //
+  //
+  // Submit Back End Request
+  //
   const handleSubmit = async () => {
     setFinishedFormSubmit(false);
     setButtonText("Sending...");
@@ -205,13 +213,13 @@ function FormAddFoodProduct(props) {
     } catch (error) {
       console.log(error);
     }
-    // setErrorClass("successMessage");
-    // setErrorMessage("Sent, thanks very much for contributing!");
+    setErrorClass("successMessage");
+    setErrorMessage("Sent, thanks very much for contributing!");
     setFinishedFormSubmit(true);
-    // setBrandName("");
-    // setProductName("");
-    // setTextValue("");
-    // setDescription("");
+    setBrandName("");
+    setProductName("");
+    setTextValue("");
+    setDescription("");
     setButtonText("Submit");
   };
 
