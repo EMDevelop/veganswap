@@ -6,6 +6,7 @@ const db = require("./db");
 const cors = require("cors");
 const bodyParser = require("body-parser"); //https://www.npmjs.com/package/body-parser
 const { cloudinary } = require("./utils/cloudinary");
+const { ClientBase } = require("pg");
 
 //change
 const port = process.env.PORT || 3001;
@@ -16,12 +17,6 @@ app.listen(port, () => {
 
 app.use(cors());
 app.use(express.json());
-
-// Not working for some reason?
-
-// app.use(bodyParser.json({ limit: 10000 }));
-// app.use(bodyParser.urlencoded({ extended: false }));
-// app.use(bodyParser.raw({ limit: 10000 }));
 
 // GET section---------------------------------------------------------
 // ---------------------------------------------------------
@@ -36,19 +31,22 @@ app.use(express.json());
 
 // GET Non-Vegan Recipe and Ingredient
 app.get("/api/v1/swapList", async (req, res) => {
+  // NEW
+
+  // OLD
   try {
-    const ingredient = await db.query(
-      `SELECT id,isvegan,name, variety,'ingredient' AS type FROM ingredient WHERE isVegan = 'n' order by name, variety asc;`
-    );
-    const recipe = await db.query(
-      `SELECT id, isvegan, title, 'recipe' AS type FROM recipe WHERE isVegan = 'n';`
+    const response = await db.query(
+      `SELECT id, isvegan,CASE WHEN (variety IS NULL) THEN name ELSE name || ', ' || variety END AS name, 'ingredient' AS type FROM ingredient  WHERE isVegan = 'n' 
+      UNION
+      SELECT id, isvegan, title as name, 'recipe' AS type FROM recipe WHERE isVegan = 'n'
+      ORDER BY name DESC;
+      `
     );
 
     res.status(200).json({
       status: "success",
       data: {
-        ingredients: ingredient.rows,
-        recipes: recipe.rows,
+        swapList: response.rows,
       },
     });
   } catch (error) {

@@ -402,8 +402,8 @@ select::-ms-expand {
 
 .swapBox {
   height: 40vh;
-  min-width: fit-content;
-  /* max-width: 950px; */
+  /* min-width: 60%; */
+  max-width: 600px;
   border-radius: 20px;
   padding-bottom: 100px;
   padding-left: 20px;
@@ -431,6 +431,7 @@ select::-ms-expand {
 
 .swapSearchBarContainer {
   width: fit-content;
+  max-width: 1000px;
   height: fit-content;
   padding-top: 20px;
   padding-bottom: 20px;

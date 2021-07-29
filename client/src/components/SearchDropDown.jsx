@@ -57,9 +57,13 @@ function SearchDropDown(props) {
               item[customOptions] && (
                 <button
                   type="button"
-                  key={item.id}
+                  key={
+                    customClass === "swapScreen"
+                      ? `${item.id} ${item.type}`
+                      : item.id
+                  }
                   className={resultList}
-                  onClick={(e) => handleInputSelect(e, item.id)}
+                  onClick={(e) => handleInputSelect(e, item.id, item.type)}
                 >
                   {item[customOptions]}
                   {item.variety && setVariety && `, ${item.variety}`}
