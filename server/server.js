@@ -38,10 +38,10 @@ app.use(express.json());
 app.get("/api/v1/swapList", async (req, res) => {
   try {
     const ingredient = await db.query(
-      `SELECT id,name, variety, isvegan FROM ingredient WHERE isVegan = 'n' order by name, variety asc;`
+      `SELECT id,isvegan,name, variety,'ingredient' AS type FROM ingredient WHERE isVegan = 'n' order by name, variety asc;`
     );
     const recipe = await db.query(
-      `SELECT id, isvegan, title FROM recipe WHERE isVegan = 'n';`
+      `SELECT id, isvegan, title, 'recipe' AS type FROM recipe WHERE isVegan = 'n';`
     );
 
     res.status(200).json({
@@ -350,8 +350,9 @@ app.get("/api/v1/recipes/profile/:id", async (req, res) => {
 app.post("/api/v1/nvIngredient", async (req, res) => {
   try {
     const response = await db.query(
-      "INSERT INTO ingredient (isVegan, name,variety, createuser) VALUES ('n',$1,$2,1) RETURNING *",
-      [req.body.name, req.body.variety]
+      "INSERT INTO ingredient (isVegan, name,variety, image,createuser) VALUES ('n',$1,$2,$3, 1) RETURNING *",
+      [req.body.name, req.body.variety],
+      req.body.publicID
     );
 
     res.status(200).json({
@@ -369,8 +370,8 @@ app.post("/api/v1/nvIngredient", async (req, res) => {
 app.post("/api/v1/vIngredient", async (req, res) => {
   try {
     const addIngredient = await db.query(
-      "INSERT INTO ingredient (isVegan, name,variety, description, createuser) VALUES  ('y',$1,$2,$3,1) RETURNING *",
-      [req.body.name, req.body.variety, req.body.description]
+      "INSERT INTO ingredient (isVegan, name,variety, description, image, createuser) VALUES  ('y',$1,$2,$3, $4, 1) RETURNING *",
+      [req.body.name, req.body.variety, req.body.description, req.body.publicID]
     );
 
     const ingredientID = addIngredient.rows[0].id;
@@ -419,12 +420,13 @@ app.post("/api/v1/nvRecipe", async (req, res) => {
 app.post("/api/v1/vRecipe/Ingredient", async (req, res) => {
   try {
     const recipe = await db.query(
-      "INSERT INTO recipe ( isvegan, title, description, credit, url, createuser) VALUES ('y',$1,$2,$3,$4,1) RETURNING *",
+      "INSERT INTO recipe ( isvegan, title, description, credit, url, image, createuser) VALUES ('y',$1,$2,$3,$4,$5,1) RETURNING *",
       [
         req.body.title,
         req.body.description,
         req.body.credit,
         req.body.setCreditURL,
+        req.body.publicID,
       ]
     );
 
@@ -451,12 +453,13 @@ app.post("/api/v1/vRecipe/Ingredient", async (req, res) => {
 app.post("/api/v1/vRecipe/Recipe", async (req, res) => {
   try {
     const recipe = await db.query(
-      "INSERT INTO recipe ( isvegan, title, description, credit, url, createuser) VALUES ('y',$1,$2,$3,$4,1) RETURNING *",
+      "INSERT INTO recipe ( isvegan, title, description, credit, url, image,createuser) VALUES ('y',$1,$2,$3,$4,$5,1) RETURNING *",
       [
         req.body.title,
         req.body.description,
         req.body.credit,
         req.body.setCreditURL,
+        req.body.publicID,
       ]
     );
 
@@ -546,15 +549,15 @@ app.post("/api/v1/FoodProduct/Ingredient", async (req, res) => {
 
 //----------------------------------------------------------Image
 // Get
-app.get("/api/v1/images", async (req, res) => {
-  const { resources } = await cloudinary.search
-    .expression("folder:veganswap")
-    .sort_by("public_id", "desc")
-    .max_results(30)
-    .execute();
-  const publicIds = resources.map((file) => file.public_id);
-  res.send(publicIds);
-});
+// app.get("/api/v1/images", async (req, res) => {
+//   const { resources } = await cloudinary.search
+//     .expression("folder:veganswap")
+//     .sort_by("public_id", "desc")
+//     .max_results(30)
+//     .execute();
+//   const publicIds = resources.map((file) => file.public_id);
+//   res.send(publicIds);
+// });
 
 // Upload
 app.post("/api/v1/imageUpload", async (req, res) => {

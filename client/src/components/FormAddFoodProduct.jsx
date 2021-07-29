@@ -3,11 +3,8 @@ import Axios from "../apis/axios";
 import { VeganContext } from "../context/VeganContext";
 import SearchDropDown from "./SearchDropDown";
 import { Spinner } from "react-bootstrap";
-import { print, capitaliseFirstLetter } from "../modules/helper.js";
+import { capitaliseFirstLetter } from "../modules/helper.js";
 import ImageUpload from "./ImageUpload";
-
-// for showing images
-import { Image } from "cloudinary-react";
 
 function FormAddFoodProduct(props) {
   const [buttonText, setButtonText] = useState("Submit");
@@ -22,24 +19,19 @@ function FormAddFoodProduct(props) {
   const [options, setOptions] = useState([]);
   const [textValue, setTextValue] = useState("");
   const [selectedImage, setSelectedImage] = useState("");
-  const [imagePublicID, setImagePublicID] = useState("");
 
   const { swapList, setSwapList } = useContext(VeganContext);
 
-  //Images test
-  const [imageIds, setImageIds] = useState([]);
-
+  //
+  //
+  //
+  // On Page Load
+  //
   useEffect(() => {
     const fetchData = async () => {
       try {
         const response = await Axios.get("/swapListVegan");
         setSwapList(response.data.data);
-
-        // Images test
-        const res = await Axios.get("/images");
-        // const data = await res.json();
-        setImageIds(res.data);
-
         setFinishedRequest(true);
       } catch (error) {
         console.log(error);
@@ -48,6 +40,11 @@ function FormAddFoodProduct(props) {
     fetchData();
   }, []);
 
+  //
+  //
+  //
+  // On Click / On Change Functions
+  //
   const handleInputSelect = (e, id) => {
     setSelectedLink(id);
     setTextValue(e.target.innerText);
@@ -187,10 +184,9 @@ function FormAddFoodProduct(props) {
       });
       publicID = response.data.response.public_id;
     } catch (error) {
-      print("Error Image Upload", error);
+      console.log(error);
     }
 
-    console.log(publicID);
     try {
       if (props.type === "ingredient") {
         const response = await Axios.post("/FoodProduct/Ingredient", {
@@ -201,7 +197,6 @@ function FormAddFoodProduct(props) {
           publicID,
         });
       } else {
-        // handle recipe API
         const response = await Axios.post("/FoodProduct/Recipe", {
           brandName,
           productName,
@@ -221,23 +216,11 @@ function FormAddFoodProduct(props) {
     setTextValue("");
     setDescription("");
     setButtonText("Submit");
+    setSelectedImage("");
   };
 
   return finishedRequest ? (
     <form className="formContainer">
-      {/* Image Test */}
-
-      {imageIds &&
-        imageIds.map((imageId, index) => (
-          <Image
-            key={index}
-            cloudName={process.env.REACT_APP_CLOUDINARY_NAME}
-            publicId={imageId}
-            width="300"
-            crop="scale"
-          />
-        ))}
-
       {errorMessage && <p className={errorClass}>{errorMessage}</p>}
       {/* {!finishedFormSubmit && <Spinner animation="border" />} */}
       <h2 className="subHeadingSmall">Link</h2>
@@ -301,7 +284,6 @@ function FormAddFoodProduct(props) {
           placeholder="e.g. Tofu, also known as bean curd, is a food prepared by coagulating soy milk and then pressing the resulting curds into solid white blocks of varying softness..."
         />
       </label>
-
       <ImageUpload getImage={setSelectedImage} />
       <div className="buttonContainer">
         <button

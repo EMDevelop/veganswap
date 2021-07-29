@@ -4,6 +4,7 @@ import Axios from "../apis/axios";
 import { VeganContext } from "../context/VeganContext";
 import { Spinner } from "react-bootstrap";
 import { print, capitaliseFirstLetter } from "../modules/helper.js";
+import ImageUpload from "./ImageUpload";
 
 function FormAddIngredientVegan() {
   const [finishedRequest, setFinishedRequest] = useState(null);
@@ -14,41 +15,41 @@ function FormAddIngredientVegan() {
   const [buttonText, setButtonText] = useState("Submit");
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
-  // const [image, setImage] = useState([])
   const [variety, setVariety] = useState("");
   const [errorMessage, setErrorMessage] = useState([]);
   const [errorClass, setErrorClass] = useState("errorText");
+  const [selectedImage, setSelectedImage] = useState("");
 
   const { swapList, setSwapList } = useContext(VeganContext);
 
+  //
+  //
+  //
+  // On Page Load
+  //
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await Axios.get("/nvIngredients");
+        setSwapList(response.data.data);
+        setFinishedRequest(true);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    fetchData();
+  }, []);
+
+  //
+  //
+  //
+  // On Click / On Change Functions
+  //
   const handleInputSelect = (e, id) => {
     setSelectedIngredient(id);
     setTextValue(e.target.innerText);
     setOptions([]);
     setErrorMessage([]);
-  };
-
-  const handleSubmit = async (e) => {
-    try {
-      setFinishedFormSubmit(false);
-      setButtonText("Sending...");
-      const veganIngredient = await Axios.post("/vIngredient", {
-        name,
-        variety,
-        description,
-        selectedIngredient,
-      });
-      setErrorClass("successMessage");
-      setErrorMessage("Sent, thanks very much for contributing!");
-      setButtonText("Submit");
-      setFinishedFormSubmit(true);
-      setDescription("");
-      setVariety("");
-      setName("");
-      setTextValue("");
-    } catch (error) {
-      console.log(error);
-    }
   };
 
   const onInputChange = (e) => {
@@ -72,19 +73,11 @@ function FormAddIngredientVegan() {
     }
   };
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await Axios.get("/nvIngredients");
-        setSwapList(response.data.data);
-        setFinishedRequest(true);
-      } catch (error) {
-        console.log(error);
-      }
-    };
-    fetchData();
-  }, []);
-
+  //
+  //
+  //
+  // Form Validation
+  //
   const formValidation = (e) => {
     e.preventDefault();
     let validationPass = true;
@@ -124,14 +117,56 @@ function FormAddIngredientVegan() {
       setErrorClass("errorText");
     }
 
-    // how do I tell if the input of the form is
-
-    // check that name is not null
-
-    // add warning if no description is added
+    if (!selectedImage) {
+      validationPass = false;
+      setErrorClass("errorText");
+      setErrorMessage("No Image, Please Upload An Image");
+    }
 
     if (validationPass) {
       handleSubmit();
+    }
+  };
+
+  //
+  //
+  //
+  // Submit Back End Request
+  //
+  const handleSubmit = async (e) => {
+    setFinishedFormSubmit(false);
+    setButtonText("Sending...");
+    let publicID = "";
+
+    try {
+      const response = await Axios.post("/imageUpload", {
+        data: selectedImage,
+        headers: { "Content-type": "application.json" },
+      });
+      publicID = response.data.response.public_id;
+    } catch (error) {
+      console.log(error);
+    }
+
+    try {
+      const veganIngredient = await Axios.post("/vIngredient", {
+        name,
+        variety,
+        description,
+        selectedIngredient,
+        publicID,
+      });
+      setErrorClass("successMessage");
+      setErrorMessage("Sent, thanks very much for contributing!");
+      setButtonText("Submit");
+      setFinishedFormSubmit(true);
+      setDescription("");
+      setVariety("");
+      setName("");
+      setTextValue("");
+      setSelectedImage("");
+    } catch (error) {
+      console.log(error);
     }
   };
 
@@ -201,11 +236,9 @@ function FormAddIngredientVegan() {
               placeholder="e.g. Tofu, also known as bean curd, is a food prepared by coagulating soy milk and then pressing the resulting curds into solid white blocks of varying softness..."
             />
           </label>
-          {/*  needs some work */}
-          <label className="formLabel">
-            Image:
-            <input type="file" className="uploadImage" />
-          </label>
+
+          <ImageUpload getImage={setSelectedImage} />
+
           <div className="buttonContainer">
             <button
               onClick={formValidation}

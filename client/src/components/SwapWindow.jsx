@@ -9,27 +9,28 @@ import { print, capitaliseFirstLetter } from "../modules/helper.js";
 function SwapWindow() {
   const { swapList, setSwapList } = useContext(VeganContext);
   const [finishedLoading, setFinishedLoading] = useState(null);
-  const [setLabel, setSetLabel] = useState("ingredient");
+  const [label, setLabel] = useState("ingredient");
   const [options, setOptions] = useState("");
   const [dropdownSelect, setDropdownSelect] = useState("________");
   const [textValue, setTextValue] = useState("");
 
   let history = useHistory();
 
-  const handleInputSelect = (e, id) => {
+  const handleInputSelect = (id) => {
     history.push(`/alternatives/${dropdownSelect}/${id}`);
   };
 
   useEffect(() => {
     if (dropdownSelect === "recipe") {
-      setSetLabel("title");
+      setLabel("title");
     } else {
-      setSetLabel("name");
+      setLabel("name");
     }
     const fetchData = async () => {
       try {
         const response = await Axios.get("/swapList");
         setSwapList(response.data.data);
+        console.log(response.data.data);
         setFinishedLoading(true);
       } catch (error) {
         console.log(error);
@@ -74,9 +75,9 @@ function SwapWindow() {
   const onDropdownSelect = (e) => {
     setDropdownSelect(e.target.value);
     if (e.target.value === "recipe") {
-      setSetLabel("title");
+      setLabel("title");
     } else {
-      setSetLabel("name");
+      setLabel("name");
     }
   };
 
@@ -106,7 +107,7 @@ function SwapWindow() {
             textValue={textValue}
             customClass="swapScreen"
             dropdownSelect={dropdownSelect}
-            customOptions={setLabel}
+            customOptions={label}
             setVariety={true}
           />
         </div>

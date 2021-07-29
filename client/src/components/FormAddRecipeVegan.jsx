@@ -4,6 +4,7 @@ import Axios from "../apis/axios";
 import { VeganContext } from "../context/VeganContext";
 import { Spinner } from "react-bootstrap";
 import { print, capitaliseFirstLetter } from "../modules/helper.js";
+import ImageUpload from "./ImageUpload";
 
 function FormAddRecipeVegan(props) {
   const [buttonText, setButtonText] = useState("Submit");
@@ -15,15 +16,18 @@ function FormAddRecipeVegan(props) {
   const [selectedLink, setSelectedLink] = useState(null);
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
-  // const [image, setImage] = useState([])
-
   const [credit, setCredit] = useState([]);
   const [creditURL, setCreditURL] = useState("");
   const [textValue, setTextValue] = useState("");
-  // const [customOptions, setCustomOptions] = useState("");
+  const [selectedImage, setSelectedImage] = useState("");
 
   const { swapList, setSwapList } = useContext(VeganContext);
 
+  //
+  //
+  //
+  // On Page Load
+  //
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -37,16 +41,53 @@ function FormAddRecipeVegan(props) {
     fetchData();
   }, []);
 
+  //
+  //
+  //
+  // On Click / On Change Functions
+  //
+  const handleInputSelect = (e, id) => {
+    setSelectedLink(id);
+    setTextValue(e.target.innerText);
+    setOptions([]);
+    setErrorMessage([]);
+  };
+
+  const onInputChange = (e) => {
+    let capVal = capitaliseFirstLetter(e.target.value);
+    setTextValue(capVal);
+    setErrorMessage("");
+    if (props.type === "ingredient") {
+      swapList &&
+        setOptions(
+          swapList.ingredients.filter((option) =>
+            option.name.toLowerCase().includes(e.target.value.toLowerCase())
+          )
+        );
+    } else {
+      swapList &&
+        setOptions(
+          swapList.recipes.filter((option) =>
+            option.title.toLowerCase().includes(e.target.value.toLowerCase())
+          )
+        );
+    }
+    if (e.target.value === "") {
+      setOptions([]);
+    }
+  };
+  //
+  //
+  //
+  // Form Validation
+  //
   const formValidation = (e) => {
     e.preventDefault();
     let validationPass = true;
     let nvIngredientExists = false;
     let nvRecipeExists = false;
 
-    // Check that value entered is in the dropdown list
-
     if (props.type === "ingredient") {
-      // if props = ingredient (see Outcome A)
       nvRecipeExists = true;
       swapList.ingredients.map((option) => {
         const name = option.name;
@@ -64,12 +105,8 @@ function FormAddRecipeVegan(props) {
         }
       });
     } else {
-      // if props = recipe
-
       nvIngredientExists = true;
       swapList.recipes.map((option) => {
-        // console.log(textValue.toString().toLowerCase());
-        // console.log(option.textValue.toString().toLowerCase());
         if (
           textValue.toString().toLowerCase() ===
           option.title.toString().toLowerCase()
@@ -120,15 +157,36 @@ function FormAddRecipeVegan(props) {
       setErrorMessage("Please fill in the Credit URL field");
       setErrorClass("errorText");
     }
+    if (!selectedImage) {
+      validationPass = false;
+      setErrorClass("errorText");
+      setErrorMessage("No Image, Please Upload An Image");
+    }
     if (validationPass) {
       handleSubmit();
     }
   };
-
+  //
+  //
+  //
+  // Submit Back End Request
+  //
   const handleSubmit = async () => {
-    console.log("submit ran");
     setFinishedFormSubmit(false);
     setButtonText("Sending...");
+    let publicID = "";
+
+    // Image Upload
+    try {
+      const response = await Axios.post("/imageUpload", {
+        data: selectedImage,
+        headers: { "Content-type": "application.json" },
+      });
+      publicID = response.data.response.public_id;
+    } catch (error) {
+      console.log(error);
+    }
+
     try {
       if (props.type === "ingredient") {
         const response = await Axios.post("/vRecipe/Ingredient", {
@@ -137,6 +195,7 @@ function FormAddRecipeVegan(props) {
           credit,
           creditURL,
           selectedLink,
+          publicID,
         });
       } else {
         // handle recipe API
@@ -146,6 +205,7 @@ function FormAddRecipeVegan(props) {
           credit,
           creditURL,
           selectedLink,
+          publicID,
         });
       }
     } catch (error) {
@@ -160,38 +220,7 @@ function FormAddRecipeVegan(props) {
     setCredit("");
     setDescription("");
     setButtonText("Submit");
-  };
-
-  const handleInputSelect = (e, id) => {
-    setSelectedLink(id);
-    setTextValue(e.target.innerText);
-    setOptions([]);
-    setErrorMessage([]);
-  };
-
-  const onInputChange = (e) => {
-    let capVal = capitaliseFirstLetter(e.target.value);
-    print("newTing", capVal);
-    setTextValue(capVal);
-    setErrorMessage("");
-    if (props.type === "ingredient") {
-      swapList &&
-        setOptions(
-          swapList.ingredients.filter((option) =>
-            option.name.toLowerCase().includes(e.target.value.toLowerCase())
-          )
-        );
-    } else {
-      swapList &&
-        setOptions(
-          swapList.recipes.filter((option) =>
-            option.title.toLowerCase().includes(e.target.value.toLowerCase())
-          )
-        );
-    }
-    if (e.target.value === "") {
-      setOptions([]);
-    }
+    setSelectedImage("");
   };
 
   return (
@@ -274,11 +303,7 @@ function FormAddRecipeVegan(props) {
               placeholder="e.g. www.foodwebsite.com/recipe/johndoe/tofu"
             />
           </label>
-          {/*  needs some work */}
-          <label className="formLabel">
-            Image:
-            <input type="file" className="uploadImage" />
-          </label>
+          <ImageUpload getImage={setSelectedImage} />
           <h2 className="subHeadingSmall">Add Ingredients</h2>
           <h2 className="subHeadingSmall">Add Steps</h2>
           <div className="buttonContainer">

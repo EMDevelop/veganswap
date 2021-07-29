@@ -33,7 +33,8 @@ function ProfileCard(props) {
                 cloudName={process.env.REACT_APP_CLOUDINARY_NAME}
                 publicId={props.image}
                 className="profileImage"
-                width="auto"
+                // height="100"
+                width="100"
                 crop="scale"
                 alt="Product"
                 draggable="false"
