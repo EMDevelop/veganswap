@@ -144,8 +144,6 @@ function FormAddIngredientNonVegan() {
   };
 
   const handleSubmit = async () => {
-    // capitaliseFirstLetter(name);
-    // capitaliseFirstLetter(variety);
     try {
       setFinishedFormSubmit(false);
       setButtonText("Sending...");
@@ -160,7 +158,6 @@ function FormAddIngredientNonVegan() {
     } catch (error) {
       console.log(error);
     }
-    // setName("");
     setVariety("");
     setVarietyOptions([]);
   };

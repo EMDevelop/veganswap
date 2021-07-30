@@ -348,7 +348,7 @@ app.get("/api/v1/recipes/profile/:id", async (req, res) => {
 app.post("/api/v1/nvIngredient", async (req, res) => {
   try {
     const response = await db.query(
-      "INSERT INTO ingredient (isVegan, name,variety, image,createuser) VALUES ('n',$1,$2,$3, 1) RETURNING *",
+      "INSERT INTO ingredient (isVegan, name,variety,createuser) VALUES ('n',$1,$2, 1) RETURNING *",
       [req.body.name, req.body.variety],
       req.body.publicID
     );
