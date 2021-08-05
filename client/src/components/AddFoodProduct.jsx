@@ -5,42 +5,49 @@ import ToolTip from "./ToolTip";
 
 function AddFoodProduct() {
   const [form, setForm] = useState(<></>);
+  const [alternativeDropdownSelect, setAlternativeDropdownSelect] =
+    useState("_____");
+
+  const onAlternativeDropdownSelect = (e) => {
+    setAlternativeDropdownSelect(e.target.value);
+    switch (e.target.value) {
+      case "recipe":
+        setForm(<FormAddFoodProduct type="recipe" customOptions="title" />);
+        break;
+      case "ingredient":
+        setForm(
+          <FormAddFoodProduct
+            type="ingredient"
+            customOptions="name"
+            variety={true}
+          />
+        );
+        break;
+      default:
+        break;
+    }
+  };
+
   return (
     <CollapsibleDiv autoOpen="yes">
-      <h1 className="subHeadingSmall">
-        Is your product an alternative for an Ingredient or a Recipe?
-      </h1>
-      <div className="formHeader">
-        <div className="formHeaderButtons">
-          <button
-            className="customButton"
-            value="VeganIngredient"
-            onClick={() =>
-              setForm(
-                <FormAddFoodProduct
-                  type="ingredient"
-                  customOptions="name"
-                  variety={true}
-                />
-              )
-            }
-          >
-            Ingredient
-          </button>
-
-          <button
-            className="customButton"
-            value="VeganIngredient"
-            onClick={() =>
-              setForm(
-                <FormAddFoodProduct type="recipe" customOptions="title" />
-              )
-            }
-          >
-            Recipe
-          </button>
+      <div className="formQuestions">
+        <div className="formQuestion">
+          <h2 className="formQuestionSubheading">
+            Is your recipe an alternative for an Ingredient or a Recipe?
+          </h2>
         </div>
-        <div className="formHeaderToolTip">
+        <div className="formAnswer">
+          <select
+            className="swapDropdown"
+            value={alternativeDropdownSelect}
+            onChange={(e) => onAlternativeDropdownSelect(e)}
+          >
+            <option disabled>_____</option>
+            <option value="recipe">Recipe</option>
+            <option value="ingredient">Ingredient</option>
+          </select>
+        </div>
+        <div className="toolTipForm">
           <ToolTip>
             <p className="toolText">
               Ingredient: An example of this would be "Vegan Mayo, Hellmans" as

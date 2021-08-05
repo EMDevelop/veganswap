@@ -8,7 +8,7 @@ import { capitaliseFirstLetter } from "../modules/helper.js";
 function FormAddIngredientNonVegan() {
   const [buttonText, setButtonText] = useState("Submit");
   const [name, setName] = useState("");
-  const [variety, setVariety] = useState(null);
+  const [variety, setVariety] = useState("");
   const [errorMessage, setErrorMessage] = useState([]);
   const [finishedRequest, setFinishedRequest] = useState(null);
   const [finishedFormSubmit, setFinishedFormSubmit] = useState(true);

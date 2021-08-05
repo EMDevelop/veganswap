@@ -20,15 +20,15 @@ function SearchDropDown(props) {
   useEffect(() => {
     switch (customClass) {
       case "addScreen":
-        setContainerClass("swapPageSearchContainer");
+        setContainerClass("addPageSearchContainer");
         setListGroup("addPageSearchListGroup");
-        setResultList("addPageSearchtButton");
+        setResultList("addPageSearchButton");
         setInput("addPageSearchInput");
         break;
       case "swapScreen":
         setContainerClass("swapPageSearchContainer");
         setListGroup("swapPageDropdownListGroup");
-        setResultList("swapPageSearchtButton");
+        setResultList("swapPageSearchButton");
         setInput("swapPageSearchInput");
         break;
       default:

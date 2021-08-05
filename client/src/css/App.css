@@ -30,10 +30,12 @@ body {
   overflow-x: hidden;
 }
 
+input,
 input:focus,
 textarea:focus,
 select:focus {
   outline: none;
+  border: none;
 }
 
 h2 {
@@ -84,6 +86,12 @@ select::-ms-expand {
   font-size: 2rem;
   padding: 0px;
   margin-right: 20px;
+}
+
+.formQuestionSubheading {
+  color: var(--lightTaupe);
+  font-size: 1.6rem;
+  /* font-weight: bold; */
 }
 
 .subHeading {
@@ -202,7 +210,8 @@ select::-ms-expand {
   flex-direction: column;
   align-items: center;
   text-align: center;
-  background-color: transparent;
+  background-color: #e6d9cf3e;
+
   background-size: auto;
 }
 
@@ -493,7 +502,7 @@ select::-ms-expand {
   z-index: 100;
 }
 
-.swapPageSearchtButton {
+.swapPageSearchButton {
   width: fit-content;
   height: fit-content;
   text-align: left;
@@ -537,9 +546,11 @@ select::-ms-expand {
 .addPageSearchContainer {
   height: 50px;
   width: 300px;
+  border: solid 1px var(--lightGreen) !important;
   border-radius: 5px;
   margin-left: auto;
   margin-right: 5%;
+  color: var(--text);
 }
 
 /* need to get this to somethign good */
@@ -555,7 +566,7 @@ select::-ms-expand {
   /* position: absolute; */
 }
 
-.addPageSearchtButton {
+.addPageSearchButton {
   width: 300px;
   height: 40px;
   text-align: left;
@@ -908,19 +919,45 @@ select::-ms-expand {
 /* / Form General */
 /*  */
 
-.formContainer {
+/* .formContainer {
   padding: 20px;
   box-shadow: 1px 1px 15px 8px #e4e3e394;
   background-color: var(--lightestTaupe);
   border-radius: 25px;
   width: 80%;
-  /* min-height: 50vh; */
   height: fit-content;
   margin-left: 10%;
   margin-right: 10%;
   margin-bottom: 30px;
   display: flex;
   flex-direction: column;
+} */
+
+.formContainer {
+  width: 80%;
+  height: fit-content;
+  box-shadow: 1px 1px 15px 8px #e4e3e394;
+  padding: 20px;
+  margin-left: 10%;
+  margin-right: 10%;
+  margin-bottom: 30px;
+  border-radius: 5px;
+  position: relative;
+  z-index: 1;
+  background: inherit;
+  overflow: hidden;
+}
+
+.formContainer:before {
+  content: "";
+  position: absolute;
+  background: inherit;
+  z-index: -1;
+  width: 80%;
+  height: fit-content;
+  background-color: var(--lightestTaupe);
+  box-shadow: inset 0 0 2000px rgba(255, 255, 255, 0.5);
+  filter: blur(10px);
 }
 
 .textInput {
@@ -966,8 +1003,8 @@ select::-ms-expand {
   color: var(--text);
 }
 
-.formQuestion {
-  width: fit-content;
+.formQuestions {
+  width: 60%;
   margin-left: auto;
   margin-right: auto;
   height: fit-content;
@@ -978,8 +1015,16 @@ select::-ms-expand {
   margin-bottom: 20px;
 }
 
-.questionAnswer {
-  width: 90%;
+.formQuestion {
+  width: 50%;
+  height: 100%;
+  float: right;
+  text-align: right;
+}
+
+.formAnswer {
+  width: 20%;
+  height: 100%;
   display: flex;
   flex-direction: row;
   justify-content: center;
@@ -988,6 +1033,7 @@ select::-ms-expand {
 }
 
 .toolTipForm {
+  height: 100%;
   width: 10%;
 }
 

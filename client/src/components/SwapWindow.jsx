@@ -26,7 +26,6 @@ function SwapWindow() {
       try {
         const response = await Axios.get("/swapList");
         setSwapList(response.data.data);
-        console.log(response.data.data);
         setFinishedLoading(true);
       } catch (error) {
         console.log(error);

@@ -6,10 +6,10 @@ import FormAddIngredientNonVegan from "./FormAddIngredientNonVegan";
 
 function AddIngredient() {
   const [form, setForm] = useState(<></>);
-  const [dropdownSelect, setDropdownSelect] = useState("_____");
+  const [veganDropdownSelect, setVeganDropdownSelect] = useState("_____");
 
-  const onDropdownSelect = (e) => {
-    setDropdownSelect(e.target.value);
+  const onVeganDropdownSelect = (e) => {
+    setVeganDropdownSelect(e.target.value);
 
     switch (e.target.value) {
       case "Vegan":
@@ -25,13 +25,15 @@ function AddIngredient() {
 
   return (
     <CollapsibleDiv autoOpen="yes">
-      <div className="formQuestion">
-        <div className="questionAnswer">
-          <h2 className="swapSubHeader">Is your ingredient Vegan?</h2>
+      <div className="formQuestions">
+        <div className="formQuestion">
+          <h2 className="formQuestionSubheading">Is your ingredient Vegan?</h2>
+        </div>
+        <div className="formAnswer">
           <select
             className="swapDropdown"
-            value={dropdownSelect}
-            onChange={(e) => onDropdownSelect(e)}
+            value={veganDropdownSelect}
+            onChange={(e) => onVeganDropdownSelect(e)}
           >
             <option disabled>_____</option>
             <option value="Vegan">Yes</option>
