@@ -919,7 +919,7 @@ select::-ms-expand {
 /* / Form General */
 /*  */
 
-/* .formContainer {
+.formContainer {
   padding: 20px;
   box-shadow: 1px 1px 15px 8px #e4e3e394;
   background-color: var(--lightestTaupe);
@@ -931,9 +931,9 @@ select::-ms-expand {
   margin-bottom: 30px;
   display: flex;
   flex-direction: column;
-} */
+}
 
-.formContainer {
+/* .formContainer {
   width: 80%;
   height: fit-content;
   box-shadow: 1px 1px 15px 8px #e4e3e394;
@@ -958,7 +958,7 @@ select::-ms-expand {
   background-color: var(--lightestTaupe);
   box-shadow: inset 0 0 2000px rgba(255, 255, 255, 0.5);
   filter: blur(10px);
-}
+} */
 
 .textInput {
   height: 50px;
