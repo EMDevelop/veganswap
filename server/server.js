@@ -4,9 +4,8 @@ const app = express();
 const morgan = require("morgan");
 const db = require("./db");
 const cors = require("cors");
-const bodyParser = require("body-parser"); //https://www.npmjs.com/package/body-parser
 const { cloudinary } = require("./utils/cloudinary");
-const { ClientBase } = require("pg");
+// const { ClientBase } = require("pg");
 
 //change
 const port = process.env.PORT || 3001;
@@ -36,7 +35,7 @@ app.get("/api/v1/swapList", async (req, res) => {
   // OLD
   try {
     const response = await db.query(
-      `SELECT id, isvegan,CASE WHEN (variety IS NULL) THEN name ELSE name || ', ' || variety END AS name, 'ingredient' AS type FROM ingredient  WHERE isVegan = 'n' 
+      `SELECT id, isvegan,CASE WHEN (variety IS NULL ) THEN name WHEN (variety ='' ) THEN name ELSE name || ', ' || variety END AS name, 'ingredient' AS type FROM ingredient  WHERE isVegan = 'n' 
       UNION
       SELECT id, isvegan, title as name, 'recipe' AS type FROM recipe WHERE isVegan = 'n'
       ORDER BY name DESC;
@@ -49,8 +48,11 @@ app.get("/api/v1/swapList", async (req, res) => {
         swapList: response.rows,
       },
     });
-  } catch (error) {
-    console.log("error");
+  } catch (err) {
+    res.json({
+      status: "failure",
+      error: err,
+    });
   }
 });
 
@@ -71,8 +73,11 @@ app.get("/api/v1/swapListVegan", async (req, res) => {
         recipes: recipe.rows,
       },
     });
-  } catch (error) {
-    console.log("error");
+  } catch (err) {
+    res.json({
+      status: "failure",
+      error: err,
+    });
   }
 });
 
@@ -546,16 +551,6 @@ app.post("/api/v1/FoodProduct/Ingredient", async (req, res) => {
 });
 
 //----------------------------------------------------------Image
-// Get
-// app.get("/api/v1/images", async (req, res) => {
-//   const { resources } = await cloudinary.search
-//     .expression("folder:veganswap")
-//     .sort_by("public_id", "desc")
-//     .max_results(30)
-//     .execute();
-//   const publicIds = resources.map((file) => file.public_id);
-//   res.send(publicIds);
-// });
 
 // Upload
 app.post("/api/v1/imageUpload", async (req, res) => {

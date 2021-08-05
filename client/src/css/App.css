@@ -217,7 +217,11 @@ select::-ms-expand {
   padding: 20px;
   border-radius: 25px;
   padding-right: 10px;
-  box-shadow: 1px 1px 15px 8px #e4e3e394;
+  /* box-shadow: 1px 1px 15px 8px #e4e3e394; */
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
 }
 
 .addHeaderButtons {
@@ -962,6 +966,31 @@ select::-ms-expand {
   color: var(--text);
 }
 
+.formQuestion {
+  width: fit-content;
+  margin-left: auto;
+  margin-right: auto;
+  height: fit-content;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.questionAnswer {
+  width: 90%;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  /* background-color: #f88379; */
+}
+
+.toolTipForm {
+  width: 10%;
+}
+
 /*  */
 /* / Ingredients */
 /*  */
@@ -998,7 +1027,7 @@ select::-ms-expand {
 /*  */
 
 .toolTip {
-  width: fit-content;
+  width: 10px;
   height: fit-content;
   margin-left: auto;
   margin-right: auto;

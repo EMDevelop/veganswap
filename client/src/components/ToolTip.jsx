@@ -30,7 +30,7 @@ function ToolTip(props) {
                 // https://www.youtube.com/watch?v=4F8EYGao9pc&ab_channel=Devistry
                 // 25 minutes in - solution for issue of overhanging ?
                 height: "0px",
-                backgroundColor: "white",
+                backgroundColor: "transparent",
                 border: "none",
               }
         }

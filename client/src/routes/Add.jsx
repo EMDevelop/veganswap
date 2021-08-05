@@ -7,34 +7,40 @@ import AddRecipe from "../components/AddRecipe";
 
 function Add() {
   const [addComponent, setAddComponent] = useState(<></>);
+  const [dropdownSelect, setDropdownSelect] = useState("________");
+
+  const onDropdownSelect = (e) => {
+    setDropdownSelect(e.target.value);
+
+    switch (e.target.value) {
+      case "Ingredient":
+        setAddComponent(<AddIngredient />);
+        break;
+      case "Recipe":
+        setAddComponent(<AddRecipe />);
+        break;
+      case "Suggested Product":
+        setAddComponent(<AddFoodProduct />);
+        break;
+      default:
+        break;
+    }
+  };
 
   return (
     <div className="generalPage">
       <div className="addHeader">
-        <h1 className="subHeading">What would you like to Add?</h1>
-        <div className="addHeaderButtons">
-          <button
-            className="customButton"
-            value="Ingredient"
-            onClick={() => setAddComponent(<AddIngredient />)}
-          >
-            Ingredient
-          </button>
-          <button
-            className="customButton"
-            value="Recipe"
-            onClick={() => setAddComponent(<AddRecipe />)}
-          >
-            Recipe
-          </button>
-          <button
-            className="customButton"
-            value="FoodProduct"
-            onClick={() => setAddComponent(<AddFoodProduct />)}
-          >
-            Suggested Product
-          </button>
-        </div>
+        <h2 className="swapSubHeader">I'd like to add a: </h2>
+        <select
+          className="swapDropdown"
+          value={dropdownSelect}
+          onChange={(e) => onDropdownSelect(e)}
+        >
+          <option disabled>________</option>
+          <option value="Ingredient">Ingredient</option>
+          <option value="Recipe">Recipe</option>
+          <option value="Suggested Product">Suggested Product</option>
+        </select>
       </div>
       {addComponent}
     </div>

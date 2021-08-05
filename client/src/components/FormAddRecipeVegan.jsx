@@ -3,7 +3,7 @@ import SearchDropDown from "./SearchDropDown";
 import Axios from "../apis/axios";
 import { VeganContext } from "../context/VeganContext";
 import { Spinner } from "react-bootstrap";
-import { print, capitaliseFirstLetter } from "../modules/helper.js";
+import { capitaliseFirstLetter } from "../modules/helper.js";
 import ImageUpload from "./ImageUpload";
 
 function FormAddRecipeVegan(props) {

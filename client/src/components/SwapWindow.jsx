@@ -4,7 +4,7 @@ import { VeganContext } from "../context/VeganContext";
 import { useHistory } from "react-router-dom";
 import SearchDropDown from "./SearchDropDown";
 import { Spinner } from "react-bootstrap";
-import { print, capitaliseFirstLetter } from "../modules/helper.js";
+import { capitaliseFirstLetter } from "../modules/helper.js";
 
 function SwapWindow() {
   const { swapList, setSwapList } = useContext(VeganContext);

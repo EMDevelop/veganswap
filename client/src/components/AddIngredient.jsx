@@ -6,30 +6,39 @@ import FormAddIngredientNonVegan from "./FormAddIngredientNonVegan";
 
 function AddIngredient() {
   const [form, setForm] = useState(<></>);
+  const [dropdownSelect, setDropdownSelect] = useState("_____");
+
+  const onDropdownSelect = (e) => {
+    setDropdownSelect(e.target.value);
+
+    switch (e.target.value) {
+      case "Vegan":
+        setForm(<FormAddIngredientVegan />);
+        break;
+      case "NVegan":
+        setForm(<FormAddIngredientNonVegan />);
+        break;
+      default:
+        break;
+    }
+  };
 
   return (
     <CollapsibleDiv autoOpen="yes">
-      <h1 className="subHeadingSmall">Is your ingredient Vegan?</h1>
-      <div className="formHeader">
-        <div className="formHeaderButtons">
-          <button
-            className="customButton"
-            value="VeganIngredient"
-            onClick={() => setForm(<FormAddIngredientVegan />)}
-            //  FormVeganIngredient
+      <div className="formQuestion">
+        <div className="questionAnswer">
+          <h2 className="swapSubHeader">Is your ingredient Vegan?</h2>
+          <select
+            className="swapDropdown"
+            value={dropdownSelect}
+            onChange={(e) => onDropdownSelect(e)}
           >
-            Vegan
-          </button>
-
-          <button
-            className="customButton"
-            value="VeganIngredient"
-            onClick={() => setForm(<FormAddIngredientNonVegan />)}
-          >
-            Non-Vegan
-          </button>
+            <option disabled>_____</option>
+            <option value="Vegan">Yes</option>
+            <option value="NVegan">No</option>
+          </select>
         </div>
-        <div className="formHeaderToolTip">
+        <div className="toolTipForm">
           <ToolTip>
             <p className="toolText">
               Vegan: You'll be adding a Vegan ingredient, and telling the
@@ -42,6 +51,7 @@ function AddIngredient() {
           </ToolTip>
         </div>
       </div>
+
       {form}
     </CollapsibleDiv>
   );

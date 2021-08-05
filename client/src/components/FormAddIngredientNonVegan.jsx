@@ -3,12 +3,12 @@ import Axios from "../apis/axios";
 import { VeganContext } from "../context/VeganContext";
 import SearchDropDown from "./SearchDropDown";
 import { Spinner } from "react-bootstrap";
-import { print, capitaliseFirstLetter } from "../modules/helper.js";
+import { capitaliseFirstLetter } from "../modules/helper.js";
 
 function FormAddIngredientNonVegan() {
   const [buttonText, setButtonText] = useState("Submit");
   const [name, setName] = useState("");
-  const [variety, setVariety] = useState("");
+  const [variety, setVariety] = useState(null);
   const [errorMessage, setErrorMessage] = useState([]);
   const [finishedRequest, setFinishedRequest] = useState(null);
   const [finishedFormSubmit, setFinishedFormSubmit] = useState(true);
