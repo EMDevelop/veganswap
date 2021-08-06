@@ -922,7 +922,7 @@ select::-ms-expand {
 .formContainer {
   padding: 20px;
   box-shadow: 1px 1px 15px 8px #e4e3e394;
-  background-color: var(--lightestTaupe);
+  background-color: #64897743;
   border-radius: 25px;
   width: 80%;
   height: fit-content;

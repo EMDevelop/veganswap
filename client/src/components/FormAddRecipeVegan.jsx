@@ -33,6 +33,7 @@ function FormAddRecipeVegan(props) {
       try {
         const response = await Axios.get("/SwapList");
         setSwapList(response.data.data);
+        console.log(response.data.data);
         setFinishedRequest(true);
       } catch (error) {
         console.log(error);
@@ -60,15 +61,23 @@ function FormAddRecipeVegan(props) {
     if (props.type === "ingredient") {
       swapList &&
         setOptions(
-          swapList.ingredients.filter((option) =>
-            option.name.toLowerCase().includes(e.target.value.toLowerCase())
+          swapList.swapList.filter(
+            (option) =>
+              option.name
+                .toLowerCase()
+                .includes(e.target.value.toLowerCase()) &&
+              option.type == "ingredient"
           )
         );
     } else {
       swapList &&
         setOptions(
-          swapList.recipes.filter((option) =>
-            option.title.toLowerCase().includes(e.target.value.toLowerCase())
+          swapList.swapList.filter(
+            (option) =>
+              option.name
+                .toLowerCase()
+                .includes(e.target.value.toLowerCase()) &&
+              option.type == "recipe"
           )
         );
     }
@@ -89,7 +98,7 @@ function FormAddRecipeVegan(props) {
 
     if (props.type === "ingredient") {
       nvRecipeExists = true;
-      swapList.ingredients.map((option) => {
+      swapList.swapList.map((option) => {
         const name = option.name;
         let variety = "";
         if (option.variety) {
@@ -106,10 +115,10 @@ function FormAddRecipeVegan(props) {
       });
     } else {
       nvIngredientExists = true;
-      swapList.recipes.map((option) => {
+      swapList.swapList.map((option) => {
         if (
           textValue.toString().toLowerCase() ===
-          option.title.toString().toLowerCase()
+          option.name.toString().toLowerCase()
         ) {
           nvRecipeExists = true;
         }
@@ -189,7 +198,7 @@ function FormAddRecipeVegan(props) {
 
     try {
       if (props.type === "ingredient") {
-        const response = await Axios.post("/vRecipe/Ingredient", {
+        await Axios.post("/vRecipe/Ingredient", {
           title,
           description,
           credit,
@@ -198,8 +207,8 @@ function FormAddRecipeVegan(props) {
           publicID,
         });
       } else {
-        // handle recipe API
-        const response = await Axios.post("/vRecipe/Recipe", {
+        // removed const see if it works
+        await Axios.post("/vRecipe/Recipe", {
           title,
           description,
           credit,
@@ -243,7 +252,8 @@ function FormAddRecipeVegan(props) {
               handleInputSelect={handleInputSelect}
               placeholder={`Non-Vegan ${props.type} Link`}
               customClass="addScreen"
-              customOptions={props.customOptions}
+              keyType="y"
+              customOptions={"name"}
               setVariety={props.variety}
             />
           </label>

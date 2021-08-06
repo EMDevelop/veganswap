@@ -7,8 +7,8 @@ function SearchDropDown(props) {
     handleInputSelect,
     customClass,
     customOptions,
-    dropdownSelect,
     setVariety,
+    keyType,
   } = props;
   const [containerClass, setContainerClass] = useState("");
   const [listGroup, setListGroup] = useState("");
@@ -52,7 +52,7 @@ function SearchDropDown(props) {
                 <button
                   type="button"
                   key={
-                    customClass === "swapScreen"
+                    customClass === "swapScreen" || keyType === "y"
                       ? `${item.id} ${item.type}`
                       : item.id
                   }
