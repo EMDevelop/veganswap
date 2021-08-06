@@ -185,7 +185,7 @@ select::-ms-expand {
 .swapPageGeneral {
   width: 100%;
   min-height: 90vh;
-  height: fit-content;
+  height: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -960,6 +960,8 @@ select::-ms-expand {
   filter: blur(10px);
 } */
 
+/* Text Imputs */
+
 .textInput {
   height: 50px;
   width: 300px;
@@ -1002,6 +1004,23 @@ select::-ms-expand {
   align-items: center;
   color: var(--text);
 }
+
+.multipleInputRow {
+  width: 100%;
+  /* background-color: #f88379; */
+  height: fit-content;
+  padding: 20px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+
+.plusMinus {
+  color: pink;
+}
+
+/* Form Questions */
 
 .formQuestions {
   width: 60%;

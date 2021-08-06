@@ -1,9 +1,6 @@
 import React, { useState } from "react";
-import { Image } from "cloudinary-react";
-import { print } from "../modules/helper.js";
 
 function ImageUpload(props) {
-  // const [selectedFile, setSelectedFile] = useState("");
   const [previewSource, setPreviewSource] = useState("");
 
   const handleFileInputChange = (e) => {

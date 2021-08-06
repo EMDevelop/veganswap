@@ -15,8 +15,6 @@ function SearchDropDown(props) {
   const [resultList, setResultList] = useState("");
   const [input, setInput] = useState("");
 
-  const [showVariety, setShowVariety] = useState(null);
-
   useEffect(() => {
     switch (customClass) {
       case "addScreen":
@@ -33,10 +31,6 @@ function SearchDropDown(props) {
         break;
       default:
         console.log("no customClass prop detected");
-    }
-
-    if (dropdownSelect === "ingredient") {
-      setShowVariety(true);
     }
   }, []);
 

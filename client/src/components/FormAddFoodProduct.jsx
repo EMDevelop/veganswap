@@ -189,7 +189,8 @@ function FormAddFoodProduct(props) {
 
     try {
       if (props.type === "ingredient") {
-        const response = await Axios.post("/FoodProduct/Ingredient", {
+        // removed response - check
+        await Axios.post("/FoodProduct/Ingredient", {
           brandName,
           productName,
           description,
@@ -197,7 +198,7 @@ function FormAddFoodProduct(props) {
           publicID,
         });
       } else {
-        const response = await Axios.post("/FoodProduct/Recipe", {
+        await Axios.post("/FoodProduct/Recipe", {
           brandName,
           productName,
           description,

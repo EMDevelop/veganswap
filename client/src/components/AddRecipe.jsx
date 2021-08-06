@@ -11,16 +11,6 @@ function AddRecipe() {
   const [alternativeDropdownSelect, setAlternativeDropdownSelect] =
     useState("_____");
 
-  const handleVeganSelect = () => {
-    setForm(<></>);
-    setShowLinkChoice(true);
-  };
-
-  const handleNonVeganSelect = () => {
-    setShowLinkChoice(false);
-    setForm(<FormAddRecipeNonVegan />);
-  };
-
   const onVeganDropdownSelect = (e) => {
     setVeganDropdownSelect(e.target.value);
     switch (e.target.value) {

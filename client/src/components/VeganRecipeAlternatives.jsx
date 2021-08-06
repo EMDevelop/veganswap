@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext } from "react";
 import RecipesList from "../components/RecipesList";
 import { Grid } from "@material-ui/core";
 import { VeganContext } from "../context/VeganContext";
