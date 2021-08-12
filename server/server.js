@@ -5,7 +5,11 @@ const morgan = require("morgan");
 const db = require("./db");
 const cors = require("cors");
 const { cloudinary } = require("./utils/cloudinary");
-// const { ClientBase } = require("pg");
+// For multiple inserts
+// const pgp = require("pg-promise")({
+//   capSQL: true,
+// });
+// const dbMulti = pgp(/*connection*/);
 
 //change
 const port = process.env.PORT || 3001;
@@ -421,6 +425,7 @@ app.post("/api/v1/nvRecipe", async (req, res) => {
 
 //Create a vegan recipe + link to an Ingredient
 app.post("/api/v1/vRecipe/Ingredient", async (req, res) => {
+  vRecipe / Ingredient;
   try {
     const recipe = await db.query(
       "INSERT INTO recipe ( isvegan, title, description, credit, url, image, createuser) VALUES ('y',$1,$2,$3,$4,$5,1) RETURNING *",
@@ -448,7 +453,7 @@ app.post("/api/v1/vRecipe/Ingredient", async (req, res) => {
       },
     });
   } catch (err) {
-    console.log(err);
+    res.status(500).json({ status: "failure", error: err });
   }
 });
 
@@ -481,7 +486,7 @@ app.post("/api/v1/vRecipe/Recipe", async (req, res) => {
       },
     });
   } catch (err) {
-    console.log(err);
+    res.status(500).json({ status: "failure", error: err });
   }
 });
 
@@ -515,7 +520,7 @@ app.post("/api/v1/FoodProduct/Recipe", async (req, res) => {
       },
     });
   } catch (err) {
-    console.log(err);
+    res.status(500).json({ status: "failure", error: err });
   }
 });
 
@@ -546,7 +551,7 @@ app.post("/api/v1/FoodProduct/Ingredient", async (req, res) => {
       },
     });
   } catch (err) {
-    console.log(err);
+    res.status(500).json({ status: "failure", error: err });
   }
 });
 
@@ -559,6 +564,35 @@ app.post("/api/v1/imageUpload", async (req, res) => {
     const uploadResponse = await cloudinary.uploader.upload(fileStr, {});
     res.json({ status: "success", response: uploadResponse });
   } catch (err) {
+    res.status(500).json({ status: "failure", error: err });
+  }
+});
+
+//  Test
+// Add Multiple Users
+//
+
+app.post("/api/v1/multipleUsers", async (req, res) => {
+  // const userColumns = new pgp.helpers.ColumnSet(
+  //   ["username", "firstname", "lastname"],
+  //   { table: "users" }
+  // );
+  // const userValues = [
+  //   { thing: "test1", thing2: "test1", thing3: "test1" },
+  //   { thing: "test2", thing2: "test2", thing3: "test2" },
+  // ];
+
+  try {
+    // const query = pgp.helpers.insert(userValues, userColumns);
+    // await dbMulti.none(query);
+    res.status(200).json({
+      status: "success",
+      data: {
+        users: users.rows,
+      },
+    });
+  } catch (err) {
+    console.log(err);
     res.status(500).json({ status: "failure", error: err });
   }
 });
