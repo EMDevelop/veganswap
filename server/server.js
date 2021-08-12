@@ -5,11 +5,17 @@ const morgan = require("morgan");
 const db = require("./db");
 const cors = require("cors");
 const { cloudinary } = require("./utils/cloudinary");
-// For multiple inserts
-// const pgp = require("pg-promise")({
-//   capSQL: true,
-// });
-// const dbMulti = pgp(/*connection*/);
+const pgp = require("pg-promise")({
+  capSQL: true,
+});
+const pgConnectionDetails = {
+  host: process.env.PGHOST,
+  port: process.env.PGPORT,
+  database: process.env.PGDATABASE,
+  user: process.env.PGUSER,
+  password: process.env.PGPASSWORD,
+};
+const dbMulti = pgp(pgConnectionDetails);
 
 //change
 const port = process.env.PORT || 3001;
@@ -573,22 +579,29 @@ app.post("/api/v1/imageUpload", async (req, res) => {
 //
 
 app.post("/api/v1/multipleUsers", async (req, res) => {
-  // const userColumns = new pgp.helpers.ColumnSet(
-  //   ["username", "firstname", "lastname"],
-  //   { table: "users" }
-  // );
-  // const userValues = [
-  //   { thing: "test1", thing2: "test1", thing3: "test1" },
-  //   { thing: "test2", thing2: "test2", thing3: "test2" },
-  // ];
+  // currently no return value ? returns null, even with a successful import
+  //  Don't need one atm, but
+  // https://vitaly-t.github.io/pg-promise/index.html
+  // https://github.com/vitaly-t/pg-promise/wiki/Connection-Syntax#configuration-object
+
+  const userColumns = new pgp.helpers.ColumnSet(
+    ["username", "firstname", "lastname"],
+    { table: "users" }
+  );
+  const userValues = [
+    { username: "test1", firstname: "test1", lastname: "test1" },
+    { username: "test1", firstname: "test1", lastname: "test1" },
+    { username: "test1", firstname: "test1", lastname: "test1" },
+  ];
 
   try {
-    // const query = pgp.helpers.insert(userValues, userColumns);
-    // await dbMulti.none(query);
+    const query = pgp.helpers.insert(userValues, userColumns);
+    const users = await dbMulti.none(query);
+    console.log(users);
     res.status(200).json({
       status: "success",
       data: {
-        users: users.rows,
+        // users: users.rows,
       },
     });
   } catch (err) {
