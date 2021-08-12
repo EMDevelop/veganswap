@@ -571,9 +571,12 @@ select::-ms-expand {
   height: 40px;
   text-align: left;
   padding-left: 20px;
+  border: solid 2px var(--lightTaupe);
   background-color: white;
+  margin-bottom: 1px;
+  margin-top: 1px;
   border-radius: 5px;
-  border: none;
+
   font-family: muli, sans-serif;
 }
 
@@ -972,6 +975,26 @@ select::-ms-expand {
   margin-right: 5%;
 }
 
+.stepInput {
+  height: 50px;
+  width: 700px;
+  border: solid 1px var(--lightGreen);
+  border-radius: 5px;
+  margin-bottom: 5px;
+  margin-left: auto;
+  margin-right: 5%;
+}
+
+.quantityInput {
+  height: 50px;
+  width: 50px;
+  border: solid 1px var(--lightGreen);
+  border-radius: 5px;
+  margin-bottom: 5px;
+  margin-left: auto;
+  margin-right: 5%;
+}
+
 .textInputArea {
   height: 100px;
   width: 500px;
@@ -1010,8 +1033,10 @@ select::-ms-expand {
   /* background-color: #f88379; */
   height: fit-content;
   padding: 20px;
-  display: flex;
-  flex-direction: row;
+  display: grid;
+  grid-template-rows: auto auto auto auto auto;
+  grid-template-columns: auto auto auto auto auto auto;
+  /* flex-direction: col; */
   align-items: center;
   justify-content: center;
 }

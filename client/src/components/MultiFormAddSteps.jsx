@@ -16,7 +16,7 @@ function MultiFormAddSteps() {
 
   const handleAdd = (index) => {
     let values = [...inputFields];
-    values.splice(index + 1, 0, { firstName: "", lastName: "" });
+    values.splice(index + 1, 0, { description: "" });
     setInputFields(values);
   };
 
@@ -28,34 +28,32 @@ function MultiFormAddSteps() {
 
   return (
     <div>
-      <form>
-        {inputFields.map((_, index) => (
-          <div key={index} className="multipleInputRow">
-            <label className="formLabel">{`Step: ${index + 1}`}</label>
-            <input
-              name="description"
-              type="text"
-              className="stepInput"
-              onChange={(e) => handleChangeInput(index, e)}
-              value={inputFields[index].firstName}
-              placeholder="e.g. cut tomatos"
-            />
+      {inputFields.map((_, index) => (
+        <div key={index} className="multipleInputRow">
+          <label className="formLabel">{`Step: ${index + 1}`}</label>
+          <input
+            name="description"
+            type="text"
+            className="stepInput"
+            onChange={(e) => handleChangeInput(index, e)}
+            value={inputFields[index].description}
+            placeholder="e.g. cut tomatos"
+          />
 
-            <div className="plusMinus">
-              <i className="fas fa-plus" onClick={() => handleAdd(index)}></i>
+          <div className="plusMinus">
+            <i className="fas fa-plus" onClick={() => handleAdd(index)}></i>
 
-              {index === 0 ? (
-                <></>
-              ) : (
-                <i
-                  className="fas fa-minus"
-                  onClick={() => handleRemove(index)}
-                ></i>
-              )}
-            </div>
+            {index === 0 ? (
+              <></>
+            ) : (
+              <i
+                className="fas fa-minus"
+                onClick={() => handleRemove(index)}
+              ></i>
+            )}
           </div>
-        ))}
-      </form>
+        </div>
+      ))}
     </div>
   );
 }

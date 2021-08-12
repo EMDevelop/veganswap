@@ -6,7 +6,7 @@ import React, { useState } from "react";
 
 function MultiFormAddIngredients() {
   const [inputFields, setInputFields] = useState([
-    { firstName: "", lastName: "" },
+    { quantity: "", measure: "", name: "", note: "" },
   ]);
 
   const handleChangeInput = (index, e) => {
@@ -18,7 +18,12 @@ function MultiFormAddIngredients() {
 
   const handleAdd = (index) => {
     let values = [...inputFields];
-    values.splice(index + 1, 0, { firstName: "", lastName: "" });
+    values.splice(index + 1, 0, {
+      quantity: "",
+      measure: "",
+      name: "",
+      note: "",
+    });
     setInputFields(values);
   };
 
@@ -30,59 +35,57 @@ function MultiFormAddIngredients() {
 
   return (
     <div>
-      <form>
-        {inputFields.map((inputField, index) => (
-          <div key={index} className="multipleInputRow">
-            <label className="formLabel">{`Ingredient: ${index + 1}  `}</label>
+      {inputFields.map((inputField, index) => (
+        <div key={index} className="multipleInputRow">
+          <label className="formLabel">{`Ingredient: ${index + 1}  `}</label>
 
-            <input
-              name="quantity"
-              type="text"
-              className="quantityInput"
-              onChange={(e) => handleChangeInput(index, e)}
-              value={inputFields[index].firstName}
-              placeholder="Qnt"
-            />
-            <input
-              name="measure"
-              type="text"
-              className="textInput"
-              onChange={(e) => handleChangeInput(index, e)}
-              value={inputFields[index].firstName}
-              placeholder="Measure"
-            />
-            <input
-              name="name"
-              type="text"
-              className="textInput"
-              onChange={(e) => handleChangeInput(index, e)}
-              value={inputFields[index].firstName}
-              placeholder="Ingredient Name"
-            />
-            <input
-              name="note"
-              type="text"
-              className="textInput"
-              onChange={(e) => handleChangeInput(index, e)}
-              value={inputFields[index].lastName}
-              placeholder="Ingredient Notes"
-            />
+          <input
+            name="quantity"
+            type="text"
+            className="quantityInput"
+            onChange={(e) => handleChangeInput(index, e)}
+            value={inputFields[index].quantity}
+            placeholder="Qnt"
+          />
+          <input
+            name="measure"
+            type="text"
+            className="textInput"
+            onChange={(e) => handleChangeInput(index, e)}
+            value={inputFields[index].measure}
+            placeholder="Measure"
+          />
+          <input
+            name="name"
+            type="text"
+            className="textInput"
+            onChange={(e) => handleChangeInput(index, e)}
+            value={inputFields[index].name}
+            placeholder="Ingredient Name"
+          />
+          <input
+            name="note"
+            type="text"
+            className="textInput"
+            onChange={(e) => handleChangeInput(index, e)}
+            value={inputFields[index].note}
+            placeholder="Ingredient Notes"
+          />
 
-            <div className="plusMinus">
-              <i className="fas fa-plus" onClick={() => handleAdd(index)}></i>
+          <div className="plusMinus">
+            <i className="fas fa-plus" onClick={() => handleAdd(index)}></i>
 
-              {index === 0 ? (
-                <></>
-              ) : (
-                <i
-                  className="fas fa-minus"
-                  onClick={() => handleRemove(index)}
-                ></i>
-              )}
-            </div>
+            {index === 0 ? (
+              <></>
+            ) : (
+              <i
+                className="fas fa-minus"
+                onClick={() => handleRemove(index)}
+              ></i>
+            )}
           </div>
-        ))}
-      </form>
+        </div>
+      ))}
     </div>
   );
 }
