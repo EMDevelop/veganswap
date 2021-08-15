@@ -429,9 +429,14 @@ app.post("/api/v1/nvRecipe", async (req, res) => {
   }
 });
 
+// ----------
+// ----------
+// ----------
+// ----------
+// ----------
+
 //Create a vegan recipe + link to an Ingredient
 app.post("/api/v1/vRecipe/Ingredient", async (req, res) => {
-  vRecipe / Ingredient;
   try {
     const recipe = await db.query(
       "INSERT INTO recipe ( isvegan, title, description, credit, url, image, createuser) VALUES ('y',$1,$2,$3,$4,$5,1) RETURNING *",
@@ -451,6 +456,48 @@ app.post("/api/v1/vRecipe/Ingredient", async (req, res) => {
       [req.body.selectedLink, recipeID]
     );
 
+    // Multi Form Ingredients
+
+    const multiIngredientsColumns = new pgp.helpers.ColumnSet(
+      [
+        "recipes_id",
+        "seq",
+        "quantity",
+        "measure",
+        "name",
+        "note",
+        "createuser",
+      ],
+      { table: "recipeingredient" }
+    );
+
+    req.body.childToParentIngredients.map((row) => {
+      row["recipes_id"] = recipeID;
+    });
+
+    const multiIngredientsQuery = pgp.helpers.insert(
+      req.body.childToParentIngredients,
+      multiIngredientsColumns
+    );
+    const multiIngredients = await dbMulti.none(multiIngredientsQuery);
+
+    // Multi Form steps
+
+    const multiStepsColumns = new pgp.helpers.ColumnSet(
+      ["recipes_id", "seq", "description", "createuser"],
+      { table: "recipestep" }
+    );
+    req.body.childToParentSteps.map((row) => {
+      row["recipes_id"] = recipeID;
+    });
+
+    const multiStepsQuery = pgp.helpers.insert(
+      req.body.childToParentSteps,
+      multiStepsColumns
+    );
+    const multiSteps = await dbMulti.none(multiStepsQuery); // no return value for some reason
+    console.log(multiSteps);
+
     res.status(200).json({
       status: "success",
       data: {
@@ -459,9 +506,15 @@ app.post("/api/v1/vRecipe/Ingredient", async (req, res) => {
       },
     });
   } catch (err) {
+    console.log(err);
     res.status(500).json({ status: "failure", error: err });
   }
 });
+// ----------
+// ----------
+// ----------
+// ----------
+// ----------
 
 //Create a vegan recipe + link to a Recipe
 app.post("/api/v1/vRecipe/Recipe", async (req, res) => {
@@ -579,11 +632,6 @@ app.post("/api/v1/imageUpload", async (req, res) => {
 //
 
 app.post("/api/v1/multipleUsers", async (req, res) => {
-  // currently no return value ? returns null, even with a successful import
-  //  Don't need one atm, but
-  // https://vitaly-t.github.io/pg-promise/index.html
-  // https://github.com/vitaly-t/pg-promise/wiki/Connection-Syntax#configuration-object
-
   const userColumns = new pgp.helpers.ColumnSet(
     ["username", "firstname", "lastname"],
     { table: "users" }
@@ -593,7 +641,6 @@ app.post("/api/v1/multipleUsers", async (req, res) => {
     { username: "test1", firstname: "test1", lastname: "test1" },
     { username: "test1", firstname: "test1", lastname: "test1" },
   ];
-
   try {
     const query = pgp.helpers.insert(userValues, userColumns);
     const users = await dbMulti.none(query);
@@ -609,3 +656,5 @@ app.post("/api/v1/multipleUsers", async (req, res) => {
     res.status(500).json({ status: "failure", error: err });
   }
 });
+
+// Add Steps / Add ingredients

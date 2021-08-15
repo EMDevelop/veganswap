@@ -4,19 +4,32 @@ import React, { useState } from "react";
 //  recipestep
 // recipes_id, seq, description, createuser
 
-function MultiFormAddSteps() {
-  const [inputFields, setInputFields] = useState([{ description: "" }]);
+function MultiFormAddSteps(props) {
+  const [inputFields, setInputFields] = useState([
+    { recipe_id: "", seq: 1, description: "", createuser: 1 },
+  ]);
 
   const handleChangeInput = (index, e) => {
     let values = [...inputFields];
+    let accumulator = 1;
     values[index][e.target.name] = e.target.value;
+    // Set Sequence Every Time, Index unreliable
+    values.map((row) => {
+      row["seq"] = accumulator;
+      accumulator = accumulator + 1;
+    });
     setInputFields(values);
-    console.log(inputFields);
+    props.passChildData(values);
   };
 
   const handleAdd = (index) => {
     let values = [...inputFields];
-    values.splice(index + 1, 0, { description: "" });
+    values.splice(index + 1, 0, {
+      recipe_id: "",
+      seq: 1,
+      description: "",
+      createuser: 1,
+    });
     setInputFields(values);
   };
 
@@ -31,14 +44,17 @@ function MultiFormAddSteps() {
       {inputFields.map((_, index) => (
         <div key={index} className="multipleInputRow">
           <label className="formLabel">{`Step: ${index + 1}`}</label>
-          <input
-            name="description"
-            type="text"
-            className="stepInput"
-            onChange={(e) => handleChangeInput(index, e)}
-            value={inputFields[index].description}
-            placeholder="e.g. cut tomatos"
-          />
+          <label className="formLabel">
+            Instruction:
+            <input
+              name="description"
+              type="text"
+              className="stepInput"
+              onChange={(e) => handleChangeInput(index, e)}
+              value={inputFields[index].description}
+              placeholder="e.g. cut tomatoes"
+            />
+          </label>
 
           <div className="plusMinus">
             <i className="fas fa-plus" onClick={() => handleAdd(index)}></i>

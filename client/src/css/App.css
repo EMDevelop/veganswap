@@ -985,7 +985,7 @@ select::-ms-expand {
   margin-right: 5%;
 }
 
-.quantityInput {
+.input50 {
   height: 50px;
   width: 50px;
   border: solid 1px var(--lightGreen);
@@ -1028,9 +1028,28 @@ select::-ms-expand {
   color: var(--text);
 }
 
+.plusMinus {
+  color: pink;
+  width: 40px;
+  display: flex;
+  flex-direction: column;
+}
+
+.fa-plus:hover,
+.fa-minus:hover {
+  color: var(--darkGreen);
+}
+
+/* multi form */
+
+.multiIngredientsList {
+  height: fit-content;
+  background-color: white;
+}
+
 .multipleInputRow {
   width: 100%;
-  /* background-color: #f88379; */
+  background-color: #f88379;
   height: fit-content;
   padding: 20px;
   display: grid;
@@ -1039,10 +1058,6 @@ select::-ms-expand {
   /* flex-direction: col; */
   align-items: center;
   justify-content: center;
-}
-
-.plusMinus {
-  color: pink;
 }
 
 /* Form Questions */

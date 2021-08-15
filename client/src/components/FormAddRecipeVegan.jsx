@@ -5,6 +5,8 @@ import { VeganContext } from "../context/VeganContext";
 import { Spinner } from "react-bootstrap";
 import { capitaliseFirstLetter } from "../modules/helper.js";
 import ImageUpload from "./ImageUpload";
+import MultiFormAddIngredients from "./MultiFormAddIngredients";
+import MultiFormAddSteps from "./MultiFormAddSteps";
 
 function FormAddRecipeVegan(props) {
   const [buttonText, setButtonText] = useState("Submit");
@@ -20,6 +22,8 @@ function FormAddRecipeVegan(props) {
   const [creditURL, setCreditURL] = useState("");
   const [textValue, setTextValue] = useState("");
   const [selectedImage, setSelectedImage] = useState("");
+  const [childToParentIngredients, setChildToParentIngredients] = useState("");
+  const [childToParentSteps, setChildToParentSteps] = useState("");
 
   const { swapList, setSwapList } = useContext(VeganContext);
 
@@ -205,6 +209,8 @@ function FormAddRecipeVegan(props) {
           creditURL,
           selectedLink,
           publicID,
+          childToParentIngredients,
+          childToParentSteps,
         });
       } else {
         // removed const see if it works
@@ -215,6 +221,8 @@ function FormAddRecipeVegan(props) {
           creditURL,
           selectedLink,
           publicID,
+          childToParentIngredients,
+          childToParentSteps,
         });
       }
     } catch (error) {
@@ -315,7 +323,11 @@ function FormAddRecipeVegan(props) {
           </label>
           <ImageUpload getImage={setSelectedImage} />
           <h2 className="subHeadingSmall">Add Ingredients</h2>
+          <MultiFormAddIngredients
+            passChildData={setChildToParentIngredients}
+          />
           <h2 className="subHeadingSmall">Add Steps</h2>
+          <MultiFormAddSteps passChildData={setChildToParentSteps} />
           <div className="buttonContainer">
             <button
               onClick={formValidation}
