@@ -1,20 +1,20 @@
-import React, { useState, useContext, useEffect } from "react";
-import Axios from "../apis/axios";
-import { VeganContext } from "../context/VeganContext";
-import SearchDropDown from "./SearchDropDown";
-import { Spinner } from "react-bootstrap";
-import { capitaliseFirstLetter } from "../modules/helper.js";
+import React, { useState, useContext, useEffect } from 'react';
+import Axios from '../../apis/axios';
+import { VeganContext } from '../../context/VeganContext';
+import SearchDropDown from '../SearchDropDown';
+import { Spinner } from 'react-bootstrap';
+import { capitaliseFirstLetter } from '../../modules/helper.js';
 
 function FormAddIngredientNonVegan() {
-  const [buttonText, setButtonText] = useState("Submit");
-  const [name, setName] = useState("");
-  const [variety, setVariety] = useState("");
+  const [buttonText, setButtonText] = useState('Submit');
+  const [name, setName] = useState('');
+  const [variety, setVariety] = useState('');
   const [errorMessage, setErrorMessage] = useState([]);
   const [finishedRequest, setFinishedRequest] = useState(null);
   const [finishedFormSubmit, setFinishedFormSubmit] = useState(true);
   const [nameOptions, setNameOptions] = useState([]);
   const [varietyOptions, setVarietyOptions] = useState([]);
-  const [errorClass, setErrorClass] = useState("errorText");
+  const [errorClass, setErrorClass] = useState('errorText');
   const [isNameSelected, setIsNameSelected] = useState(false);
 
   const { swapList, setSwapList } = useContext(VeganContext);
@@ -22,7 +22,7 @@ function FormAddIngredientNonVegan() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await Axios.get("/nvIngredients");
+        const response = await Axios.get('/nvIngredients');
         setSwapList(response.data.data);
         setFinishedRequest(true);
       } catch (error) {
@@ -36,17 +36,17 @@ function FormAddIngredientNonVegan() {
     setNameOptions([]);
     setName(e.target.innerText);
     setIsNameSelected(true);
-    setErrorClass("warningText");
+    setErrorClass('warningText');
     setErrorMessage(
-      "*  If the variety already exists for this ingredient name, you will need to use a unique variety"
+      '*  If the variety already exists for this ingredient name, you will need to use a unique variety'
     );
   };
 
   const handleVarietySelect = (e, id) => {
     if (isNameSelected) {
-      setErrorClass("errorText");
+      setErrorClass('errorText');
       setErrorMessage(
-        " Your selection already exists, would you like to add a vegan alternative Instead?"
+        ' Your selection already exists, would you like to add a vegan alternative Instead?'
       );
     }
   };
@@ -65,10 +65,10 @@ function FormAddIngredientNonVegan() {
 
     // create a distinct list of those values returned
     setNameOptions([
-      ...new Map(filteredNameList.map((item) => [item["name"], item])).values(),
+      ...new Map(filteredNameList.map((item) => [item['name'], item])).values(),
     ]);
 
-    if (e.target.value === "") {
+    if (e.target.value === '') {
       setNameOptions([]);
       setVariety([]);
     }
@@ -77,7 +77,7 @@ function FormAddIngredientNonVegan() {
   // I need to pull back only those rows that
 
   const onVarietyInputChange = (e) => {
-    setErrorMessage("");
+    setErrorMessage('');
     let capVal = capitaliseFirstLetter(e.target.value);
     setVariety(capVal);
 
@@ -86,8 +86,8 @@ function FormAddIngredientNonVegan() {
         swapList.ingredients.filter((option) => option.name === name)
       );
 
-    if (e.target.value === "") {
-      setVarietyOptions("");
+    if (e.target.value === '') {
+      setVarietyOptions('');
     }
   };
 
@@ -115,23 +115,23 @@ function FormAddIngredientNonVegan() {
     if (nameDuplicate && varietyDuplicate) {
       validationPass = false;
       setErrorMessage(
-        "The Ingredient you are trying to submit already exists, would you like to add a vegan alternative Instead? "
+        'The Ingredient you are trying to submit already exists, would you like to add a vegan alternative Instead? '
       );
-      setErrorClass("errorTextBold");
+      setErrorClass('errorTextBold');
     }
 
-    if (variety === "" && nameDuplicate) {
+    if (variety === '' && nameDuplicate) {
       validationPass = false;
       setErrorMessage(
-        "The Ingredient you are trying to submit already exists, would you like to add a vegan alternative Instead?"
+        'The Ingredient you are trying to submit already exists, would you like to add a vegan alternative Instead?'
       );
-      setErrorClass("errorTextBold");
+      setErrorClass('errorTextBold');
     }
 
-    if (variety === "" && name === "") {
+    if (variety === '' && name === '') {
       validationPass = false;
-      setErrorMessage("Please fill in the Name field");
-      setErrorClass("errorText");
+      setErrorMessage('Please fill in the Name field');
+      setErrorClass('errorText');
     }
 
     if (validationPass) {
@@ -146,19 +146,19 @@ function FormAddIngredientNonVegan() {
   const handleSubmit = async () => {
     try {
       setFinishedFormSubmit(false);
-      setButtonText("Sending...");
-      await Axios.post("/nvIngredient", {
+      setButtonText('Sending...');
+      await Axios.post('/nvIngredient', {
         name,
         variety,
       });
-      setButtonText("Sent!");
+      setButtonText('Sent!');
       setFinishedFormSubmit(true);
-      setErrorMessage("Sent, thanks very much for contributing!");
-      setErrorClass("successMessage");
+      setErrorMessage('Sent, thanks very much for contributing!');
+      setErrorClass('successMessage');
     } catch (error) {
       console.log(error);
     }
-    setVariety("");
+    setVariety('');
     setVarietyOptions([]);
   };
 

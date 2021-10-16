@@ -1,10 +1,10 @@
 import React, { useState, useContext, useEffect } from 'react';
-import SearchDropDown from './SearchDropDown';
-import Axios from '../apis/axios';
-import { VeganContext } from '../context/VeganContext';
+import SearchDropDown from '../SearchDropDown';
+import Axios from '../../apis/axios';
+import { VeganContext } from '../../context/VeganContext';
 import { Spinner } from 'react-bootstrap';
-import { capitaliseFirstLetter } from '../modules/helper.js';
-import ImageUpload from './images/ImageUpload';
+import { capitaliseFirstLetter } from '../../modules/helper.js';
+import ImageUpload from '../images/ImageUpload';
 import MultiFormAddIngredients from './MultiFormAddIngredients';
 import MultiFormAddSteps from './MultiFormAddSteps';
 

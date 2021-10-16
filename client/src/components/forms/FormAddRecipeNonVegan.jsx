@@ -1,9 +1,9 @@
 import React, { useState, useEffect, useContext } from 'react';
-import Axios from '../apis/axios';
-import { VeganContext } from '../context/VeganContext';
-import SearchDropDown from './SearchDropDown';
+import Axios from '../../apis/axios';
+import { VeganContext } from '../../context/VeganContext';
+import SearchDropDown from '../SearchDropDown';
 import { Spinner } from 'react-bootstrap';
-import { capitaliseFirstLetter } from '../modules/helper.js';
+import { capitaliseFirstLetter } from '../../modules/helper.js';
 
 function FormAddRecipeNonVegan() {
   const [buttonText, setButtonText] = useState('Submit');
