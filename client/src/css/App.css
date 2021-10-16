@@ -644,6 +644,7 @@ select::-ms-expand {
 
 .previewImage {
   height: auto;
+  min-height: 70px;
   width: 150px;
   background-color: var(--lightGreen);
   /* background-color: #f88379; */

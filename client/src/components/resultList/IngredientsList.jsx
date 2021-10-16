@@ -1,8 +1,8 @@
 import React, { useContext } from 'react';
 import { Grid } from '@material-ui/core';
-import PreviewCard from './cards/PreviewCard';
-import { VeganContext } from '../context/VeganContext';
-import CollapsibleDiv from './CollapsibleDiv';
+import PreviewCard from '../cards/PreviewCard';
+import { VeganContext } from '../../context/VeganContext';
+import CollapsibleDiv from '../global/CollapsibleDiv';
 
 function IngredientsList() {
   const { alternatives } = useContext(VeganContext);

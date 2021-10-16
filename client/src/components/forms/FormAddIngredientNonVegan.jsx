@@ -187,7 +187,7 @@ function FormAddIngredientNonVegan() {
           textValue={variety}
           handleInputSelect={handleVarietySelect}
           onInputChange={onVarietyInputChange}
-          placeholder="e.g. Cheese"
+          placeholder="e.g. Cheddar"
           customClass="addScreen" /* btw, this is same as: className = addDropdown */
           customOptions="variety"
         />

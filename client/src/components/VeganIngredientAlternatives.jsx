@@ -1,8 +1,8 @@
-import React, { useContext } from "react";
-import IngredientsList from "../components/IngredientsList";
-import RecipesList from "../components/RecipesList";
-import { Grid } from "@material-ui/core";
-import { VeganContext } from "../context/VeganContext";
+import React, { useContext } from 'react';
+import IngredientsList from '../components/resultList/IngredientsList';
+import RecipesList from './resultList/RecipesList';
+import { Grid } from '@material-ui/core';
+import { VeganContext } from '../context/VeganContext';
 
 function VeganIngredientAlternatives() {
   const { alternatives } = useContext(VeganContext);

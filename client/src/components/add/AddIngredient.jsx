@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import CollapsibleDiv from '../CollapsibleDiv';
+import CollapsibleDiv from '../global/CollapsibleDiv';
 import ToolTip from '../global/ToolTip';
 import FormAddIngredientVegan from '../forms/FormAddIngredientVegan';
 import FormAddIngredientNonVegan from '../forms/FormAddIngredientNonVegan';

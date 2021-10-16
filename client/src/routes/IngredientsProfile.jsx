@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { useParams } from 'react-router-dom';
-import FoodProducts from '../components/FoodProducts';
+import FoodProducts from '../components/resultList/FoodProducts';
 import Axios from '../apis/axios';
 import { VeganContext } from '../context/VeganContext';
 import { Spinner } from 'react-bootstrap';
