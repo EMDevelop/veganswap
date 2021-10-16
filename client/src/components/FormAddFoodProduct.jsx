@@ -1,24 +1,24 @@
-import React, { useState, useContext, useEffect } from "react";
-import Axios from "../apis/axios";
-import { VeganContext } from "../context/VeganContext";
-import SearchDropDown from "./SearchDropDown";
-import { Spinner } from "react-bootstrap";
-import { capitaliseFirstLetter } from "../modules/helper.js";
-import ImageUpload from "./ImageUpload";
+import React, { useState, useContext, useEffect } from 'react';
+import Axios from '../apis/axios';
+import { VeganContext } from '../context/VeganContext';
+import SearchDropDown from './SearchDropDown';
+import { Spinner } from 'react-bootstrap';
+import { capitaliseFirstLetter } from '../modules/helper.js';
+import ImageUpload from './images/ImageUpload';
 
 function FormAddFoodProduct(props) {
-  const [buttonText, setButtonText] = useState("Submit");
+  const [buttonText, setButtonText] = useState('Submit');
   const [errorMessage, setErrorMessage] = useState([]);
-  const [errorClass, setErrorClass] = useState("errorText");
+  const [errorClass, setErrorClass] = useState('errorText');
   const [finishedRequest, setFinishedRequest] = useState(null);
   const [finishedFormSubmit, setFinishedFormSubmit] = useState(true);
   const [selectedLink, setSelectedLink] = useState(null);
-  const [brandName, setBrandName] = useState("");
-  const [productName, setProductName] = useState("");
-  const [description, setDescription] = useState("");
+  const [brandName, setBrandName] = useState('');
+  const [productName, setProductName] = useState('');
+  const [description, setDescription] = useState('');
   const [options, setOptions] = useState([]);
-  const [textValue, setTextValue] = useState("");
-  const [selectedImage, setSelectedImage] = useState("");
+  const [textValue, setTextValue] = useState('');
+  const [selectedImage, setSelectedImage] = useState('');
 
   const { swapList, setSwapList } = useContext(VeganContext);
 
@@ -30,7 +30,7 @@ function FormAddFoodProduct(props) {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await Axios.get("/swapListVegan");
+        const response = await Axios.get('/swapListVegan');
         setSwapList(response.data.data);
         setFinishedRequest(true);
       } catch (error) {
@@ -53,10 +53,10 @@ function FormAddFoodProduct(props) {
   };
 
   const onInputChange = (e) => {
-    setErrorMessage("");
+    setErrorMessage('');
     let capVal = capitaliseFirstLetter(e.target.value);
     setTextValue(capVal);
-    if (props.type === "ingredient") {
+    if (props.type === 'ingredient') {
       swapList &&
         setOptions(
           swapList.ingredients.filter((option) =>
@@ -71,7 +71,7 @@ function FormAddFoodProduct(props) {
           )
         );
     }
-    if (e.target.value === "") {
+    if (e.target.value === '') {
       setOptions([]);
     }
   };
@@ -88,13 +88,13 @@ function FormAddFoodProduct(props) {
 
     // Check that value entered is in the dropdown list
 
-    if (props.type === "ingredient") {
+    if (props.type === 'ingredient') {
       // if props = ingredient (see Outcome A)
       nvRecipeExists = true;
 
       swapList.ingredients.map((option) => {
         const name = option.name;
-        let variety = "";
+        let variety = '';
         if (option.variety) {
           variety = `, ${option.variety}`;
         }
@@ -121,14 +121,14 @@ function FormAddFoodProduct(props) {
     // outcome A
     if (!nvRecipeExists) {
       validationPass = false;
-      setErrorClass("errorText");
+      setErrorClass('errorText');
       setErrorMessage(
         "There isn't a Non-Vegan recipe of this variety, please add one on the Non-Vegan Ingredient form"
       );
     }
     if (!vIngredientExists) {
       validationPass = false;
-      setErrorClass("errorText");
+      setErrorClass('errorText');
       setErrorMessage(
         "There isn't a Vegan ingredient of this variety, please add one on the Vegan Ingredient form"
       );
@@ -136,30 +136,30 @@ function FormAddFoodProduct(props) {
     // Empty Fields
     if (!brandName) {
       validationPass = false;
-      setErrorMessage("Please fill in the Brand Name field");
-      setErrorClass("errorText");
+      setErrorMessage('Please fill in the Brand Name field');
+      setErrorClass('errorText');
     }
 
     if (!productName) {
       validationPass = false;
-      setErrorMessage("Please fill in the Product Name field");
-      setErrorClass("errorText");
+      setErrorMessage('Please fill in the Product Name field');
+      setErrorClass('errorText');
     }
     if (!textValue) {
       validationPass = false;
-      setErrorMessage("Please fill in the Link field");
-      setErrorClass("errorText");
+      setErrorMessage('Please fill in the Link field');
+      setErrorClass('errorText');
     }
     if (!description) {
       validationPass = false;
-      setErrorMessage("Please fill in the Description field");
-      setErrorClass("errorText");
+      setErrorMessage('Please fill in the Description field');
+      setErrorClass('errorText');
     }
 
     if (!selectedImage) {
       validationPass = false;
-      setErrorClass("errorText");
-      setErrorMessage("No Image, Please Upload An Image");
+      setErrorClass('errorText');
+      setErrorMessage('No Image, Please Upload An Image');
     }
 
     if (validationPass) {
@@ -173,14 +173,14 @@ function FormAddFoodProduct(props) {
   //
   const handleSubmit = async () => {
     setFinishedFormSubmit(false);
-    setButtonText("Sending...");
-    let publicID = "";
+    setButtonText('Sending...');
+    let publicID = '';
 
     // Image Upload
     try {
-      const response = await Axios.post("/imageUpload", {
+      const response = await Axios.post('/imageUpload', {
         data: selectedImage,
-        headers: { "Content-type": "application.json" },
+        headers: { 'Content-type': 'application.json' },
       });
       publicID = response.data.response.public_id;
     } catch (error) {
@@ -188,9 +188,9 @@ function FormAddFoodProduct(props) {
     }
 
     try {
-      if (props.type === "ingredient") {
+      if (props.type === 'ingredient') {
         // removed response - check
-        await Axios.post("/FoodProduct/Ingredient", {
+        await Axios.post('/FoodProduct/Ingredient', {
           brandName,
           productName,
           description,
@@ -198,7 +198,7 @@ function FormAddFoodProduct(props) {
           publicID,
         });
       } else {
-        await Axios.post("/FoodProduct/Recipe", {
+        await Axios.post('/FoodProduct/Recipe', {
           brandName,
           productName,
           description,
@@ -209,15 +209,15 @@ function FormAddFoodProduct(props) {
     } catch (error) {
       console.log(error);
     }
-    setErrorClass("successMessage");
-    setErrorMessage("Sent, thanks very much for contributing!");
+    setErrorClass('successMessage');
+    setErrorMessage('Sent, thanks very much for contributing!');
     setFinishedFormSubmit(true);
-    setBrandName("");
-    setProductName("");
-    setTextValue("");
-    setDescription("");
-    setButtonText("Submit");
-    setSelectedImage("");
+    setBrandName('');
+    setProductName('');
+    setTextValue('');
+    setDescription('');
+    setButtonText('Submit');
+    setSelectedImage('');
   };
 
   return finishedRequest ? (
@@ -227,7 +227,7 @@ function FormAddFoodProduct(props) {
       <h2 className="subHeadingSmall">Link</h2>
       <label className="formLabel">
         {`Choose which ${
-          props.type === "ingredient" ? "Vegan Ingredient" : "Non-Vegan Recipe"
+          props.type === 'ingredient' ? 'Vegan Ingredient' : 'Non-Vegan Recipe'
         } to link your recipe to:`}
         <SearchDropDown
           options={options}
@@ -235,9 +235,9 @@ function FormAddFoodProduct(props) {
           onInputChange={onInputChange}
           handleInputSelect={handleInputSelect}
           placeholder={`${
-            props.type === "ingredient"
-              ? "Vegan Ingredient"
-              : "Non-Vegan Recipe"
+            props.type === 'ingredient'
+              ? 'Vegan Ingredient'
+              : 'Non-Vegan Recipe'
           } link`}
           customClass="addScreen"
           customOptions={props.customOptions}

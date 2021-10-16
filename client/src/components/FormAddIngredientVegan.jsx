@@ -4,7 +4,7 @@ import Axios from '../apis/axios';
 import { VeganContext } from '../context/VeganContext';
 import { Spinner } from 'react-bootstrap';
 import { capitaliseFirstLetter } from '../modules/helper.js';
-import ImageUpload from './ImageUpload';
+import ImageUpload from './images/ImageUpload';
 
 function FormAddIngredientVegan() {
   const [finishedRequest, setFinishedRequest] = useState(null);
