@@ -1,23 +1,23 @@
-import React, { useContext } from "react";
-import { VeganContext } from "../context/VeganContext";
-import { Grid } from "@material-ui/core";
-import { Image } from "cloudinary-react";
+import React, { useContext } from 'react';
+import { VeganContext } from '../../context/VeganContext';
+import { Grid } from '@material-ui/core';
+import { Image } from 'cloudinary-react';
 
 function ProfileCard(props) {
   const { profileType } = useContext(VeganContext);
 
   switch (profileType) {
-    case "ingredient":
-      console.log("welcome to the ingredient profile");
+    case 'ingredient':
+      console.log('welcome to the ingredient profile');
       break;
-    case "foodProduct":
-      console.log("welcome to the FoodProducts profile");
+    case 'foodProduct':
+      console.log('welcome to the FoodProducts profile');
       break;
-    case "recipe":
-      console.log("welcome to the recipe profile");
+    case 'recipe':
+      console.log('welcome to the recipe profile');
       break;
     default:
-      console.log("no profile detected");
+      console.log('no profile detected');
   }
 
   return (

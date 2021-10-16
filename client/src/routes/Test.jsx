@@ -20,14 +20,14 @@ function Test() {
 
   const handleRemove = (index) => {
     let values = [...inputFields];
-    values.splice(1, 1);
+    values.splice(index, 1);
     setInputFields(values);
   };
 
   return (
     <div className="generalPage">
       <form>
-        {inputFields.map((inputField, index) => (
+        {inputFields.map((_, index) => (
           <div key={index} className="multipleInputRow">
             <label>{`Index: ${index}  `}</label>
             <input

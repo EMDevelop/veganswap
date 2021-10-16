@@ -1,24 +1,25 @@
-import React, { useState } from "react";
-import CollapsibleDiv from "./CollapsibleDiv";
-import ToolTip from "./ToolTip";
-import FormAddRecipeNonVegan from "./FormAddRecipeNonVegan";
-import FormAddRecipeVegan from "./FormAddRecipeVegan";
+import React, { useState } from 'react';
+import CollapsibleDiv from './CollapsibleDiv';
+import ToolTip from './ToolTip';
+import FormAddRecipeNonVegan from './FormAddRecipeNonVegan';
+import FormAddRecipeVegan from './FormAddRecipeVegan';
 
 function AddRecipe() {
   const [form, setForm] = useState(<></>);
   const [showLinkChoice, setShowLinkChoice] = useState(false);
-  const [veganDropdownSelect, setVeganDropdownSelect] = useState("_____");
+  const [veganDropdownSelect, setVeganDropdownSelect] = useState('_____');
   const [alternativeDropdownSelect, setAlternativeDropdownSelect] =
-    useState("_____");
+    useState('_____');
 
   const onVeganDropdownSelect = (e) => {
     setVeganDropdownSelect(e.target.value);
+    console.log('TODO: Switch Change: client/src/components/AddRecipe.jsx');
     switch (e.target.value) {
-      case "Vegan":
+      case 'Vegan':
         setForm(<></>);
         setShowLinkChoice(true);
         break;
-      case "NVegan":
+      case 'NVegan':
         setShowLinkChoice(false);
         setForm(<FormAddRecipeNonVegan />);
         break;
@@ -29,11 +30,12 @@ function AddRecipe() {
 
   const onAlternativeDropdownSelect = (e) => {
     setAlternativeDropdownSelect(e.target.value);
+    console.log('TODO: Switch Change: client/src/components/AddRecipe.jsx');
     switch (e.target.value) {
-      case "recipe":
+      case 'recipe':
         setForm(<FormAddRecipeVegan type="recipe" customOptions="title" />);
         break;
-      case "ingredient":
+      case 'ingredient':
         setForm(
           <FormAddRecipeVegan
             type="ingredient"

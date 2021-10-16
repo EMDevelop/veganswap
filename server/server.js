@@ -1,13 +1,14 @@
-require("dotenv").config();
-const express = require("express");
+require('dotenv').config();
+const express = require('express');
 const app = express();
-const morgan = require("morgan");
-const db = require("./db");
-const cors = require("cors");
-const { cloudinary } = require("./utils/cloudinary");
-const pgp = require("pg-promise")({
+// const morgan = require('morgan');
+const db = require('./db');
+const cors = require('cors');
+const { cloudinary } = require('./utils/cloudinary');
+const pgp = require('pg-promise')({
   capSQL: true,
 });
+
 const pgConnectionDetails = {
   host: process.env.PGHOST,
   port: process.env.PGPORT,
@@ -39,7 +40,7 @@ app.use(express.json());
 // ---------------------------------------------------------
 
 // GET Non-Vegan Recipe and Ingredient
-app.get("/api/v1/swapList", async (req, res) => {
+app.get('/api/v1/swapList', async (req, res) => {
   // NEW
 
   // OLD
@@ -53,21 +54,21 @@ app.get("/api/v1/swapList", async (req, res) => {
     );
 
     res.status(200).json({
-      status: "success",
+      status: 'success',
       data: {
         swapList: response.rows,
       },
     });
   } catch (err) {
     res.json({
-      status: "failure",
+      status: 'failure',
       error: err,
     });
   }
 });
 
 // GET Non-Vegan Recipe and Ingredient
-app.get("/api/v1/swapListVegan", async (req, res) => {
+app.get('/api/v1/swapListVegan', async (req, res) => {
   try {
     const ingredient = await db.query(
       `SELECT id,name, variety, isvegan FROM ingredient WHERE isVegan = 'y' order by name, variety asc;`
@@ -77,7 +78,7 @@ app.get("/api/v1/swapListVegan", async (req, res) => {
     );
 
     res.status(200).json({
-      status: "success",
+      status: 'success',
       data: {
         ingredients: ingredient.rows,
         recipes: recipe.rows,
@@ -85,27 +86,27 @@ app.get("/api/v1/swapListVegan", async (req, res) => {
     });
   } catch (err) {
     res.json({
-      status: "failure",
+      status: 'failure',
       error: err,
     });
   }
 });
 
 // GET Non-Vegan ingredients
-app.get("/api/v1/nvIngredients", async (req, res) => {
+app.get('/api/v1/nvIngredients', async (req, res) => {
   try {
     const ingredient = await db.query(
       `SELECT id,name,variety,isvegan FROM ingredient WHERE isVegan = 'n' order by name, variety asc;`
     );
     res.status(200).json({
-      status: "success",
+      status: 'success',
       data: {
         ingredients: ingredient.rows,
       },
     });
   } catch (err) {
     res.json({
-      status: "failure",
+      status: 'failure',
       error: err,
     });
   }
@@ -113,20 +114,20 @@ app.get("/api/v1/nvIngredients", async (req, res) => {
 
 //GET Non-Vegan recipe
 
-app.get("/api/v1/nvRecipes", async (req, res) => {
+app.get('/api/v1/nvRecipes', async (req, res) => {
   try {
     const recipe = await db.query(
       `SELECT id, title FROM recipe WHERE isVegan = 'n' order by title asc;`
     );
     res.status(200).json({
-      status: "success",
+      status: 'success',
       data: {
         Recipes: recipe.rows,
       },
     });
   } catch (err) {
     res.json({
-      status: "failure",
+      status: 'failure',
       error: err,
     });
   }
@@ -138,7 +139,7 @@ app.get("/api/v1/nvRecipes", async (req, res) => {
 // Ingredient Alternatives
 //
 
-app.get("/api/v1/alternatives/ingredient/:id", async (req, res) => {
+app.get('/api/v1/alternatives/ingredient/:id', async (req, res) => {
   try {
     //Fetch Ingredients as Ingredient Alternative
     const ingredients = await db.query(
@@ -175,7 +176,7 @@ app.get("/api/v1/alternatives/ingredient/:id", async (req, res) => {
       [req.params.id]
     );
     res.status(200).json({
-      status: "success",
+      status: 'success',
       data: {
         Ingredients: ingredients.rows,
         Recipes: recipes.rows,
@@ -183,7 +184,7 @@ app.get("/api/v1/alternatives/ingredient/:id", async (req, res) => {
       },
     });
   } catch (error) {
-    console.log("error");
+    console.log('error');
   }
 });
 
@@ -191,7 +192,7 @@ app.get("/api/v1/alternatives/ingredient/:id", async (req, res) => {
 // Recipe Alternatives
 //
 
-app.get("/api/v1/alternatives/recipe/:id", async (req, res) => {
+app.get('/api/v1/alternatives/recipe/:id', async (req, res) => {
   try {
     //Fetch Ingredients as Ingredient Alternative
     const recipes = await db.query(
@@ -229,7 +230,7 @@ app.get("/api/v1/alternatives/recipe/:id", async (req, res) => {
     );
 
     res.status(200).json({
-      status: "success",
+      status: 'success',
       data: {
         Recipes: recipes.rows,
         FoodProducts: foodProducts.rows,
@@ -237,12 +238,12 @@ app.get("/api/v1/alternatives/recipe/:id", async (req, res) => {
       },
     });
   } catch (error) {
-    console.log("error");
+    console.log('error');
   }
 });
 
 // Get Ingredient Profile + List of Ingredient foodProducts
-app.get("/api/v1/ingredients/profile/:id", async (req, res) => {
+app.get('/api/v1/ingredients/profile/:id', async (req, res) => {
   try {
     const ingredient = await db.query(
       `
@@ -269,19 +270,19 @@ app.get("/api/v1/ingredients/profile/:id", async (req, res) => {
     );
 
     res.status(200).json({
-      status: "success",
+      status: 'success',
       data: {
         Ingredients: ingredient.rows[0],
         foodProducts: brands.rows,
       },
     });
   } catch (error) {
-    console.log("error");
+    console.log('error');
   }
 });
 
 // Get foodProducts associated to a food product ID
-app.get("/api/v1/foodproducts/profile/:id", async (req, res) => {
+app.get('/api/v1/foodproducts/profile/:id', async (req, res) => {
   try {
     const response = await db.query(
       `
@@ -294,16 +295,16 @@ app.get("/api/v1/foodproducts/profile/:id", async (req, res) => {
     );
 
     res.status(200).json({
-      status: "success",
+      status: 'success',
       data: { FoodProduct: response.rows[0] },
     });
   } catch (error) {
-    console.log("error");
+    console.log('error');
   }
 });
 
 // Get Recipe Profile
-app.get("/api/v1/recipes/profile/:id", async (req, res) => {
+app.get('/api/v1/recipes/profile/:id', async (req, res) => {
   try {
     const profile = await db.query(
       `
@@ -336,7 +337,7 @@ app.get("/api/v1/recipes/profile/:id", async (req, res) => {
     );
 
     res.status(200).json({
-      status: "success",
+      status: 'success',
       data: {
         Profile: profile.rows[0],
         Ingredients: profileIngredients.rows,
@@ -344,7 +345,7 @@ app.get("/api/v1/recipes/profile/:id", async (req, res) => {
       },
     });
   } catch (error) {
-    console.log("error");
+    console.log('error');
   }
 });
 
@@ -360,7 +361,7 @@ app.get("/api/v1/recipes/profile/:id", async (req, res) => {
 // ---------------------------------------------------------
 
 //Create a Non-Vegan Ingredient
-app.post("/api/v1/nvIngredient", async (req, res) => {
+app.post('/api/v1/nvIngredient', async (req, res) => {
   try {
     const response = await db.query(
       "INSERT INTO ingredient (isVegan, name,variety,createuser) VALUES ('n',$1,$2, 1) RETURNING *",
@@ -369,7 +370,7 @@ app.post("/api/v1/nvIngredient", async (req, res) => {
     );
 
     res.status(200).json({
-      status: "success",
+      status: 'success',
       data: {
         nvIngredient: response.rows[0],
       },
@@ -380,7 +381,7 @@ app.post("/api/v1/nvIngredient", async (req, res) => {
 });
 
 //Create a Vegan Ingredient + Link to a Non Vegan Ingredient
-app.post("/api/v1/vIngredient", async (req, res) => {
+app.post('/api/v1/vIngredient', async (req, res) => {
   try {
     const addIngredient = await db.query(
       "INSERT INTO ingredient (isVegan, name,variety, description, image, createuser) VALUES  ('y',$1,$2,$3, $4, 1) RETURNING *",
@@ -395,7 +396,7 @@ app.post("/api/v1/vIngredient", async (req, res) => {
     );
 
     res.status(200).json({
-      status: "success",
+      status: 'success',
       data: {
         vIngredient: addIngredient.rows[0],
         addIngredientLink: addIngredientLink.rows[0],
@@ -407,7 +408,7 @@ app.post("/api/v1/vIngredient", async (req, res) => {
 });
 
 //Create a non-vegan recipe
-app.post("/api/v1/nvRecipe", async (req, res) => {
+app.post('/api/v1/nvRecipe', async (req, res) => {
   try {
     const response = await db.query(
       "INSERT INTO recipe (isVegan, title, createuser) VALUES ('n',$1,1) RETURNING *",
@@ -415,7 +416,7 @@ app.post("/api/v1/nvRecipe", async (req, res) => {
     );
 
     res.status(200).json({
-      status: "success",
+      status: 'success',
       data: {
         nvRecipe: response.rows[0],
       },
@@ -423,7 +424,7 @@ app.post("/api/v1/nvRecipe", async (req, res) => {
   } catch (err) {
     console.log(err);
     res.status(200).json({
-      status: "failure",
+      status: 'failure',
       error: err,
     });
   }
@@ -436,7 +437,7 @@ app.post("/api/v1/nvRecipe", async (req, res) => {
 // ----------
 
 //Create a vegan recipe + link to an Ingredient
-app.post("/api/v1/vRecipe/Ingredient", async (req, res) => {
+app.post('/api/v1/vRecipe/Ingredient', async (req, res) => {
   try {
     const recipe = await db.query(
       "INSERT INTO recipe ( isvegan, title, description, credit, url, image, createuser) VALUES ('y',$1,$2,$3,$4,$5,1) RETURNING *",
@@ -460,19 +461,19 @@ app.post("/api/v1/vRecipe/Ingredient", async (req, res) => {
 
     const multiIngredientsColumns = new pgp.helpers.ColumnSet(
       [
-        "recipes_id",
-        "seq",
-        "quantity",
-        "measure",
-        "name",
-        "note",
-        "createuser",
+        'recipes_id',
+        'seq',
+        'quantity',
+        'measure',
+        'name',
+        'note',
+        'createuser',
       ],
-      { table: "recipeingredient" }
+      { table: 'recipeingredient' }
     );
 
     req.body.childToParentIngredients.map((row) => {
-      row["recipes_id"] = recipeID;
+      row['recipes_id'] = recipeID;
     });
 
     const multiIngredientsQuery = pgp.helpers.insert(
@@ -484,11 +485,11 @@ app.post("/api/v1/vRecipe/Ingredient", async (req, res) => {
     // Multi Form steps
 
     const multiStepsColumns = new pgp.helpers.ColumnSet(
-      ["recipes_id", "seq", "description", "createuser"],
-      { table: "recipestep" }
+      ['recipes_id', 'seq', 'description', 'createuser'],
+      { table: 'recipestep' }
     );
     req.body.childToParentSteps.map((row) => {
-      row["recipes_id"] = recipeID;
+      row['recipes_id'] = recipeID;
     });
 
     const multiStepsQuery = pgp.helpers.insert(
@@ -499,7 +500,7 @@ app.post("/api/v1/vRecipe/Ingredient", async (req, res) => {
     console.log(multiSteps);
 
     res.status(200).json({
-      status: "success",
+      status: 'success',
       data: {
         vRecipe: recipe.rows[0],
         IngredientLink: ingredientLink.rows[0],
@@ -507,7 +508,7 @@ app.post("/api/v1/vRecipe/Ingredient", async (req, res) => {
     });
   } catch (err) {
     console.log(err);
-    res.status(500).json({ status: "failure", error: err });
+    res.status(500).json({ status: 'failure', error: err });
   }
 });
 // ----------
@@ -517,7 +518,7 @@ app.post("/api/v1/vRecipe/Ingredient", async (req, res) => {
 // ----------
 
 //Create a vegan recipe + link to a Recipe
-app.post("/api/v1/vRecipe/Recipe", async (req, res) => {
+app.post('/api/v1/vRecipe/Recipe', async (req, res) => {
   try {
     const recipe = await db.query(
       "INSERT INTO recipe ( isvegan, title, description, credit, url, image,createuser) VALUES ('y',$1,$2,$3,$4,$5,1) RETURNING *",
@@ -538,14 +539,14 @@ app.post("/api/v1/vRecipe/Recipe", async (req, res) => {
     );
 
     res.status(200).json({
-      status: "success",
+      status: 'success',
       data: {
         vRecipe: recipe.rows[0],
         RecipeLink: recipeLink.rows[0],
       },
     });
   } catch (err) {
-    res.status(500).json({ status: "failure", error: err });
+    res.status(500).json({ status: 'failure', error: err });
   }
 });
 
@@ -555,10 +556,10 @@ app.post("/api/v1/vRecipe/Recipe", async (req, res) => {
 //Link Food Recipe
 // INSERT INTO recipeProduct (recipe_id, foodproduct_id, createuser) VALUES (6, 8, 1) ;
 
-app.post("/api/v1/FoodProduct/Recipe", async (req, res) => {
+app.post('/api/v1/FoodProduct/Recipe', async (req, res) => {
   try {
     const foodProduct = await db.query(
-      "INSERT INTO foodProduct (BrandName, ProductName, Description, image, createUser) Values($1,$2,$3,$4,1) RETURNING *",
+      'INSERT INTO foodProduct (BrandName, ProductName, Description, image, createUser) Values($1,$2,$3,$4,1) RETURNING *',
       [
         req.body.brandName,
         req.body.productName,
@@ -568,25 +569,25 @@ app.post("/api/v1/FoodProduct/Recipe", async (req, res) => {
     );
     const foodProductID = foodProduct.rows[0].id;
     const recipeLink = await db.query(
-      "INSERT INTO recipeProduct (recipe_id, foodproduct_id, createuser) VALUES  ($1,$2,1) RETURNING *",
+      'INSERT INTO recipeProduct (recipe_id, foodproduct_id, createuser) VALUES  ($1,$2,1) RETURNING *',
       [req.body.selectedLink, foodProductID]
     );
     res.status(200).json({
-      status: "success",
+      status: 'success',
       data: {
         FoodProduct: foodProduct.rows[0],
         RecipeLink: recipeLink.rows[0],
       },
     });
   } catch (err) {
-    res.status(500).json({ status: "failure", error: err });
+    res.status(500).json({ status: 'failure', error: err });
   }
 });
 
-app.post("/api/v1/FoodProduct/Ingredient", async (req, res) => {
+app.post('/api/v1/FoodProduct/Ingredient', async (req, res) => {
   try {
     const foodProduct = await db.query(
-      "INSERT INTO foodProduct (BrandName, ProductName, Description, Image, createUser) Values($1,$2,$3,$4,1) RETURNING *",
+      'INSERT INTO foodProduct (BrandName, ProductName, Description, Image, createUser) Values($1,$2,$3,$4,1) RETURNING *',
       [
         req.body.brandName,
         req.body.productName,
@@ -598,32 +599,32 @@ app.post("/api/v1/FoodProduct/Ingredient", async (req, res) => {
     const foodProductID = foodProduct.rows[0].id;
 
     const ingredientLink = await db.query(
-      "INSERT INTO ingredientProduct (ingredient_id, foodProduct_id,CreateUser ) VALUES  ($1,$2,1) RETURNING *",
+      'INSERT INTO ingredientProduct (ingredient_id, foodProduct_id,CreateUser ) VALUES  ($1,$2,1) RETURNING *',
       [req.body.selectedLink, foodProductID]
     );
 
     res.status(200).json({
-      status: "success",
+      status: 'success',
       data: {
         FoodProduct: foodProduct.rows[0],
         RecipeLink: ingredientLink.rows[0],
       },
     });
   } catch (err) {
-    res.status(500).json({ status: "failure", error: err });
+    res.status(500).json({ status: 'failure', error: err });
   }
 });
 
 //----------------------------------------------------------Image
 
 // Upload
-app.post("/api/v1/imageUpload", async (req, res) => {
+app.post('/api/v1/imageUpload', async (req, res) => {
   try {
     const fileStr = req.body.data;
     const uploadResponse = await cloudinary.uploader.upload(fileStr, {});
-    res.json({ status: "success", response: uploadResponse });
+    res.json({ status: 'success', response: uploadResponse });
   } catch (err) {
-    res.status(500).json({ status: "failure", error: err });
+    res.status(500).json({ status: 'failure', error: err });
   }
 });
 
@@ -631,29 +632,29 @@ app.post("/api/v1/imageUpload", async (req, res) => {
 // Add Multiple Users
 //
 
-app.post("/api/v1/multipleUsers", async (req, res) => {
+app.post('/api/v1/multipleUsers', async (req, res) => {
   const userColumns = new pgp.helpers.ColumnSet(
-    ["username", "firstname", "lastname"],
-    { table: "users" }
+    ['username', 'firstname', 'lastname'],
+    { table: 'users' }
   );
   const userValues = [
-    { username: "test1", firstname: "test1", lastname: "test1" },
-    { username: "test1", firstname: "test1", lastname: "test1" },
-    { username: "test1", firstname: "test1", lastname: "test1" },
+    { username: 'test1', firstname: 'test1', lastname: 'test1' },
+    { username: 'test1', firstname: 'test1', lastname: 'test1' },
+    { username: 'test1', firstname: 'test1', lastname: 'test1' },
   ];
   try {
     const query = pgp.helpers.insert(userValues, userColumns);
     const users = await dbMulti.none(query);
     console.log(users);
     res.status(200).json({
-      status: "success",
+      status: 'success',
       data: {
         // users: users.rows,
       },
     });
   } catch (err) {
     console.log(err);
-    res.status(500).json({ status: "failure", error: err });
+    res.status(500).json({ status: 'failure', error: err });
   }
 });
 

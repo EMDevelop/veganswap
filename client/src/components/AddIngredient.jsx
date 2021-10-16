@@ -1,21 +1,22 @@
-import React, { useState } from "react";
-import CollapsibleDiv from "./CollapsibleDiv";
-import ToolTip from "./ToolTip";
-import FormAddIngredientVegan from "./FormAddIngredientVegan";
-import FormAddIngredientNonVegan from "./FormAddIngredientNonVegan";
+import React, { useState } from 'react';
+import CollapsibleDiv from './CollapsibleDiv';
+import ToolTip from './ToolTip';
+import FormAddIngredientVegan from './FormAddIngredientVegan';
+import FormAddIngredientNonVegan from './FormAddIngredientNonVegan';
 
 function AddIngredient() {
   const [form, setForm] = useState(<></>);
-  const [veganDropdownSelect, setVeganDropdownSelect] = useState("_____");
+  const [veganDropdownSelect, setVeganDropdownSelect] = useState('_____');
 
   const onVeganDropdownSelect = (e) => {
     setVeganDropdownSelect(e.target.value);
+    console.log('TODO: Switch Change: client/src/components/AddRecipe.jsx');
 
     switch (e.target.value) {
-      case "Vegan":
+      case 'Vegan':
         setForm(<FormAddIngredientVegan />);
         break;
-      case "NVegan":
+      case 'NVegan':
         setForm(<FormAddIngredientNonVegan />);
         break;
       default:
