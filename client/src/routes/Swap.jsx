@@ -1,5 +1,5 @@
-import React from "react";
-import SwapWindow from "../components/SwapWindow";
+import React from 'react';
+import SwapWindow from '../components/pageLayout/SwapWindow';
 
 function Swap(props) {
   return (

@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useContext } from 'react';
 import Axios from '../../apis/axios';
 import { VeganContext } from '../../context/VeganContext';
-import SearchDropDown from '../SearchDropDown';
+import SearchDropDown from '../global/SearchDropDown';
 import { Spinner } from 'react-bootstrap';
 import { capitaliseFirstLetter } from '../../modules/helper.js';
 

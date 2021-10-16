@@ -1,10 +1,10 @@
-import React, { useContext, useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
-import Axios from "../apis/axios";
-import { VeganContext } from "../context/VeganContext";
-import { Spinner } from "react-bootstrap";
-import VeganIngredientAlternatives from "../components/VeganIngredientAlternatives";
-import VeganRecipeAlternatives from "../components/VeganRecipeAlternatives";
+import React, { useContext, useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
+import Axios from '../apis/axios';
+import { VeganContext } from '../context/VeganContext';
+import { Spinner } from 'react-bootstrap';
+import VeganIngredientAlternatives from '../components/alternativeScreen/VeganIngredientAlternatives';
+import VeganRecipeAlternatives from '../components/alternativeScreen/VeganRecipeAlternatives';
 
 function Alternatives() {
   const { id, type } = useParams();
@@ -16,14 +16,14 @@ function Alternatives() {
   useEffect(() => {
     // Decide which component to load based on selection on SWAP route
     switch (type) {
-      case "ingredient":
+      case 'ingredient':
         setComponentLoad(<VeganIngredientAlternatives />);
         break;
-      case "recipe":
+      case 'recipe':
         setComponentLoad(<VeganRecipeAlternatives />);
         break;
       default:
-        console.log("Invalid Selection");
+        console.log('Invalid Selection');
     }
     // fetch relevant data dependent on the selection on previous page
     const fetchData = async () => {
@@ -44,7 +44,7 @@ function Alternatives() {
         componentLoad
       ) : (
         <div className="spinnerContainer">
-          <Spinner animation="border" />{" "}
+          <Spinner animation="border" />{' '}
         </div>
       )}
     </>

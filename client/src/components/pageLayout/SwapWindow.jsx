@@ -1,17 +1,17 @@
-import React, { useContext, useEffect, useState } from "react";
-import Axios from "../apis/axios";
-import { VeganContext } from "../context/VeganContext";
-import { useHistory } from "react-router-dom";
-import SearchDropDown from "./SearchDropDown";
-import { Spinner } from "react-bootstrap";
-import { capitaliseFirstLetter } from "../modules/helper.js";
+import React, { useContext, useEffect, useState } from 'react';
+import Axios from '../../apis/axios';
+import { VeganContext } from '../../context/VeganContext';
+import { useHistory } from 'react-router-dom';
+import SearchDropDown from '../global/SearchDropDown';
+import { Spinner } from 'react-bootstrap';
+import { capitaliseFirstLetter } from '../../modules/helper.js';
 
 function SwapWindow() {
   const { swapList, setSwapList } = useContext(VeganContext);
   const [finishedLoading, setFinishedLoading] = useState(null);
-  const [options, setOptions] = useState("");
-  const [dropdownSelect, setDropdownSelect] = useState("________");
-  const [textValue, setTextValue] = useState("");
+  const [options, setOptions] = useState('');
+  const [dropdownSelect, setDropdownSelect] = useState('________');
+  const [textValue, setTextValue] = useState('');
 
   let history = useHistory();
 
@@ -24,7 +24,7 @@ function SwapWindow() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await Axios.get("/swapList");
+        const response = await Axios.get('/swapList');
         setSwapList(response.data.data);
         setFinishedLoading(true);
       } catch (error) {
@@ -37,7 +37,7 @@ function SwapWindow() {
   const onInputChange = (e) => {
     let capVal = capitaliseFirstLetter(e.target.value);
     setTextValue(capVal);
-    if (e.target.value === "") setOptions("");
+    if (e.target.value === '') setOptions('');
     console.log(swapList);
     swapList &&
       setOptions(

@@ -1,5 +1,5 @@
 import React, { useState, useContext, useEffect } from 'react';
-import SearchDropDown from '../SearchDropDown';
+import SearchDropDown from '../global/SearchDropDown';
 import Axios from '../../apis/axios';
 import { VeganContext } from '../../context/VeganContext';
 import { Spinner } from 'react-bootstrap';

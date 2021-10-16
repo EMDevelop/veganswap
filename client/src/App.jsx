@@ -1,19 +1,19 @@
 //Functionality
-import React from "react";
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import React from 'react';
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 //Styling
-import "./css/App.css";
+import './css/App.css';
 //Components
-import { VeganContextProvider } from "./context/VeganContext";
-import NavigationBar from "./components/NavigationBar";
+import { VeganContextProvider } from './context/VeganContext';
+import NavigationBar from './components/pageLayout/NavigationBar';
 //Routes
-import Alternatives from "./routes/Alternatives";
-import Swap from "./routes/Swap";
-import IngredientsProfile from "./routes/IngredientsProfile";
-import FoodProductProfile from "./routes/FoodProductProfile";
-import RecipeProfile from "./routes/RecipeProfile";
-import Add from "./routes/Add";
-import Test from "./routes/Test";
+import Alternatives from './routes/Alternatives';
+import Swap from './routes/Swap';
+import IngredientsProfile from './routes/IngredientsProfile';
+import FoodProductProfile from './routes/FoodProductProfile';
+import RecipeProfile from './routes/RecipeProfile';
+import Add from './routes/Add';
+import Test from './routes/Test';
 
 const App = () => {
   return (
