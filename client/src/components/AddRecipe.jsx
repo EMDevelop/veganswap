@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import CollapsibleDiv from './CollapsibleDiv';
-import ToolTip from './ToolTip';
+import ToolTip from './global/ToolTip';
 import FormAddRecipeNonVegan from './FormAddRecipeNonVegan';
 import FormAddRecipeVegan from './FormAddRecipeVegan';
 

@@ -192,7 +192,7 @@ select::-ms-expand {
   text-align: center;
   background-color: transparent;
   background-size: auto;
-  background-image: url("https://raw.githubusercontent.com/juliazieniewicz/backgroundsvg/main/Draft6.jpg");
+  background-image: url('https://raw.githubusercontent.com/juliazieniewicz/backgroundsvg/main/Draft6.jpg');
   background-size: 800px;
   background-position: 0px 400px;
 }
@@ -376,7 +376,7 @@ select::-ms-expand {
 }
 .NavLinks::after {
   background-color: var(--lightTaupe);
-  content: "";
+  content: '';
   width: 0;
   height: 3px;
   left: 0;
@@ -643,13 +643,13 @@ select::-ms-expand {
 }
 
 .previewImage {
-  height: 300px;
-  width: auto;
+  height: auto;
+  width: 150px;
   background-color: var(--lightGreen);
   /* background-color: #f88379; */
-  border-top-left-radius: 25px;
-  border-top-right-radius: 25px;
+  border-radius: 5px;
   margin-bottom: 20px;
+  margin-top: 20px;
   display: grid;
   justify-content: center;
   align-items: center;
@@ -763,8 +763,9 @@ select::-ms-expand {
 }
 
 .profileImage {
-  height: 300px;
-  width: auto;
+  height: auto;
+  max-width: 400px;
+  width: 85%;
   border-radius: 5px;
   background-color: var(--lightGreen);
   backdrop-filter: blur(1.5px);
@@ -831,7 +832,7 @@ select::-ms-expand {
 }
 .customButton:before,
 .customButton:after {
-  content: "";
+  content: '';
   position: absolute;
   border-radius: 20px;
   top: 0;

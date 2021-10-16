@@ -1,20 +1,20 @@
-import React, { useState } from "react";
-import FormAddFoodProduct from "./FormAddFoodProduct";
-import CollapsibleDiv from "./CollapsibleDiv";
-import ToolTip from "./ToolTip";
+import React, { useState } from 'react';
+import FormAddFoodProduct from './FormAddFoodProduct';
+import CollapsibleDiv from './CollapsibleDiv';
+import ToolTip from './global/ToolTip';
 
 function AddFoodProduct() {
   const [form, setForm] = useState(<></>);
   const [alternativeDropdownSelect, setAlternativeDropdownSelect] =
-    useState("_____");
+    useState('_____');
 
   const onAlternativeDropdownSelect = (e) => {
     setAlternativeDropdownSelect(e.target.value);
     switch (e.target.value) {
-      case "recipe":
+      case 'recipe':
         setForm(<FormAddFoodProduct type="recipe" customOptions="title" />);
         break;
-      case "ingredient":
+      case 'ingredient':
         setForm(
           <FormAddFoodProduct
             type="ingredient"
