@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useRef } from 'react';
 
 function ToolTip(props) {
   const [isOpen, setIsOpen] = useState(false);
@@ -23,15 +23,15 @@ function ToolTip(props) {
           isOpen
             ? {
                 //This is the total height it should be (unhidden) + the px for style formatting
-                height: toolRef.current.scrollHeight + "px",
+                height: toolRef.current.scrollHeight + 'px',
               }
             : {
                 //Hiding to 0 if the State is set to not open
                 // https://www.youtube.com/watch?v=4F8EYGao9pc&ab_channel=Devistry
                 // 25 minutes in - solution for issue of overhanging ?
-                height: "0px",
-                backgroundColor: "transparent",
-                border: "none",
+                height: '0px',
+                backgroundColor: 'transparent',
+                border: 'none',
               }
         }
       >

@@ -1,15 +1,15 @@
-import React, { useState, useEffect, useContext } from "react";
-import Axios from "../apis/axios";
-import { VeganContext } from "../context/VeganContext";
-import SearchDropDown from "./SearchDropDown";
-import { Spinner } from "react-bootstrap";
-import { print, capitaliseFirstLetter } from "../modules/helper.js";
+import React, { useState, useEffect, useContext } from 'react';
+import Axios from '../apis/axios';
+import { VeganContext } from '../context/VeganContext';
+import SearchDropDown from './SearchDropDown';
+import { Spinner } from 'react-bootstrap';
+import { capitaliseFirstLetter } from '../modules/helper.js';
 
 function FormAddRecipeNonVegan() {
-  const [buttonText, setButtonText] = useState("Submit");
-  const [title, setTitle] = useState("");
+  const [buttonText, setButtonText] = useState('Submit');
+  const [title, setTitle] = useState('');
   const [errorMessage, setErrorMessage] = useState([]);
-  const [errorClass, setErrorClass] = useState("errorText");
+  const [errorClass, setErrorClass] = useState('errorText');
   const [finishedRequest, setFinishedRequest] = useState(null);
   const [finishedFormSubmit, setFinishedFormSubmit] = useState(true);
   const [titleOptions, setTitleOptions] = useState([]);
@@ -19,7 +19,7 @@ function FormAddRecipeNonVegan() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await Axios.get("/nvRecipes");
+        const response = await Axios.get('/nvRecipes');
         // console.log(response);
         setSwapList(response.data.data);
         setFinishedRequest(true);
@@ -32,15 +32,15 @@ function FormAddRecipeNonVegan() {
 
   const handleInputSelect = (e, id) => {
     setTitleOptions([]);
-    setTitle("");
+    setTitle('');
     setErrorMessage(
-      "Your selection already exists, would you like to add a vegan alternative Instead?"
+      'Your selection already exists, would you like to add a vegan alternative Instead?'
     );
-    setErrorClass("errorText");
+    setErrorClass('errorText');
   };
 
   const onInputChange = (e) => {
-    setErrorMessage("");
+    setErrorMessage('');
     let capVal = capitaliseFirstLetter(e.target.value);
     setTitle(capVal);
     swapList &&
@@ -49,7 +49,7 @@ function FormAddRecipeNonVegan() {
           option.title.toLowerCase().includes(e.target.value.toLowerCase())
         )
       );
-    if (e.target.value === "") {
+    if (e.target.value === '') {
       setTitleOptions([]);
     }
   };
@@ -67,16 +67,16 @@ function FormAddRecipeNonVegan() {
     if (titleDuplicate) {
       validationPass = false;
       setErrorMessage(
-        "The Ingredient you are trying to submit already exists, would you like to add a vegan alternative Instead?"
+        'The Ingredient you are trying to submit already exists, would you like to add a vegan alternative Instead?'
       );
-      setErrorClass("errorTextBold");
+      setErrorClass('errorTextBold');
     }
 
     if (!title) {
       // If name field is empry, do not submit
       validationPass = false;
-      setErrorMessage("Please fill in the Title field");
-      setErrorClass("errorText");
+      setErrorMessage('Please fill in the Title field');
+      setErrorClass('errorText');
     }
 
     if (validationPass) {
@@ -87,14 +87,14 @@ function FormAddRecipeNonVegan() {
   const handleSubmit = async () => {
     try {
       setFinishedFormSubmit(false);
-      setButtonText("Sending...");
-      await Axios.post("/nvRecipe", {
+      setButtonText('Sending...');
+      await Axios.post('/nvRecipe', {
         title,
       });
-      setButtonText("Sent");
+      setButtonText('Sent');
       setFinishedFormSubmit(true);
-      setErrorClass("successMessage");
-      setErrorMessage("Thanks very much for contributing!");
+      setErrorClass('successMessage');
+      setErrorMessage('Thanks very much for contributing!');
     } catch (error) {
       console.log(error);
     }
@@ -113,7 +113,7 @@ function FormAddRecipeNonVegan() {
           textValue={title}
           onInputChange={onInputChange}
           handleInputSelect={handleInputSelect}
-          placeholder={"e.g. Spagetti Bolognese"}
+          placeholder={'e.g. Spagetti Bolognese'}
           customClass="addScreen"
           customOptions="title"
         />

@@ -4,7 +4,7 @@ import Axios from '../apis/axios';
 import { VeganContext } from '../context/VeganContext';
 import { Spinner } from 'react-bootstrap';
 import { Grid } from '@material-ui/core';
-import SequenceCard from '../components/SequenceCard';
+import SequenceCard from '../components/cards/SequenceCard';
 import ProfileCard from '../components/cards/ProfileCard';
 
 function RecipeProfile() {
