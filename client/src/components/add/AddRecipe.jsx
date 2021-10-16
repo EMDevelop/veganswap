@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import CollapsibleDiv from './CollapsibleDiv';
-import ToolTip from './global/ToolTip';
-import FormAddRecipeNonVegan from './forms/FormAddRecipeNonVegan';
-import FormAddRecipeVegan from './forms/FormAddRecipeVegan';
+import CollapsibleDiv from '../CollapsibleDiv';
+import ToolTip from '../global/ToolTip';
+import FormAddRecipeNonVegan from '../forms/FormAddRecipeNonVegan';
+import FormAddRecipeVegan from '../forms/FormAddRecipeVegan';
 
 function AddRecipe() {
   const [form, setForm] = useState(<></>);

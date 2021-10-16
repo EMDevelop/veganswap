@@ -1,25 +1,25 @@
-import React, { useState } from "react";
-import AddFoodProduct from "../components/AddFoodProduct";
-import AddIngredient from "../components/AddIngredient";
-import AddRecipe from "../components/AddRecipe";
+import React, { useState } from 'react';
+import AddFoodProduct from '../components/add/AddFoodProduct';
+import AddIngredient from '../components/add/AddIngredient';
+import AddRecipe from '../components/add/AddRecipe';
 
 // import SearchDropDown from '../components/SearchDropDown'
 
 function Add() {
   const [addComponent, setAddComponent] = useState(<></>);
-  const [dropdownSelect, setDropdownSelect] = useState("________");
+  const [dropdownSelect, setDropdownSelect] = useState('________');
 
   const onDropdownSelect = (e) => {
     setDropdownSelect(e.target.value);
 
     switch (e.target.value) {
-      case "Ingredient":
+      case 'Ingredient':
         setAddComponent(<AddIngredient />);
         break;
-      case "Recipe":
+      case 'Recipe':
         setAddComponent(<AddRecipe />);
         break;
-      case "Suggested Product":
+      case 'Suggested Product':
         setAddComponent(<AddFoodProduct />);
         break;
       default:
