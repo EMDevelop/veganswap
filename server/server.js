@@ -1,14 +1,9 @@
 require('dotenv').config();
 const express = require('express');
 const app = express();
-// const morgan = require('morgan');
-const db = require('./db');
 const cors = require('cors');
-const { cloudinary } = require('./utils/cloudinary');
-const pgp = require('pg-promise')({
-  capSQL: true,
-});
 
+// Connect to Postgres
 const pgConnectionDetails = {
   host: process.env.PGHOST,
   port: process.env.PGPORT,
@@ -16,43 +11,38 @@ const pgConnectionDetails = {
   user: process.env.PGUSER,
   password: process.env.PGPASSWORD,
 };
+const db = require('./db');
+
+// An alternative library for Connecting to Postgres
+const pgp = require('pg-promise')({
+  capSQL: true,
+});
 const dbMulti = pgp(pgConnectionDetails);
 
-//change
-const port = process.env.PORT || 3001;
+const { cloudinary } = require('./utils/cloudinary');
 
+// Setup Express
+const port = process.env.PORT || 3001;
 app.listen(port, () => {
   console.log(`server is up mate on port ${port}`);
 });
-
 app.use(cors());
 app.use(express.json());
 
-// GET section---------------------------------------------------------
-// ---------------------------------------------------------
-// ---------------------------------------------------------
-// ---------------------------------------------------------
-// ---------------------------------------------------------
-// ---------------------------------------------------------
-// ---------------------------------------------------------
-// ---------------------------------------------------------
-// ---------------------------------------------------------
-// ---------------------------------------------------------
+//
+const _post = require('./requests/postRequests');
 
-// GET Non-Vegan Recipe and Ingredient
-app.get('/api/v1/swapList', async (req, res) => {
-  // NEW
+// ----------- GET
 
-  // OLD
+const getNonVeganIngredientAndRecipe = async (req, res) => {
   try {
     const response = await db.query(
-      `SELECT id, isvegan,CASE WHEN (variety IS NULL ) THEN name WHEN (variety ='' ) THEN name ELSE name || ', ' || variety END AS name, 'ingredient' AS type FROM ingredient  WHERE isVegan = 'n' 
+      `SELECT id, isvegan,CASE WHEN (variety IS NULL ) THEN name WHEN (variety ='' ) THEN name ELSE name || ', ' || variety END AS name, 'ingredient' AS type FROM ingredient  WHERE isVegan = 'n'
       UNION
       SELECT id, isvegan, title as name, 'recipe' AS type FROM recipe WHERE isVegan = 'n'
       ORDER BY name DESC;
       `
     );
-
     res.status(200).json({
       status: 'success',
       data: {
@@ -65,7 +55,13 @@ app.get('/api/v1/swapList', async (req, res) => {
       error: err,
     });
   }
+};
+
+app.get('/api/v1/swapList', (req, res) => {
+  getNonVeganIngredientAndRecipe(req, res);
 });
+
+const bla = require('./requests/getRequests');
 
 // GET Non-Vegan Recipe and Ingredient
 app.get('/api/v1/swapListVegan', async (req, res) => {

@@ -2,15 +2,21 @@
 
 My goal of this project is to make it easier for people to use vegan alternatives to the meals and products they love.
 
-You can enter a product
+I am hoping to bring together a community of Vegan, Vegitarian and any other interested contributors, and work together to add alternatives using the apps "Add" functionality.
 
-This is a PERN application, so a full stack application using ReactJS, Nodejs/expresjs, and linking up to a Postgres database.
+It's an MVP now, a few more changes and I'll host it to get some feedback from the community.
 
-The goal of the project is to allow users to find Vegan alternatives to common ingredients (and/or) recipes they're using, to make it easier for people to cook vegan themselves.
+### Features To Add
 
-I'm hoping to create a community where people add recipes / ingredients and interact with content that others are adding.
+##### Coding Specific
 
-It will be free to use, and more than anything I hope it is useful.
+- TDD
+- ORM (including migrations db checklist)
 
-LICENCING
-** If you'd like to use some of the code in this project please do as long as it isn't a copy of the veganswap website**
+##### App Specific
+
+- Image Compression
+- Logging in / Out
+  - Password Authentication
+  - Google Sign-in Authentication
+- Discussion

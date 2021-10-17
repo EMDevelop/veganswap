@@ -158,6 +158,7 @@ function FormAddIngredientNonVegan() {
     } catch (error) {
       console.log(error);
     }
+    setName('');
     setVariety('');
     setVarietyOptions([]);
   };
