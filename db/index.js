@@ -4,6 +4,10 @@ const devConfig = `postgresql://${process.env.PGUSER}:${process.env.PGPASSWORD}@
 
 const proConfig = process.env.DATABASE_URL; //heroku addons
 
+config.ssl = {
+  rejectUnauthorized: false,
+};
+
 const pool = new Pool({
   connectionString:
     process.env.NODE_ENV === 'production' ? proConfig : devConfig,
