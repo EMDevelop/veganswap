@@ -91,6 +91,7 @@ select::-ms-expand {
 .formQuestionSubheading {
   color: var(--lightTaupe);
   font-size: 1.6rem;
+  margin-right: 20px;
   /* font-weight: bold; */
 }
 

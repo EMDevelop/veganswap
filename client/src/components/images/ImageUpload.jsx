@@ -1,7 +1,10 @@
-import React, { useState } from "react";
+import React, { useState } from 'react';
 
 function ImageUpload(props) {
-  const [previewSource, setPreviewSource] = useState("");
+  const [previewSource, setPreviewSource] = useState('');
+  console.log(
+    'TODO: need to reset the preview image when a form is submitted.'
+  );
 
   const handleFileInputChange = (e) => {
     if (!e.target.files[0]) return;
