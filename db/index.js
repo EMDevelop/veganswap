@@ -1,4 +1,5 @@
 const { Pool } = require('pg');
+const { parse } = require('pg-connection-string');
 
 const devConfig = `postgresql://${process.env.PGUSER}:${process.env.PGPASSWORD}@${process.env.PGHOST}:${process.env.PGPORT}/${process.env.PGDATABASE}`;
 
