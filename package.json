@@ -1,22 +1,27 @@
 {
-  "name": "veganswap",
+  "name": "server",
   "version": "1.0.0",
-  "description": "Welcome to veganswap.",
+  "description": "",
   "main": "index.js",
+  "engines": {
+    "node": "14.17.0",
+    "npm": "7.20.6"
+  },
   "scripts": {
-    "test": "echo \"Error: no test specifiedc && exit 1",
-    "start": "concurrently \"npm start --prefix client\" \"npm start --prefix server\"",
-    "build": "cd client && npm run-script build"
+    "start": "nodemon server.js",
+    "heroku-postbuild": "cd client && npm install && npm run build"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/EMDevelop/veganswap.git"
-  },
+  "keywords": [],
   "author": "",
   "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/EMDevelop/veganswap/issues"
-  },
-  "homepage": "https://github.com/EMDevelop/veganswap/client/build",
-  "dependencies": {}
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "cloudinary": "^1.26.3",
+    "cors": "^2.8.5",
+    "dotenv": "^10.0.0",
+    "express": "^4.17.1",
+    "nodemon": "^2.0.9",
+    "pg": "^8.6.0",
+    "pg-promise": "^10.11.0"
+  }
 }

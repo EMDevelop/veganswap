@@ -2,7 +2,11 @@ require('dotenv').config();
 const express = require('express');
 const app = express();
 const cors = require('cors');
+// setup path for build
+const path = require('path');
+const db = require('./db');
 
+// An alternative library for Connecting to Postgres
 // Connect to Postgres
 const pgConnectionDetails = {
   host: process.env.PGHOST,
@@ -11,15 +15,21 @@ const pgConnectionDetails = {
   user: process.env.PGUSER,
   password: process.env.PGPASSWORD,
 };
-const db = require('./db');
-
-// An alternative library for Connecting to Postgres
 const pgp = require('pg-promise')({
   capSQL: true,
 });
 const dbMulti = pgp(pgConnectionDetails);
 
 const { cloudinary } = require('./utils/cloudinary');
+
+app.use(express.static(path.join(__dirname, 'client/build')));
+
+// Set up Heroku
+// console.log(path.join(__dirname, '../client/build'));
+if (process.env.NODE_ENV === 'production') {
+  // we'll serve the static files from `npm run build`, or more the index.html
+  // we will serve static files from this location using
+}
 
 // Setup Express
 const port = process.env.PORT || 3001;
@@ -435,6 +445,7 @@ app.post('/api/v1/nvRecipe', async (req, res) => {
 //Create a vegan recipe + link to an Ingredient
 app.post('/api/v1/vRecipe/Ingredient', async (req, res) => {
   try {
+    //
     const recipe = await db.query(
       "INSERT INTO recipe ( isvegan, title, description, credit, url, image, createuser) VALUES ('y',$1,$2,$3,$4,$5,1) RETURNING *",
       [
@@ -623,35 +634,3 @@ app.post('/api/v1/imageUpload', async (req, res) => {
     res.status(500).json({ status: 'failure', error: err });
   }
 });
-
-//  Test
-// Add Multiple Users
-//
-
-app.post('/api/v1/multipleUsers', async (req, res) => {
-  const userColumns = new pgp.helpers.ColumnSet(
-    ['username', 'firstname', 'lastname'],
-    { table: 'users' }
-  );
-  const userValues = [
-    { username: 'test1', firstname: 'test1', lastname: 'test1' },
-    { username: 'test1', firstname: 'test1', lastname: 'test1' },
-    { username: 'test1', firstname: 'test1', lastname: 'test1' },
-  ];
-  try {
-    const query = pgp.helpers.insert(userValues, userColumns);
-    const users = await dbMulti.none(query);
-    console.log(users);
-    res.status(200).json({
-      status: 'success',
-      data: {
-        // users: users.rows,
-      },
-    });
-  } catch (err) {
-    console.log(err);
-    res.status(500).json({ status: 'failure', error: err });
-  }
-});
-
-// Add Steps / Add ingredients

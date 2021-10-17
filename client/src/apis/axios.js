@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios from 'axios';
 
 // NODE_ENV out of production is 'development'
 // NODE_ENV inside of production, we'll be in 'production'
@@ -6,9 +6,9 @@ import axios from "axios";
 // baseurl now = /api/v1/
 
 const baseURL =
-  process.env.NODE_ENV === "production"
-    ? "api/v1"
-    : "http://localhost:3001/api/v1";
+  process.env.NODE_ENV === 'production'
+    ? 'api/v1'
+    : 'http://localhost:3001/api/v1';
 
 export default axios.create({
   baseURL,
