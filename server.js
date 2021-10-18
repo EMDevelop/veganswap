@@ -22,13 +22,11 @@ const dbMulti = pgp(pgConnectionDetails);
 
 const { cloudinary } = require('./utils/cloudinary');
 
-app.use(express.static(path.join(__dirname, 'client/build')));
-
 // Set up Heroku
-// console.log(path.join(__dirname, '../client/build'));
 if (process.env.NODE_ENV === 'production') {
   // we'll serve the static files from `npm run build`, or more the index.html
   // we will serve static files from this location using
+  app.use(express.static(path.join(__dirname, 'client/build')));
 }
 
 // Setup Express
@@ -43,7 +41,7 @@ app.use(express.json());
 const _post = require('./requests/postRequests');
 
 // ----------- GET
-
+// hoping to move to: requests/getRequests.js
 const getNonVeganIngredientAndRecipe = async (req, res) => {
   try {
     const response = await db.query(
@@ -67,6 +65,7 @@ const getNonVeganIngredientAndRecipe = async (req, res) => {
   }
 };
 
+// defined above, hoping to re-factor into another file - currently not working on module export though.
 app.get('/api/v1/swapList', (req, res) => {
   getNonVeganIngredientAndRecipe(req, res);
 });
