@@ -27,6 +27,9 @@ if (process.env.NODE_ENV === 'production') {
   // we'll serve the static files from `npm run build`, or more the index.html
   // we will serve static files from this location using
   app.use(express.static(path.join(__dirname, 'client/build')));
+  // ensure there is a higher limit for image uploads
+  app.use(express.json({ limit: '50mb' }));
+  app.use(express.urlencoded({ limit: '50mb' }));
 }
 
 // app.use(express.static(path.join(__dirname, 'client/build')));
