@@ -6,6 +6,6 @@ cloudinary.config({
   api_secret: process.env.CLOUDINARY_API_SECRET,
 });
 
-cloudinary.config({ cloud_name: PRIVATE, api_key: PRIVATE });
+// cloudinary.config({ cloud_name: PRIVATE, api_key: PRIVATE });
 
 module.exports = { cloudinary };
