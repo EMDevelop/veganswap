@@ -647,3 +647,12 @@ app.post('/api/v1/imageUpload', async (req, res) => {
 //     }
 //   });
 // });
+
+// direct to my client index for all other requests
+app.get('/*', function (req, res) {
+  res.sendFile(path.join(__dirname, 'client/build/index.html'), function (err) {
+    if (err) {
+      res.status(500).send(err);
+    }
+  });
+});
