@@ -14,8 +14,6 @@ function Alternatives() {
   const [componentLoad, setComponentLoad] = useState([]);
 
   useEffect(() => {
-    console.log('Client: useEffect called Alternatives.jsx');
-
     // Decide which component to load based on selection on SWAP route
     switch (type) {
       case 'ingredient':
