@@ -29,6 +29,8 @@ if (process.env.NODE_ENV === 'production') {
   app.use(express.static(path.join(__dirname, 'client/build')));
 }
 
+// app.use(express.static(path.join(__dirname, 'client/build')));
+
 // Setup Express
 const port = process.env.PORT || 3001;
 app.listen(port, () => {
@@ -633,3 +635,12 @@ app.post('/api/v1/imageUpload', async (req, res) => {
     res.status(500).json({ status: 'failure', error: err });
   }
 });
+
+// Catch all
+// app.get('/*', function (req, res) {
+//   res.sendFile(path.join(__dirname, 'client/build/index.html'), function (err) {
+//     if (err) {
+//       res.status(500).send(err);
+//     }
+//   });
+// });
