@@ -14,6 +14,8 @@ function Alternatives() {
   const [componentLoad, setComponentLoad] = useState([]);
 
   useEffect(() => {
+    console.log('Client: useEffect called Alternatives.jsx');
+
     // Decide which component to load based on selection on SWAP route
     switch (type) {
       case 'ingredient':
@@ -26,11 +28,20 @@ function Alternatives() {
         console.log('Invalid Selection');
     }
     // fetch relevant data dependent on the selection on previous page
+
+    console.log('Cliebt: Fetch in Alternatives.jsx about to begin');
+
     const fetchData = async () => {
       try {
+        console.log('Client: begginning try catch, Alternatives.jsx');
+        console.log(`type = ${type}`);
+        console.log(`id = ${id}`);
+        console.log(Axios);
         const response = await Axios.get(`/alternatives/${type}/${id}`);
+        console.log('Client: fetch complete Alternatives.jsxs');
         setAlternatives(response.data.data);
         setFinishedLoading(true);
+        console.log('Client: finished Axios request, Alternatives.jsx');
       } catch (error) {
         console.log(error);
       }

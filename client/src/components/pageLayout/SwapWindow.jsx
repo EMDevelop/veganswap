@@ -22,6 +22,8 @@ function SwapWindow() {
   };
 
   useEffect(() => {
+    console.log('Client: inside swapwindow');
+    console.log(process.env.NODE_ENV);
     const fetchData = async () => {
       try {
         const response = await Axios.get('/swapList');
@@ -38,7 +40,7 @@ function SwapWindow() {
     let capVal = capitaliseFirstLetter(e.target.value);
     setTextValue(capVal);
     if (e.target.value === '') setOptions('');
-    console.log(swapList);
+    // console.log(swapList);
     swapList &&
       setOptions(
         swapList.swapList.filter((option) =>
