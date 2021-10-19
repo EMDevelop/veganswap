@@ -1,19 +1,32 @@
 # Vegan Swap
 
+www.veganswap.co.uk
+
+So far this is an MVP, I have a number of features I'd really like to add after I receive some feedback from potential users.
+
 My goal of this project is to make it easier for people to use vegan alternatives to the meals and products they love.
 
 I am hoping to bring together a community of Vegan, Vegitarian and any other interested contributors, and work together to add alternatives using the apps "Add" functionality.
 
-It's an MVP now, a few more changes and I'll host it to get some feedback from the community.
+### About the app
 
-### Features To Add
+- Hosted on Heroku (free plan)
+- SSL through Cloudfare (free plan)
+- Images stored on Cloundinary (free plan)
+- Front end:
+  - ReactJs
+  - Axios for requests
+- Back End/Server:
+  - Express Js
+- Database
+  - PosgreSQL
 
-##### Coding Specific
+##### ToDo: Coding Specific
 
-- TDD
-- ORM (including migrations db checklist)
+- TDD (Jest)
+- ORM (including migrations db checklist) ideally sequaliser to clean up the back end code.
 
-##### App Specific
+##### ToDo: App Specific
 
 - Image Compression
 - Logging in / Out

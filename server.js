@@ -39,7 +39,7 @@ const port = process.env.PORT || 3001;
 app.listen(port, () => {
   console.log(`server is up mate on port ${port}`);
 });
-app.use(cors());
+// app.use(cors());
 app.use(express.json());
 
 //
@@ -595,6 +595,10 @@ app.post('/api/v1/FoodProduct/Recipe', async (req, res) => {
   }
 });
 
+// {"status":"failure","error":{"length":217,"name":"error","severity":"ERROR","code":"23505","detail":"Key (id)=(14) already exists.","schema":"public","table":"ingredientproduct","constraint":"ingredientproduct_pkey","file":"nbtinsert.c","line":"649","routine":"_bt_check_unique"}}
+
+// http://www.veganswap.co.uk/api/v1/FoodProduct/Ingredient
+
 app.post('/api/v1/FoodProduct/Ingredient', async (req, res) => {
   try {
     const foodProduct = await db.query(
@@ -622,6 +626,7 @@ app.post('/api/v1/FoodProduct/Ingredient', async (req, res) => {
       },
     });
   } catch (err) {
+    console.log(err);
     res.status(500).json({ status: 'failure', error: err });
   }
 });
