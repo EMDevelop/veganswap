@@ -7,8 +7,8 @@ import axios from 'axios';
 
 const baseURL =
   process.env.NODE_ENV === 'production'
-    ? 'http://www.veganswap.co.uk/api/v1'
-    : 'http://localhost:3001/api/v1';
+    ? 'https://www.veganswap.co.uk/api/v1'
+    : 'https://localhost:3001/api/v1';
 
 // const baseURL = 'http://localhost:3001/api/v1';
 
