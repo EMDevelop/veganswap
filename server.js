@@ -22,6 +22,8 @@ const dbMulti = pgp(pgConnectionDetails);
 
 const { cloudinary } = require('./utils/cloudinary');
 
+app.use(express.static(path.join(__dirname, 'client/build')));
+
 // Set up Heroku
 if (process.env.NODE_ENV === 'production') {
   // we'll serve the static files from `npm run build`, or more the index.html

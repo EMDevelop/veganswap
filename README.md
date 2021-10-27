@@ -8,6 +8,10 @@ My goal of this project is to make it easier for people to use vegan alternative
 
 I am hoping to bring together a community of Vegan, Vegitarian and any other interested contributors, and work together to add alternatives using the apps "Add" functionality.
 
+#### Preview
+
+![](https://raw.githubusercontent.com/EMDevelop/public_resources/main/gifs/veganswap/veganswap.gif)
+
 ### About the app
 
 - Hosted on Heroku (free plan)
