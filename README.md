@@ -6,7 +6,7 @@ So far this is an MVP, I have a number of features I'd really like to add after 
 
 My goal of this project is to make it easier for people to use vegan alternatives to the meals and products they love.
 
-I am hoping to bring together a community of Vegan, Vegitarian and any other interested contributors, and work together to add alternatives using the apps "Add" functionality.
+I am hoping to bring together a community of Vegan, Vegetarian and any other interested contributors, and work together to add alternatives using the apps "Add" functionality.
 
 #### Preview
 
